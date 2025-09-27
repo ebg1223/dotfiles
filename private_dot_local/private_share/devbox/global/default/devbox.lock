@@ -49,34 +49,6 @@
         }
       }
     },
-    "aerospace@latest": {
-      "last_modified": "2025-07-28T17:09:23Z",
-      "resolved": "github:NixOS/nixpkgs/648f70160c03151bc2121d179291337ad6bc564b#aerospace",
-      "source": "devbox-search",
-      "version": "0.19.2-Beta",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/14g3yzf9vflh19kggz43h72byr6bglj3-aerospace-0.19.2-Beta",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/14g3yzf9vflh19kggz43h72byr6bglj3-aerospace-0.19.2-Beta"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/phmr4k9n8pg3xjab2mfjs81hmbs5v547-aerospace-0.19.2-Beta",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/phmr4k9n8pg3xjab2mfjs81hmbs5v547-aerospace-0.19.2-Beta"
-        }
-      }
-    },
     "bun@latest": {
       "last_modified": "2025-07-28T17:09:23Z",
       "resolved": "github:NixOS/nixpkgs/648f70160c03151bc2121d179291337ad6bc564b#bun",
