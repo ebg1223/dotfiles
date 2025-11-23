@@ -111,7 +111,7 @@ bindkey -s ^f "tmux-sessionizer\n"
 export PATH="$HOME/.local/bin:$PATH"
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/ethan/.lmstudio/bin"
+export PATH="$PATH:{{ .chezmoi.homeDir }}/.lmstudio/bin"
 # End of LM Studio CLI section
 
 
@@ -121,15 +121,15 @@ if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
 fi
 
 # Added by Windsurf - Next
-export PATH="/Users/ethan/.codeium/windsurf/bin:$PATH"
+export PATH="{{ .chezmoi.homeDir }}/.codeium/windsurf/bin:$PATH"
 
-alias claude="/Users/ethan/.claude/local/claude"
-export PATH="$PATH:/Users/ethan/.moose/bin"
+alias claude="{{ .chezmoi.homeDir }}/.claude/local/claude"
+export PATH="$PATH:{{ .chezmoi.homeDir }}/.moose/bin"
 ssh-add --apple-load-keychain -q
 
 
 # Added by Windsurf
-export PATH="/Users/ethan/.codeium/windsurf/bin:$PATH"
+export PATH="{{ .chezmoi.homeDir }}/.codeium/windsurf/bin:$PATH"
 
 # Added by Antigravity
-export PATH="/Users/ethan/.antigravity/antigravity/bin:$PATH"
+export PATH="{{ .chezmoi.homeDir }}/.antigravity/antigravity/bin:$PATH"
