@@ -1,3 +1,7 @@
+{{ if eq .chezmoi.os "linux" -}}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ end -}}
+
 eval "$(mise activate zsh)"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -70,7 +74,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git direnv dotenv zsh-autocomplete zoxide bun) #zsh-autocomplete)#zsh-autosuggestions)
+plugins=(git direnv dotenv zsh-autocomplete zoxide bun)#zsh-autosuggestions)
 
 # Devbox to load path of global packages
 
@@ -110,9 +114,6 @@ bindkey -s ^f "tmux-sessionizer\n"
 
 export PATH="$HOME/.local/bin:$PATH"
 
-{{ if eq .chezmoi.os "linux" -}}
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-{{ end -}}
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:{{ .chezmoi.homeDir }}/.lmstudio/bin"
