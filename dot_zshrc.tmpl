@@ -80,9 +80,6 @@ plugins=(git direnv dotenv zsh-autocomplete zoxide bun)#zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
-{{ if eq .chezmoi.os "linux" -}}
-source /home/linuxbrew/.linuxbrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-{{ end -}}
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
