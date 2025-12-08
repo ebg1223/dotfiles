@@ -1,5 +1,6 @@
 {{ if eq .chezmoi.os "linux" -}}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+source /home/linuxbrew/.linuxbrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 {{ end -}}
 
 eval "$(mise activate zsh)"
