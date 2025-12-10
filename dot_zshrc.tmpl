@@ -119,6 +119,7 @@ fi
 
 {{ if eq .chezmoi.os "linux" }}
 export TERM=xterm-256color
+export FORCE_COLOR=3
 {{ end }}
 
 export PATH="$PATH:{{ .chezmoi.homeDir }}/.moose/bin"
