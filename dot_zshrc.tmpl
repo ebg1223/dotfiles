@@ -117,5 +117,9 @@ if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
   export TERM=xterm-256color
 fi
 
+{{ if eq .chezmoi.os "linux" }}
+export TERM=xterm-256color
+{{ end }}
+
 export PATH="$PATH:{{ .chezmoi.homeDir }}/.moose/bin"
 ssh-add --apple-load-keychain -q
