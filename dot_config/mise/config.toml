@@ -18,6 +18,3 @@ codex = "latest"
 "github:sst/opencode" = "latest"
 "github:shantur/CodeNomad" = "latest"
 "github:just-every/code" = "latest"
-
-[alias]
-coder = "github:just-every/code"
