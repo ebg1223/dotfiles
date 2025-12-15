@@ -2,6 +2,28 @@
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["opencode-openai-codex-auth@4.1.0"],
   "provider": {
+    "anthropic": {
+      "models": {
+        "[Custom] Opus 4.5 Latest / Thinking": {
+          "id": "claude-opus-4-5",
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 16000
+            }
+          }
+        },
+        "[Custom] Sonnet 4.5 Latest / Thinking": {
+          "id": "claude-sonnet-4-5",
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 16000
+            }
+          }
+        }
+      }
+    },
     "openai": {
       "options": {
         "reasoningEffort": "medium",
