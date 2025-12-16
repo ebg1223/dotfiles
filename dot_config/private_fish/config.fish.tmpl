@@ -11,6 +11,7 @@ if status is-interactive
 {{- if eq .chezmoi.os "linux" }}
     set -gx TERM xterm-256color
     set -gx FORCE_COLOR 3
+    fish_add_path /home/linuxbrew/.linuxbrew/bin/brew
 {{- end }}
 end
 
