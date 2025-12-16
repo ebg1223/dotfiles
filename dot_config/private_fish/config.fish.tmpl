@@ -2,13 +2,17 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     #
     starship init fish | source
-
+{{- if eq .chezmoi.os "darwin" }}
+    ssh-add --apple-load-keychain -q >/dev/null 2>&1
+    if test "$TERM_PROGRAM" = ghostty
+        set -Ux TERM xterm-256color
+    end
+{{- end }}
+{{- if eq .chezmoi.os "linux" }}
+    set -gx TERM xterm-256color
+    set -gx FORCE_COLOR 3
+{{- end }}
 end
+
 fish_add_path ~/.npm-global/bin ~/.bun/bin $HOME/.local/scripts $HOME/.local/bin
 mise activate fish | source
-
-if test "$TERM_PROGRAM" = ghostty
-    set -Ux TERM xterm-256color
-end
-
-ssh-add --apple-load-keychain -q
