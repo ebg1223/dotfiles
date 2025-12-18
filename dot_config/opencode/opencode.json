@@ -1,29 +1,92 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-openai-codex-auth@4.1.0"],
+  "plugin": [
+    "opencode-openai-codex-auth@4.1.1",
+    "opencode-antigravity-auth@1.1.4"
+  ],
   "provider": {
-    "anthropic": {
+    "google": {
       "models": {
-        "[Custom] Opus 4.5 Latest / Thinking": {
-          "id": "claude-opus-4-5",
-          "options": {
-            "thinking": {
-              "type": "enabled",
-              "budgetTokens": 16000
-            }
+        "gemini-3-pro-high": {
+          "name": "Gemini 3 Pro High (Antigravity)",
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
           }
         },
-        "[Custom] Sonnet 4.5 Latest / Thinking": {
-          "id": "claude-sonnet-4-5",
-          "options": {
-            "thinking": {
-              "type": "enabled",
-              "budgetTokens": 16000
-            }
+        "gemini-3-pro-low": {
+          "name": "Gemini 3 Pro Low (Antigravity)",
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
+          }
+        },
+        "gemini-3-flash": {
+          "name": "Gemini 3 Flash (Antigravity)",
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
+          }
+        },
+        "claude-sonnet-4-5": {
+          "name": "Claude Sonnet 4.5 (Antigravity)",
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
+          }
+        },
+        "claude-sonnet-4-5-thinking": {
+          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
+          }
+        },
+        "claude-opus-4-5-thinking": {
+          "name": "Claude Opus 4.5 Thinking (Antigravity)",
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
+          }
+        },
+        "gpt-oss-120b-medium": {
+          "name": "GPT-OSS 120B Medium (Antigravity)",
+          "limit": {
+            "context": 131072,
+            "output": 32768
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
           }
         }
       }
     },
+
     "openai": {
       "options": {
         "reasoningEffort": "medium",
@@ -33,6 +96,24 @@
         "store": false
       },
       "models": {
+        "gpt-5.2-none": {
+          "name": "GPT 5.2 None (OAuth)",
+          "limit": {
+            "context": 272000,
+            "output": 128000
+          },
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "reasoningEffort": "none",
+            "reasoningSummary": "auto",
+            "textVerbosity": "medium",
+            "include": ["reasoning.encrypted_content"],
+            "store": false
+          }
+        },
         "gpt-5.2-low": {
           "name": "GPT 5.2 Low (OAuth)",
           "limit": {
@@ -262,6 +343,24 @@
           "options": {
             "reasoningEffort": "high",
             "reasoningSummary": "detailed",
+            "textVerbosity": "medium",
+            "include": ["reasoning.encrypted_content"],
+            "store": false
+          }
+        },
+        "gpt-5.1-none": {
+          "name": "GPT 5.1 None (OAuth)",
+          "limit": {
+            "context": 272000,
+            "output": 128000
+          },
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "reasoningEffort": "none",
+            "reasoningSummary": "auto",
             "textVerbosity": "medium",
             "include": ["reasoning.encrypted_content"],
             "store": false
