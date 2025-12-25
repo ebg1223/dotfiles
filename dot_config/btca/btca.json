@@ -4,21 +4,10 @@
   "maxInstances": 5,
   "repos": [
     {
-      "name": "svelte",
-      "url": "https://github.com/sveltejs/svelte.dev",
-      "branch": "main",
-      "specialNotes": "This is the svelte docs website repo, not the actual svelte repo. Use the docs to answer questions about svelte."
-    },
-    {
       "name": "tailwindcss",
       "url": "https://github.com/tailwindlabs/tailwindcss.com",
       "branch": "main",
       "specialNotes": "This is the tailwindcss docs website repo, not the actual tailwindcss repo. Use the docs to answer questions about tailwindcss."
-    },
-    {
-      "name": "nextjs",
-      "url": "https://github.com/vercel/next.js",
-      "branch": "canary"
     },
     {
       "name": "effect",
@@ -29,8 +18,26 @@
       "name": "neverthrow",
       "url": "https://github.com/supermacro/neverthrow",
       "branch": "master"
+    },
+    {
+      "name": "convex-agent",
+      "url": "https://github.com/get-convex/agent",
+      "branch": "main",
+      "specialNotes": "This is the agent component for convex"
+    },
+    {
+      "name": "convex-js",
+      "url": "https://github.com/get-convex/convex-js",
+      "branch": "main",
+      "specialNotes": "the ts client library for working with convex"
+    },
+    {
+      "name": "convex-workflow",
+      "url": "https://github.com/get-convex/workflow",
+      "branch": "main",
+      "specialNotes": "the workflows component for convex"
     }
   ],
-  "model": "big-pickle",
-  "provider": "opencode"
+  "model": "claude-haiku-4-5",
+  "provider": "anthropic"
 }
