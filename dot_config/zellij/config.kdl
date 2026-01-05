@@ -136,8 +136,8 @@ keybinds clear-defaults=true {
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt =" { Resize "Increase"; }
 
-        bind "Alt ;" { MoveTab "left"; }
-        bind "Alt '" { MoveTab "right"; }
+        bind "Alt ;" { GoToPreviousTab; }
+        bind "Alt '" { GoToNextTab; }
         bind "Alt c" { NewTab; }
         bind "Alt {" { PreviousSwapLayout; }
         bind "Alt }" { NextSwapLayout; }
@@ -158,7 +158,7 @@ keybinds clear-defaults=true {
         bind "Alt o" { SwitchToMode "session"; }
     }
     shared_except "locked" "scroll" "search" "tmux" {
-        bind "Alt b" { SwitchToMode "tmux"; }
+        bind "Alt a" { SwitchToMode "tmux"; }
     }
     shared_except "locked" "scroll" "search" {
         bind "Alt s" { SwitchToMode "scroll"; }
