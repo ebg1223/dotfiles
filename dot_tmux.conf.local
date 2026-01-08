@@ -370,7 +370,16 @@ tmux_conf_theme_clock_style="24"
 #   - false (default)
 #   - disabled
 # on Linux, this requires xsel, xclip or wl-copy
-tmux_conf_copy_to_os_clipboard=true
+# NOTE: Set to false because we use OSC 52 for clipboard over SSH
+tmux_conf_copy_to_os_clipboard=false
+
+# Enable OSC 52 clipboard - works over SSH by sending clipboard data through
+# terminal escape sequences to your local terminal (Ghostty)
+set -g set-clipboard on
+
+# Enable passthrough for OSC sequences (OSC 52 clipboard, OSC 777/9 notifications)
+# This allows escape sequences to pass through tmux to the outer terminal
+set -g allow-passthrough on
 
 
 # -- urlscan -------------------------------------------------------------------
