@@ -1,21 +1,13 @@
 import type { Plugin } from "@opencode-ai/plugin"
 
-export const TerminalBell: Plugin = async () => {
-  const inTmux = !!process.env.TMUX
-
+export const TerminalBell: Plugin = async ({ project, client, $, directory, worktree }) => {
   return {
     event: async ({ event }) => {
       if (event.type === "session.idle") {
-        // OSC 777 format: ESC ] 777 ; notify ; title ; body BEL
-        const osc = `\x1b]777;notify;OpenCode;Ready for input\x07`
-
-        // Wrap in DCS passthrough for tmux: ESC P tmux ; <escaped-osc> ESC \
-        const payload = inTmux
-          ? `\x1bPtmux;\x1b${osc}\x1b\\`
-          : osc
-
-        await Bun.write(Bun.stdout, payload + "\x07")
+        console.log("Session went idle")
+        await Bun.write(Bun.stdout, "\x07")
       }
     }
   }
 }
+
