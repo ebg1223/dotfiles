@@ -13,7 +13,7 @@
       "model": "google/gemini-3-flash"
     },
     "explore": {
-      "model": "cerebras/zai-glm-4.6"
+      "model": "google/gemini-3-flash"
     },
     "frontend-ui-ux-engineer": {
       "model": "google/gemini-3-flash"
@@ -26,7 +26,7 @@
     }
   },
   "tmux": {
-    "enabled": true,
+    "enabled": false,
     "layout": "main-vertical",
     "main_pane_size": 60
   }
