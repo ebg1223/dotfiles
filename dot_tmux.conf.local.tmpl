@@ -397,6 +397,7 @@ set -g mode-keys vi
 {{ if eq .chezmoi.os "linux" }}
 # Enable OSC 52 clipboard (works over SSH to copy to local clipboard)
 set -g set-clipboard on
+set -g allow-passthrough on
 {{ end }}
 
 # replace C-b by C-a instead of using both prefixes
