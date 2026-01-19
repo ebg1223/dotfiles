@@ -394,6 +394,11 @@ tmux_conf_urlscan_options="--compact --dedupe"
 set -g status-keys vi
 set -g mode-keys vi
 
+{{ if eq .chezmoi.os "linux" }}
+# Enable OSC 52 clipboard (works over SSH to copy to local clipboard)
+set -g set-clipboard on
+{{ end }}
+
 # replace C-b by C-a instead of using both prefixes
 # set -gu prefix2
 # unbind C-a
