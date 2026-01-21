@@ -1,0 +1,381 @@
+{
+  "cloudSessionSync": true,
+  "diffMode": "github",
+  "ideExtensionPromptedAt": {},
+  "ideActivationNudgedForVersion": {},
+  "enableCompletionBell": false,
+  "completionSound": "fx-ok01",
+  "awaitingInputSound": "fx-ack01",
+  "soundFocusMode": "always",
+  "commandAllowlist": [
+    "ls",
+    "pwd",
+    "dir"
+  ],
+  "commandDenylist": [
+    "rm -rf /",
+    "rm -rf /*",
+    "rm -rf .",
+    "rm -rf ~",
+    "rm -rf ~/*",
+    "rm -rf $HOME",
+    "rm -r /",
+    "rm -r /*",
+    "rm -r ~",
+    "rm -r ~/*",
+    "mkfs",
+    "mkfs.ext4",
+    "mkfs.ext3",
+    "mkfs.vfat",
+    "mkfs.ntfs",
+    "dd if=/dev/zero of=/dev",
+    "dd of=/dev",
+    "shutdown",
+    "reboot",
+    "halt",
+    "poweroff",
+    "init 0",
+    "init 6",
+    ":(){ :|: & };:",
+    ":() { :|:& };:",
+    "chmod -R 777 /",
+    "chmod -R 000 /",
+    "chown -R",
+    "format",
+    "powershell Remove-Item -Recurse -Force"
+  ],
+  "enableCustomDroids": true,
+  "enableHooks": false,
+  "includeCoAuthoredByDroid": true,
+  "enableDroidShield": true,
+  "enableReadinessReport": false,
+  "todoDisplayMode": "pinned",
+  "completionSoundFocusMode": "always",
+  "logoAnimation": "off",
+  "customModels": [
+    {
+      "model": "claude-opus-4-5-20251101-thinking-32000",
+      "id": "custom:CC:-Opus-4.5-(High)-0",
+      "index": 0,
+      "baseUrl": "http://cliproxyapi:8317",
+      "apiKey": "dummy-not-used",
+      "displayName": "CC: Opus 4.5 (High)",
+      "noImageSupport": false,
+      "provider": "anthropic"
+    },
+    {
+      "model": "claude-opus-4-5-20251101-thinking-10000",
+      "id": "custom:CC:-Opus-4.5-(Medium)-1",
+      "index": 1,
+      "baseUrl": "http://cliproxyapi:8317",
+      "apiKey": "dummy-not-used",
+      "displayName": "CC: Opus 4.5 (Medium)",
+      "noImageSupport": false,
+      "provider": "anthropic"
+    },
+    {
+      "model": "claude-opus-4-5-20251101-thinking-4000",
+      "id": "custom:CC:-Opus-4.5-(Low)-2",
+      "index": 2,
+      "baseUrl": "http://cliproxyapi:8317",
+      "apiKey": "dummy-not-used",
+      "displayName": "CC: Opus 4.5 (Low)",
+      "noImageSupport": false,
+      "provider": "anthropic"
+    },
+    {
+      "model": "claude-opus-4-5-20251101",
+      "id": "custom:CC:-Opus-4.5-3",
+      "index": 3,
+      "baseUrl": "http://cliproxyapi:8317",
+      "apiKey": "dummy-not-used",
+      "displayName": "CC: Opus 4.5",
+      "noImageSupport": false,
+      "provider": "anthropic"
+    },
+    {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "custom:CC:-Sonnet-4.5-4",
+      "index": 4,
+      "baseUrl": "http://cliproxyapi:8317",
+      "apiKey": "dummy-not-used",
+      "displayName": "CC: Sonnet 4.5",
+      "noImageSupport": false,
+      "provider": "anthropic"
+    },
+    {
+      "model": "claude-sonnet-4-5-20250929-thinking-4000",
+      "id": "custom:CC:-Sonnet-4.5-(Low)-5",
+      "index": 5,
+      "baseUrl": "http://cliproxyapi:8317",
+      "apiKey": "dummy-not-used",
+      "displayName": "CC: Sonnet 4.5 (Low)",
+      "noImageSupport": false,
+      "provider": "anthropic"
+    },
+    {
+      "model": "claude-sonnet-4-5-20250929-thinking-10000",
+      "id": "custom:CC:-Sonnet-4.5-(Medium)-6",
+      "index": 6,
+      "baseUrl": "http://cliproxyapi:8317",
+      "apiKey": "dummy-not-used",
+      "displayName": "CC: Sonnet 4.5 (Medium)",
+      "noImageSupport": false,
+      "provider": "anthropic"
+    },
+    {
+      "model": "claude-sonnet-4-5-20250929-thinking-32000",
+      "id": "custom:CC:-Sonnet-4.5-(High)-7",
+      "index": 7,
+      "baseUrl": "http://cliproxyapi:8317",
+      "apiKey": "dummy-not-used",
+      "displayName": "CC: Sonnet 4.5 (High)",
+      "noImageSupport": false,
+      "provider": "anthropic"
+    },
+    {
+      "model": "gemini-claude-opus-4-5-thinking",
+      "id": "custom:AG:-Opus-4.5-Thinking-8",
+      "index": 8,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "AG: Opus 4.5 Thinking",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gemini-claude-sonnet-4-5-thinking",
+      "id": "custom:AG:-Sonnet-4.5-Thinking-9",
+      "index": 9,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "AG: Sonnet 4.5 Thinking",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gemini-claude-sonnet-4-5",
+      "id": "custom:AG:-Sonnet-4.5-10",
+      "index": 10,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "AG: Sonnet 4.5",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.1-codex",
+      "id": "custom:GPT-5.1-Codex-11",
+      "index": 11,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.1 Codex",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.1-codex(high)",
+      "id": "custom:GPT-5.1-Codex-(High)-12",
+      "index": 12,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.1 Codex (High)",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.1-codex-max",
+      "id": "custom:GPT-5.1-Codex-Max-13",
+      "index": 13,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.1 Codex Max",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.1",
+      "id": "custom:GPT-5.1-14",
+      "index": 14,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.1",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.1(low)",
+      "id": "custom:GPT-5.1-(Low)-15",
+      "index": 15,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.1 (Low)",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.1(high)",
+      "id": "custom:GPT-5.1-(High)-16",
+      "index": 16,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.1 (High)",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.2",
+      "id": "custom:GPT-5.2-17",
+      "index": 17,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.2",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.2(high)",
+      "id": "custom:GPT-5.2-(High)-18",
+      "index": 18,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.2 (High)",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.2-codex",
+      "id": "custom:GPT-5.2-Codex-19",
+      "index": 19,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.2 Codex",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.2-codex(high)",
+      "id": "custom:GPT-5.2-Codex-(High)-20",
+      "index": 20,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.2 Codex (High)",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gemini-3-pro-preview",
+      "id": "custom:Gemini-3-Pro-21",
+      "index": 21,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "Gemini 3 Pro",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gemini-3-pro-image-preview",
+      "id": "custom:Gemini-3-Pro-(Image)-22",
+      "index": 22,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "Gemini 3 Pro (Image)",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gemini-2.5-pro",
+      "id": "custom:Gemini-2.5-Pro-23",
+      "index": 23,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "Gemini 2.5 Pro",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gemini-2.5-flash",
+      "id": "custom:Gemini-2.5-Flash-24",
+      "index": 24,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "Gemini 2.5 Flash",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gemini-2.5-flash-lite",
+      "id": "custom:Gemini-2.5-Flash-Lite-25",
+      "index": 25,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "Gemini 2.5 Flash Lite",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "qwen3-coder-plus",
+      "id": "custom:Qwen3-Coder-Plus-26",
+      "index": 26,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "Qwen3 Coder Plus",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "qwen3-coder-flash",
+      "id": "custom:Qwen3-Coder-Flash-27",
+      "index": 27,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "Qwen3 Coder Flash",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "glm-4.7",
+      "id": "custom:GLM-4.7-28",
+      "index": 28,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GLM-4.7",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "glm-4-plus",
+      "id": "custom:GLM-4-Plus-29",
+      "index": 29,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GLM-4-Plus",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "glm-4-air",
+      "id": "custom:GLM-4-Air-30",
+      "index": 30,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GLM-4-Air",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "glm-4-flash",
+      "id": "custom:GLM-4-Flash-31",
+      "index": 31,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GLM-4-Flash",
+      "noImageSupport": false,
+      "provider": "openai"
+    }
+  ],
+  "sessionDefaultSettings": {
+    "model": "custom:GPT-5.2-Codex-(High)-20",
+    "reasoningEffort": "none"
+  }
+}
