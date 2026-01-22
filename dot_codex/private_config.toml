@@ -45,7 +45,6 @@ view_image = true
 # Centralized feature flags (booleans only). Prefer leaving these unset unless you
 # know what you're enabling.
 [features]
-tui2 = true
 steer = true
 child_agents_md = true
 shell_tool = true
