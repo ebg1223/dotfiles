@@ -1,17 +1,12 @@
-# Core (root defaults)
 model = "gpt-5.2-codex"
 model_reasoning_effort = "high"
 tool_output_token_limit = 25000
-# Leave room for native compaction near the 272–273k context window.
-# Formula: 273000 - (tool_output_token_limit + 15000)
-# With tool_output_token_limit=25000 ⇒ 273000 - (25000 + 15000) = 233000
 model_auto_compact_token_limit = 233000
-approval_policy = "on-request"
 sandbox_mode = "workspace-write"
-web_search = "live"
-network_access = true
 forced_login_method = "chatgpt"
 
+[sandbox_workspace_write]
+network_access = true
 
 # UI & notifications (can be toggled by installer)
 [tui]
@@ -19,19 +14,17 @@ notifications = true
 # Alternate screen mode: auto|always|never (use "never" for scrollback-friendly terminals)
 alternate_screen = "never"
 
-# Tools (not feature flags)
-[tools]
-view_image = true
-
 # Centralized feature flags (booleans only). Prefer leaving these unset unless you
 # know what you're enabling.
 [features]
-web_search_request = true
-steer = true
-child_agents_md = true
 shell_tool = true
-shell_snapshot = true
-collab = true
-collaboration_modes = true
+web_search_request = true
 unified_exec = true
+shell_snapshot = true
+apply_patch_freeform = true
+exec_policy = true
+remote_compaction = true
+child_agents_md = true
+collab = true
+steer = true
 
