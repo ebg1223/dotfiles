@@ -6,33 +6,33 @@
       "type": "git",
       "name": "effect",
       "url": "https://github.com/Effect-TS/effect",
-      "branch": "main"
+      "branch": "main",
     },
     {
       "type": "git",
       "name": "convex-agent",
       "url": "https://github.com/get-convex/agent",
-      "branch": "main"
+      "branch": "main",
     },
     {
       "type": "git",
       "name": "convex-js",
       "url": "https://github.com/get-convex/convex-js",
-      "branch": "main"
+      "branch": "main",
     },
     {
       "type": "git",
       "name": "convex-workflow",
       "url": "https://github.com/get-convex/workflow",
-      "branch": "main"
+      "branch": "main",
     },
     {
       "type": "git",
       "name": "convex-workpool",
       "url": "https://github.com/get-convex/workpool",
-      "branch": "main"
-    }
+      "branch": "main",
+    },
   ],
-  "model": "claude-haiku-4-5",
-  "provider": "opencode"
+  "model": "zai-glm-4.7",
+  "provider": "cerebras",
 }
