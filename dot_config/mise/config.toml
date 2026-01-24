@@ -22,3 +22,13 @@ codex = "latest"
 amp = "latest"
 "npm:clawdbot" = "latest"
 gemini-cli = "latest"
+
+[tools."http:zmx"]
+version = "0.2.0"
+
+[tools."http:zmx".platforms]
+# {{version}} is NOT supported here, so we must hardcode it.
+linux-x64 = { url = "https://zmx.sh/a/zmx-0.2.0-linux-x86_64.tar.gz" }
+linux-arm64 = { url = "https://zmx.sh/a/zmx-0.2.0-linux-aarch64.tar.gz" }
+macos-x64 = { url = "https://zmx.sh/a/zmx-0.2.0-macos-x86_64.tar.gz" }
+macos-arm64 = { url = "https://zmx.sh/a/zmx-0.2.0-macos-aarch64.tar.gz" }
