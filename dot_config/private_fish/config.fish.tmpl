@@ -4,6 +4,11 @@ if test -x /home/linuxbrew/.linuxbrew/bin/brew
     eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
 {{- end }}
+
+{{- if eq .chezmoi.os "darwin" }}
+abbr -a ash "autossh -M 0 -q"
+{{- end }}
+
 fish_add_path ~/.npm-global/bin ~/.bun/bin $HOME/.local/scripts $HOME/.local/bin
 mise activate fish | source
 
