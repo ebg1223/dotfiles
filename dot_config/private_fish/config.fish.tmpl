@@ -6,7 +6,13 @@ end
 {{- end }}
 
 {{- if eq .chezmoi.os "darwin" }}
-abbr -a ash "autossh -M 0 -q"
+# Define the function
+function ash --wraps autossh
+    autossh -M 0 -q $argv
+end
+
+# Save it to your fish config directory permanently
+funcsave ash
 {{- end }}
 
 fish_add_path ~/.npm-global/bin ~/.bun/bin $HOME/.local/scripts $HOME/.local/bin
