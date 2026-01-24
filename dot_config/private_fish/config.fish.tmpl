@@ -7,6 +7,11 @@ end
 fish_add_path ~/.npm-global/bin ~/.bun/bin $HOME/.local/scripts $HOME/.local/bin
 mise activate fish | source
 
+if type -q zmx
+  zmx completions fish | source
+end
+
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
     #
@@ -25,8 +30,4 @@ if status is-interactive
 end
 
 zoxide init fish | source
-
-if type -q zmx
-  zmx completions fish | source
-end
 
