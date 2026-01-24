@@ -22,10 +22,11 @@ if status is-interactive
     set -gx FORCE_COLOR 3
     fish_add_path /home/linuxbrew/.linuxbrew/bin/brew
 {{- end }}
-
-    zmx completions fish | source
-
 end
 
 zoxide init fish | source
+
+if type -q zmx
+  zmx completions fish | source
+end
 
