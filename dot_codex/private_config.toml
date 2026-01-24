@@ -43,7 +43,7 @@ network_access = true
 # Examples: true | ["agent-turn-complete", "approval-requested"]
 notifications = true
 # Alternate screen mode: auto|always|never (use "never" for scrollback-friendly terminals)
-alternate_screen = "auto"
+alternate_screen = "never"
 
 # Tools (not feature flags)
 [tools]
