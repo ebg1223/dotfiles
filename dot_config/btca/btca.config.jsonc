@@ -1,0 +1,38 @@
+{
+  "$schema": "https://btca.dev/btca.schema.json",
+  "providerTimeoutMs": 300000,
+  "resources": [
+    {
+      "type": "git",
+      "name": "effect",
+      "url": "https://github.com/Effect-TS/effect",
+      "branch": "main"
+    },
+    {
+      "type": "git",
+      "name": "convex-agent",
+      "url": "https://github.com/get-convex/agent",
+      "branch": "main"
+    },
+    {
+      "type": "git",
+      "name": "convex-js",
+      "url": "https://github.com/get-convex/convex-js",
+      "branch": "main"
+    },
+    {
+      "type": "git",
+      "name": "convex-workflow",
+      "url": "https://github.com/get-convex/workflow",
+      "branch": "main"
+    },
+    {
+      "type": "git",
+      "name": "convex-workpool",
+      "url": "https://github.com/get-convex/workpool",
+      "branch": "main"
+    }
+  ],
+  "model": "claude-haiku-4-5",
+  "provider": "opencode"
+}
