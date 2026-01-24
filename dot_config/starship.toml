@@ -1,0 +1,10 @@
+[custom.zmx]
+description = "Show zmx session name"
+when = "test -n \"$ZMX_SESSION\""
+command = "echo \"$ZMX_SESSION\""
+format = "via [$symbol$output]($style) "
+symbol = "⇄ "
+style = "bold purple"
+
+[character]
+format = "$all${custom.zmx}$character"
