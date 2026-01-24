@@ -41,6 +41,13 @@
       "url": "https://github.com/get-convex/workflow",
       "branch": "main",
     },
+    {
+      "type": "git",
+      "name": "hono",
+      "url": "https://github.com/honojs/website",
+      "branch": "main",
+      "searchPath": "docs",
+    },
   ],
   "model": "zai-glm-4.7",
   "provider": "cerebras",
