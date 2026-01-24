@@ -5,15 +5,22 @@
 
 # Core (root defaults)
 model = "gpt-5.2-codex"
+model_reasoning_effort = "high"
+tool_output_token_limit = 25000
+# Leave room for native compaction near the 272–273k context window.
+# Formula: 273000 - (tool_output_token_limit + 15000)
+# With tool_output_token_limit=25000 ⇒ 273000 - (25000 + 15000) = 233000
+model_auto_compact_token_limit = 233000
+
 approval_policy = "on-request"   # untrusted|on-failure|on-request|never
 sandbox_mode = "workspace-write" # read-only|workspace-write|danger-full-access
-profile = "balanced"             # active profile: balanced|safe|yolo
 
 # Web search mode: disabled|cached|live (v0.88+). `live` requires network access
 # when using the workspace-write sandbox.
 web_search = "live"
 
 # Credential storage (recommended: auto)
+forced_login_method = "chatgpt"
 cli_auth_credentials_store = "auto"  # auto|file|keyring
 mcp_oauth_credentials_store = "auto" # auto|file|keyring
 
@@ -45,7 +52,7 @@ view_image = true
 # Centralized feature flags (booleans only). Prefer leaving these unset unless you
 # know what you're enabling.
 [features]
-tui2 = false
+web_search_request = true
 steer = true
 child_agents_md = true
 shell_tool = true
@@ -54,28 +61,3 @@ collab = true
 collaboration_modes = true
 unified_exec = true
 
-# ---- Profiles (override only what differs from root) -----------------------
-
-[profiles.balanced]
-approval_policy = "on-request"
-sandbox_mode = "workspace-write"
-model = "gpt-5.2-codex"
-model_reasoning_effort = "high"
-model_reasoning_summary = "detailed"
-web_search = "live"
-
-[profiles.safe]
-approval_policy = "on-failure"
-sandbox_mode = "read-only"
-model = "gpt-5.2-codex"
-model_reasoning_effort = "medium"
-model_reasoning_summary = "detailed"
-web_search = "disabled"
-
-[profiles.yolo]
-approval_policy = "never"
-sandbox_mode = "danger-full-access"
-model = "gpt-5.2-codex"
-model_reasoning_effort = "high"
-model_reasoning_summary = "detailed"
-web_search = "live"
