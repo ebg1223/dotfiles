@@ -5,17 +5,17 @@
 
 # Core (root defaults)
 model = "gpt-5.2-codex"
-approval_policy = "on-request"       # untrusted|on-failure|on-request|never
-sandbox_mode   = "workspace-write"   # read-only|workspace-write|danger-full-access
-profile = "balanced"                 # active profile: balanced|safe|yolo
+approval_policy = "on-request"   # untrusted|on-failure|on-request|never
+sandbox_mode = "workspace-write" # read-only|workspace-write|danger-full-access
+profile = "balanced"             # active profile: balanced|safe|yolo
 
 # Web search mode: disabled|cached|live (v0.88+). `live` requires network access
 # when using the workspace-write sandbox.
 web_search = "live"
 
 # Credential storage (recommended: auto)
-cli_auth_credentials_store = "auto"      # auto|file|keyring
-mcp_oauth_credentials_store = "auto"     # auto|file|keyring
+cli_auth_credentials_store = "auto"  # auto|file|keyring
+mcp_oauth_credentials_store = "auto" # auto|file|keyring
 
 # Optional: make citations clickable in your editor.
 # file_opener = "cursor"                 # cursor|vscode|vscode-insiders|windsurf|none
@@ -34,7 +34,7 @@ network_access = true
 [tui]
 # Desktop notifications from the TUI: boolean or filtered list. Defaults to true in Codex.
 # Examples: true | ["agent-turn-complete", "approval-requested"]
-notifications = true 
+notifications = true
 # Alternate screen mode: auto|always|never (use "never" for scrollback-friendly terminals)
 alternate_screen = "auto"
 
@@ -45,12 +45,14 @@ view_image = true
 # Centralized feature flags (booleans only). Prefer leaving these unset unless you
 # know what you're enabling.
 [features]
+tui2 = false
 steer = true
 child_agents_md = true
 shell_tool = true
 shell_snapshot = true
 collab = true
 collaboration_modes = true
+unified_exec = true
 
 # ---- Profiles (override only what differs from root) -----------------------
 
