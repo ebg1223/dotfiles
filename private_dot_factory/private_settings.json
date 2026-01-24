@@ -7,11 +7,7 @@
   "completionSound": "fx-ok01",
   "awaitingInputSound": "fx-ack01",
   "soundFocusMode": "always",
-  "commandAllowlist": [
-    "ls",
-    "pwd",
-    "dir"
-  ],
+  "commandAllowlist": ["ls", "pwd", "dir"],
   "commandDenylist": [
     "rm -rf /",
     "rm -rf /*",
@@ -375,7 +371,9 @@
     }
   ],
   "sessionDefaultSettings": {
-    "model": "custom:GPT-5.2-Codex-(High)-20",
-    "reasoningEffort": "none"
+    "model": "custom:GPT-5.2-Codex-19",
+    "reasoningEffort": "none",
+    "autonomyMode": "auto-medium"
   }
 }
+
