@@ -7,9 +7,10 @@ end
 fish_add_path ~/.npm-global/bin ~/.bun/bin $HOME/.local/scripts $HOME/.local/bin
 mise activate fish | source
 
-if type -q zmx
-  zmx completions fish | source
-end
+# can re-enable this when zmx is updated to support completions
+#if type -q zmx
+#  zmx completions fish | source
+#end
 
 
 if status is-interactive
