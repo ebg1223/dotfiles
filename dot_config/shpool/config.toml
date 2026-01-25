@@ -1,5 +1,1 @@
 prompt_prefix = ""
-
-[[keybinding]]
-action = "detach"
-binding = "ctrl-g"
