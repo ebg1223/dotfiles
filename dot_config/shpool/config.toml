@@ -6,7 +6,7 @@ prompt_prefix = ""
 # --- Keybindings ---
 # Use double brackets [[ ]] because it is a list of bindings
 [[keybinding]]
-action = "Detach"
+action = "detach"
 # The binding is a single string with space-separated keys
 binding = "Ctrl-b d"
 
