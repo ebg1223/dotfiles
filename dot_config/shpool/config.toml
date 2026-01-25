@@ -1,0 +1,6 @@
+[keybinding]
+# Use Ctrl + b (like tmux) or Ctrl + a (like screen)
+prefix = "ctrl-b"
+
+# Map 'd' to detach explicitly
+detach = "d"
