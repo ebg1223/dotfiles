@@ -1,10 +1,14 @@
-[keybinding]
-# Use Ctrl + b (like tmux) or Ctrl + a (like screen)
-prefix = "ctrl-b"
-
-# Map 'd' to detach explicitly
-detach = "d"
-
 [session]
-# Disable the native prompt modification so Starship can do the work
+# 1. Stop shpool from messing with your Starship prompt
 name_in_prompt = false
+
+# 2. Define the Detach binding as a SEQUENCE (List of keys)
+# Note the Double Brackets [[ ... ]]
+[[keybinding]]
+action = "Detach"
+binding = ["Ctrl-b", "d"]
+
+# Optional: Add other bindings if you want (e.g. forced kill)
+# [[keybinding]]
+# action = "Quit"
+# binding = ["Ctrl-b", "k"]
