@@ -40,7 +40,14 @@ if status is-interactive
     fish_add_path /home/linuxbrew/.linuxbrew/bin/brew
 
     if test -n "$ZMX_SESSION"
-      command resize > /dev/null 2>&1
+      function __zmx_auto_refresh --on-signal WINCH
+            # 1. Force a repaint of the command line (fixes the prompt)
+            commandline -f repaint
+            
+            # 2. (Optional) If it still blanks, uncomment the line below 
+            # to force a full clear-and-redraw (like typing 'clear')
+            # clear
+        end
     end
 
 {{- end }}
