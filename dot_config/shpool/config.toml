@@ -1,7 +1,8 @@
 [session]
 # 1. Stop shpool from messing with your Starship prompt
 name_in_prompt = false
-
+# Force the prefix to be empty just in case
+prompt_prefix = ""
 # 2. Define the Detach binding as a SEQUENCE (List of keys)
 # Note the Double Brackets [[ ... ]]
 [[keybinding]]
