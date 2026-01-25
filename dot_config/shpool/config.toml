@@ -1,10 +1,9 @@
 prompt_prefix = ""
-[session]
 # 2. Define the Detach binding as a SEQUENCE (List of keys)
 # Note the Double Brackets [[ ... ]]
 [[keybinding]]
 action = "detach"
-binding = "Ctrl-b d"
+binding = "Ctrl-a d"
 
 # Optional: Add other bindings if you want (e.g. forced kill)
 # [[keybinding]]
