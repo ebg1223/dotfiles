@@ -5,7 +5,7 @@ name_in_prompt = false
 # 2. Define the Detach binding as a SEQUENCE (List of keys)
 # Note the Double Brackets [[ ... ]]
 [[keybinding]]
-action = "Detach"
+action = "detach"
 binding = ["Ctrl-b", "d"]
 
 # Optional: Add other bindings if you want (e.g. forced kill)
