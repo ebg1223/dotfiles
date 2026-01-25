@@ -2,4 +2,4 @@ prompt_prefix = ""
 
 [[keybinding]]
 action = "detach"
-binding = "Ctrl-b d"
+binding = "Ctrl-g d"
