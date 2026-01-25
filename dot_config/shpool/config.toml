@@ -1,16 +1,10 @@
-# # --- Prompt Configuration ---
-# This is a top-level field (do not put under [session])
-# Set to empty string to remove the "shpool:..." prefix entirely
+# --- 1. Prompt Settings (Top Level) ---
+# The source code confirms 'prompt_prefix' is a top-level field.
+# Set it to empty to remove the "shpool:..." text.
 prompt_prefix = ""
 
-# --- Keybindings ---
-# Use double brackets [[ ]] because it is a list of bindings
+# --- 2. Keybindings (Top Level) ---
+# Use double brackets to define a list of bindings.
 [[keybinding]]
 action = "detach"
-# The binding is a single string with space-separated keys
 binding = "Ctrl-b d"
-
-# (Optional) Example: Add a kill binding
-# [[keybinding]]
-# action = "Quit"
-# binding = "Ctrl-b k"
