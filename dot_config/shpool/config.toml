@@ -6,7 +6,7 @@ name_in_prompt = false
 # Note the Double Brackets [[ ... ]]
 [[keybinding]]
 action = "detach"
-binding = ["Ctrl-b", "d"]
+binding = "Ctrl-b d"
 
 # Optional: Add other bindings if you want (e.g. forced kill)
 # [[keybinding]]
