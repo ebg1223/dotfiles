@@ -1,9 +1,16 @@
+# # --- Prompt Configuration ---
+# This is a top-level field (do not put under [session])
+# Set to empty string to remove the "shpool:..." prefix entirely
 prompt_prefix = ""
 
+# --- Keybindings ---
+# Use double brackets [[ ]] because it is a list of bindings
 [[keybinding]]
-binding = "Ctrl-a d"
-action = "detach"
-# Optional: Add other bindings if you want (e.g. forced kill)
+action = "Detach"
+# The binding is a single string with space-separated keys
+binding = "Ctrl-b d"
+
+# (Optional) Example: Add a kill binding
 # [[keybinding]]
 # action = "Quit"
-# binding = ["Ctrl-b", "k"]
+# binding = "Ctrl-b k"
