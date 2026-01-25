@@ -23,7 +23,7 @@ amp = "latest"
 "npm:clawdbot" = "latest"
 gemini-cli = "latest"
 rust = "latest"
-"cargo:shpool" = "latest"
+"cargo:shpool" = { version = "latest", os = ["linux"] }
 
 [tools."http:zmx"]
 version = "0.2.0"

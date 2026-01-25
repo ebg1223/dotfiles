@@ -1,10 +1,12 @@
-[custom.zmx]
-description = "Show zmx session name"
-when = "test -n \"$ZMX_SESSION\""
-command = "echo \"$ZMX_SESSION\""
+
+[custom.shpool]
+description = "Show shpool session name"
+when = "test -n \"$SHPOOL_SESSION_NAME\""
+command = "echo \"$SHPOOL_SESSION_NAME\""
 format = "via [$symbol$output]($style) "
-symbol = "⇄ "
-style = "bold purple"
+symbol = "🏊 "
+style = "bold blue"
 
 [character]
-format = "$all${custom.zmx}$character"
+# Ensure this line includes ${custom.shpool}
+format = "$all${custom.shpool}$character"

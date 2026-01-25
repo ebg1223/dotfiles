@@ -6,12 +6,18 @@ end
 {{- end }}
 
 {{- if eq .chezmoi.os "darwin" }}
-# Define the function
-function ash --wraps autossh
-    autossh -M 0 -q $argv
+function ash --wraps ssh
+    # Simple wrapper to handle the connection
+    # The loop handles network drops nicely.
+    while true
+        ssh $argv
+        if test $status -eq 0
+            break
+        end
+        echo "Disconnected. Reconnecting..."
+        sleep 2
+    end
 end
-
-# Save it to your fish config directory permanently
 funcsave ash
 {{- end }}
 
