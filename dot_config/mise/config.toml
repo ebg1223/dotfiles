@@ -22,6 +22,8 @@ codex = "latest"
 amp = "latest"
 "npm:clawdbot" = "latest"
 gemini-cli = "latest"
+rust = "latest"
+"cargo:shpool" = "latest"
 
 [tools."http:zmx"]
 version = "0.2.0"
