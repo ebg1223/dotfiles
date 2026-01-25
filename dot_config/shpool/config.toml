@@ -1,5 +1,5 @@
 prompt_prefix = ""
-
+[session]
 # 2. Define the Detach binding as a SEQUENCE (List of keys)
 # Note the Double Brackets [[ ... ]]
 [[keybinding]]
