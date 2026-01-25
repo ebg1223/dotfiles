@@ -40,7 +40,7 @@ if status is-interactive
     fish_add_path /home/linuxbrew/.linuxbrew/bin/brew
 
     if test -n "$ZMX_SESSION"
-        eval (resize) 2>/dev/null
+      command resize > /dev/null 2>&1
     end
 
 {{- end }}
