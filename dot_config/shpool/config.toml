@@ -4,3 +4,7 @@ prefix = "ctrl-b"
 
 # Map 'd' to detach explicitly
 detach = "d"
+
+[session]
+# Disable the native prompt modification so Starship can do the work
+name_in_prompt = false
