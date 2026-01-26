@@ -5,30 +5,10 @@ if test -x /home/linuxbrew/.linuxbrew/bin/brew
 end
 {{- end }}
 
-{{- if eq .chezmoi.os "darwin" }}
-function ash --wraps ssh
-    # Simple wrapper to handle the connection
-    # The loop handles network drops nicely.
-    while true
-        ssh $argv
-        if test $status -eq 0
-            break
-        end
-        echo "Disconnected. Reconnecting..."
-        sleep 2
-    end
-end
-funcsave ash
-{{- end }}
+
 
 fish_add_path ~/.npm-global/bin ~/.bun/bin $HOME/.local/scripts $HOME/.local/bin
 mise activate fish | source
-
-# can re-enable this when zmx is updated to support completions
-#if type -q zmx
-#  zmx completions fish | source
-#end
-
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -45,17 +25,18 @@ if status is-interactive
     set -gx FORCE_COLOR 3
     fish_add_path /home/linuxbrew/.linuxbrew/bin/brew
 
-    if test -n "$ZMX_SESSION"
-      function __zmx_auto_refresh --on-signal WINCH
-            # 1. Force a repaint of the command line (fixes the prompt)
-            commandline -f repaint
-            
-            # 2. (Optional) If it still blanks, uncomment the line below 
-            # to force a full clear-and-redraw (like typing 'clear')
-            # clear
+    # Set window title to show hostname and shpool session
+    function fish_title
+        set -l title (hostname -s)
+        if test -n "$SHPOOL_SESSION_NAME"
+            set title "$title:$SHPOOL_SESSION_NAME"
         end
+        # Add current command if running something
+        if test -n "$argv"
+            set title "$title - $argv"
+        end
+        echo $title
     end
-
 {{- end }}
 end
 
