@@ -24,4 +24,5 @@ exec_policy = true
 remote_compaction = true
 child_agents_md = true
 collab = true
+collaboration_modes = true
 steer = true
