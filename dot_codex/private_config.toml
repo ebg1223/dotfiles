@@ -11,8 +11,6 @@ network_access = true
 # UI & notifications (can be toggled by installer)
 [tui]
 notifications = true
-# Alternate screen mode: auto|always|never (use "never" for scrollback-friendly terminals)
-alternate_screen = "never"
 
 # Centralized feature flags (booleans only). Prefer leaving these unset unless you
 # know what you're enabling.
@@ -27,4 +25,3 @@ remote_compaction = true
 child_agents_md = true
 collab = true
 steer = true
-
