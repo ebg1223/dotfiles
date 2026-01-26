@@ -31,9 +31,9 @@ if status is-interactive
         if test -n "$SHPOOL_SESSION_NAME"
             set title "$title:$SHPOOL_SESSION_NAME"
         end
-        # Add current command if running something
-        if test -n "$argv"
-            set title "$title - $argv"
+        # $argv[1] contains the current command when one is running
+        if test (count $argv) -gt 0
+            set title "$title — $argv[1]"
         end
         echo $title
     end
