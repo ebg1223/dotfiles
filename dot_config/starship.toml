@@ -1,9 +1,0 @@
-right_format = "$custom.shpool"
-
-[custom.shpool]
-description = "Show shpool session name"
-when = "test -n \"$SHPOOL_SESSION_NAME\""
-command = "printf '%s' \"$SHPOOL_SESSION_NAME\""
-format = "via [$symbol$output]($style) "
-symbol = "shpool "
-style = "bold blue"
