@@ -16,7 +16,6 @@ notifications = true
 # know what you're enabling.
 [features]
 shell_tool = true
-web_search_request = true
 unified_exec = true
 shell_snapshot = true
 apply_patch_freeform = true

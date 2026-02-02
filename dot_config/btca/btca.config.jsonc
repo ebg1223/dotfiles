@@ -6,49 +6,54 @@
       "type": "git",
       "name": "effect",
       "url": "https://github.com/Effect-TS/effect",
-      "branch": "main",
+      "branch": "main"
     },
     {
       "type": "git",
       "name": "convexWorkpools",
       "url": "https://github.com/get-convex/workpool",
       "branch": "main",
-      "specialNotes": "This is a Convex component that does work pools. Work pools are basically background jobs with proper queuing setup, retries, and all that stuff. ",
+      "specialNotes": "This is a Convex component that does work pools. Work pools are basically background jobs with proper queuing setup, retries, and all that stuff. "
     },
     {
       "type": "git",
       "name": "convexDocs",
       "url": "https://github.com/get-convex/convex-docs",
       "branch": "main",
-      "specialNotes": "Official Convex documentation. Use for HTTP actions, queries, mutations, actions, schema, etc.",
+      "specialNotes": "Official Convex documentation. Use for HTTP actions, queries, mutations, actions, schema, etc."
     },
     {
       "type": "git",
       "name": "convexJs",
       "url": "https://github.com/get-convex/convex-js",
-      "branch": "main",
+      "branch": "main"
     },
-
     {
       "type": "git",
       "name": "convexAgent",
       "url": "https://github.com/get-convex/agent",
-      "branch": "main",
+      "branch": "main"
     },
     {
       "type": "git",
       "name": "convexWorkflow",
       "url": "https://github.com/get-convex/workflow",
-      "branch": "main",
+      "branch": "main"
     },
     {
       "type": "git",
       "name": "hono",
       "url": "https://github.com/honojs/website",
       "branch": "main",
-      "searchPath": "docs",
+      "searchPath": "docs"
     },
+    {
+      "type": "git",
+      "name": "convexBackend",
+      "url": "https://github.com/get-convex/convex-backend",
+      "branch": "main"
+    }
   ],
-  "model": "zai-glm-4.7",
-  "provider": "cerebras",
+  "model": "claude-haiku-4-5",
+  "provider": "opencode"
 }

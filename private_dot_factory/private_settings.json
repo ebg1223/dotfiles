@@ -7,7 +7,11 @@
   "completionSound": "fx-ok01",
   "awaitingInputSound": "fx-ack01",
   "soundFocusMode": "always",
-  "commandAllowlist": ["ls", "pwd", "dir"],
+  "commandAllowlist": [
+    "ls",
+    "pwd",
+    "dir"
+  ],
   "commandDenylist": [
     "rm -rf /",
     "rm -rf /*",
@@ -368,11 +372,23 @@
       "displayName": "GLM-4-Flash",
       "noImageSupport": false,
       "provider": "openai"
+    },
+    {
+      "model": "zai-glm-4.7",
+      "id": "custom:cerebras",
+      "index": 32,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "Cerebras",
+      "noImageSupport": false,
+      "provider": "openai"
     }
   ],
   "sessionDefaultSettings": {
     "model": "custom:GPT-5.2-Codex-(High)-20",
     "reasoningEffort": "none",
-    "autonomyMode": "auto-medium"
+    "autonomyMode": "auto-medium",
+    "specModeModel": "custom:GPT-5.2-Codex-(High)-20",
+    "specModeReasoningEffort": "none"
   }
 }
