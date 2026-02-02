@@ -113,14 +113,18 @@ bindkey -s ^f "tmux-sessionizer\n"
 
 export PATH="$HOME/.local/bin:$PATH"
 
-if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
+if [[ "$TERM_PROGRAM" == "ghostty" && -z "$TMUX" ]]; then
   export TERM=xterm-256color
 fi
 
 {{ if eq .chezmoi.os "linux" }}
-export TERM=xterm-256color
+if [[ -z "$TMUX" ]]; then
+  export TERM=xterm-256color
+fi
 export FORCE_COLOR=3
 {{ end }}
 
 export PATH="$PATH:{{ .chezmoi.homeDir }}/.moose/bin"
-ssh-add --apple-load-keychain -q
+{{ if eq .chezmoi.os "darwin" }}
+ssh-add --apple-load-keychain -q >/dev/null 2>&1
+{{ end }}

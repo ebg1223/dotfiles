@@ -16,12 +16,14 @@ if status is-interactive
     starship init fish | source
 {{- if eq .chezmoi.os "darwin" }}
     ssh-add --apple-load-keychain -q >/dev/null 2>&1
-    if test "$TERM_PROGRAM" = ghostty
-        set -Ux TERM xterm-256color
+    if test "$TERM_PROGRAM" = ghostty; and not set -q TMUX
+        set -gx TERM xterm-256color
     end
 {{- end }}
 {{- if eq .chezmoi.os "linux" }}
-    set -gx TERM xterm-256color
+    if not set -q TMUX
+        set -gx TERM xterm-256color
+    end
     set -gx FORCE_COLOR 3
     fish_add_path /home/linuxbrew/.linuxbrew/bin/brew
 
@@ -41,4 +43,3 @@ if status is-interactive
 end
 
 zoxide init fish | source
-
