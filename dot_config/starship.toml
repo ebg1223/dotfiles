@@ -1,3 +1,5 @@
+enable_hyperlinks = false
+right_format = "$custom.shpool"
 
 [custom.shpool]
 description = "Show shpool session name"
@@ -6,7 +8,3 @@ command = "printf '%s' \"$SHPOOL_SESSION_NAME\""
 format = "via [$symbol$output]($style) "
 symbol = "shpool "
 style = "bold blue"
-
-[character]
-# Ensure this line includes ${custom.shpool}
-format = "$all${custom.shpool}$character"
