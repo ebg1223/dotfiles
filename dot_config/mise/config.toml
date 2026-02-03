@@ -25,6 +25,10 @@ gemini-cli = "latest"
 rust = "latest"
 "cargo:shpool" = { version = "latest", os = ["linux"] }
 "github:lusingander/serie" = "latest"
+yq = "latest"
+ast-grep = "latest"
+bat = "latest"
+delta = "latest"
 
 [tools."http:zmx"]
 version = "0.2.0"
