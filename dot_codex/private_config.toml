@@ -1,9 +1,14 @@
+notify = ["/Users/ethan/.codex/notify.sh"]
 model = "gpt-5.2-codex"
 model_reasoning_effort = "high"
 tool_output_token_limit = 25000
 model_auto_compact_token_limit = 233000
 sandbox_mode = "workspace-write"
 forced_login_method = "chatgpt"
+personality = "pragmatic"
+profile = "balanced"
+cli_auth_credentials_store = "auto"
+mcp_oauth_credentials_store = "auto"
 
 [sandbox_workspace_write]
 network_access = true
@@ -14,6 +19,8 @@ notifications = true
 
 # Centralized feature flags (booleans only). Prefer leaving these unset unless you
 # know what you're enabling.
+alternate_screen = "auto"
+
 [features]
 shell_tool = true
 unified_exec = true
@@ -25,3 +32,58 @@ child_agents_md = true
 collab = true
 collaboration_modes = true
 steer = true
+
+[profiles.balanced]
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+model = "gpt-5.2-codex"
+model_reasoning_effort = "high"
+model_reasoning_summary = "detailed"
+web_search = "live"
+personality = "pragmatic"
+
+[profiles.safe]
+approval_policy = "on-failure"
+sandbox_mode = "read-only"
+model = "gpt-5.2-codex"
+model_reasoning_effort = "high"
+model_reasoning_summary = "detailed"
+web_search = "live"
+
+[profiles.yolo]
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+model = "gpt-5.2-codex"
+model_reasoning_effort = "high"
+model_reasoning_summary = "detailed"
+web_search = "live"
+
+[profiles.balanced.sandbox_workspace_write]
+network_access = true
+
+[profiles.safe.sandbox_workspace_write]
+network_access = true
+
+[profiles.yolo.sandbox_workspace_write]
+network_access = true
+
+[profiles.balanced.features]
+shell_snapshot = true
+steer = true
+collaboration_modes = true
+unified_exec = true
+personality = true
+
+[profiles.safe.features]
+shell_snapshot = true
+steer = true
+collaboration_modes = true
+unified_exec = true
+personality = true
+
+[profiles.yolo.features]
+shell_snapshot = true
+steer = true
+collaboration_modes = true
+unified_exec = true
+personality = true
