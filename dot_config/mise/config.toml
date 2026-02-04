@@ -29,6 +29,7 @@ yq = "latest"
 ast-grep = "latest"
 bat = "latest"
 delta = "latest"
+"npm:@mariozechner/pi-coding-agent" = "latest"
 
 [tools."http:zmx"]
 version = "0.2.0"
