@@ -381,12 +381,12 @@
       "apiKey": "dummy-not-used",
       "displayName": "Cerebras",
       "noImageSupport": false,
-      "provider": "openai"
+      "provider": "generic-chat-completion-api"
     }
   ],
   "sessionDefaultSettings": {
-    "model": "custom:GPT-5.2-Codex-(High)-20",
-    "reasoningEffort": "none",
+    "model": "custom:cerebras",
+    "reasoningEffort": "off",
     "autonomyMode": "auto-medium",
     "specModeModel": "custom:GPT-5.2-Codex-(High)-20",
     "specModeReasoningEffort": "none"
