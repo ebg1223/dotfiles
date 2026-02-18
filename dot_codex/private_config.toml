@@ -20,10 +20,8 @@ alternate_screen = "auto"
 shell_tool = true
 unified_exec = true
 shell_snapshot = true
-apply_patch_freeform = true
 exec_policy = true
 remote_compaction = true
-child_agents_md = true
 collab = true
 collaboration_modes = true
 steer = true
@@ -31,7 +29,6 @@ steer = true
 [profiles.balanced]
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
-model = "gpt-5.2-codex"
 model_reasoning_effort = "high"
 model_reasoning_summary = "detailed"
 web_search = "live"
@@ -40,7 +37,6 @@ personality = "pragmatic"
 [profiles.safe]
 approval_policy = "on-failure"
 sandbox_mode = "read-only"
-model = "gpt-5.2-codex"
 model_reasoning_effort = "high"
 model_reasoning_summary = "detailed"
 web_search = "live"
@@ -48,7 +44,6 @@ web_search = "live"
 [profiles.yolo]
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
-model = "gpt-5.2-codex"
 model_reasoning_effort = "high"
 model_reasoning_summary = "detailed"
 web_search = "live"
