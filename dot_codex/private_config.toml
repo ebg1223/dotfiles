@@ -22,9 +22,10 @@ unified_exec = true
 shell_snapshot = true
 exec_policy = true
 remote_compaction = true
-collab = true
 collaboration_modes = true
 steer = true
+multi_agent = true
+apps = false
 
 [profiles.balanced]
 approval_policy = "on-request"
@@ -33,6 +34,7 @@ model_reasoning_effort = "high"
 model_reasoning_summary = "detailed"
 web_search = "live"
 personality = "pragmatic"
+model = "gpt-5.3-codex"
 
 [profiles.safe]
 approval_policy = "on-failure"
