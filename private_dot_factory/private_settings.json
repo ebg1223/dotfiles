@@ -35,6 +35,7 @@
   "customModels": [
     {
       "model": "gpt-5.3-codex(medium)",
+      "id": "custom:GPT-5.3-Codex-Medium-0",
       "index": 1,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "dummy-not-used",
@@ -44,6 +45,7 @@
     },
     {
       "model": "gpt-5.3-codex(high)",
+      "id": "custom:GPT-5.3-Codex-High-1",
       "index": 1,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "dummy-not-used",
@@ -53,6 +55,7 @@
     },
     {
       "model": "gpt-5.3-codex(xhigh)",
+      "id": "custom:GPT-5.3-Codex-X-High-2",
       "index": 1,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "dummy-not-used",
@@ -62,6 +65,7 @@
     },
     {
       "model": "gpt-5.3-codex-spark(xhigh)",
+      "id": "custom:GPT-5.3-Codex-Spark-3",
       "index": 1,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "dummy-not-used",
@@ -79,5 +83,8 @@
       "noImageSupport": false,
       "provider": "generic-chat-completion-api"
     }
-  ]
+  ],
+  "model": "gpt-5.3-codex(high)",
+  "logoAnimation": "off"
 }
+
