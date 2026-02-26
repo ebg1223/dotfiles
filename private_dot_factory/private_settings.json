@@ -84,7 +84,10 @@
       "provider": "generic-chat-completion-api"
     }
   ],
-  "model": "gpt-5.3-codex(high)",
-  "logoAnimation": "off"
+  "logoAnimation": "off",
+  "sessionDefaultSettings": {
+    "model": "gpt-5.3-codex(high)",
+    "reasoningEffort": "high"
+  }
 }
 
