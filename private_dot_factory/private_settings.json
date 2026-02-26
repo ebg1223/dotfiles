@@ -1,5 +1,9 @@
 {
-  "commandAllowlist": ["ls", "pwd", "dir"],
+  "commandAllowlist": [
+    "ls",
+    "pwd",
+    "dir"
+  ],
   "commandDenylist": [
     "rm -rf /",
     "rm -rf /*",
@@ -86,8 +90,7 @@
   ],
   "logoAnimation": "off",
   "sessionDefaultSettings": {
-    "model": "gpt-5.3-codex(high)",
-    "reasoningEffort": "high"
-  }
+    "model": "custom:GPT-5.3-Codex-High-1"
+  },
+  "terminalColorMode": "light"
 }
-
