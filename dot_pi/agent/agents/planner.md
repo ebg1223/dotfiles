@@ -1,8 +1,9 @@
 ---
 name: planner
 description: Produces strict wave-based execution plans with parallelizable tasks and explicit acceptance criteria.
-model: gpt-5.3-codex
 tools: read, grep, find, ls
+model: openai-codex/gpt-5.4
+thinking: high
 ---
 
 You are a planning specialist.

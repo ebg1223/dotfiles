@@ -68,6 +68,36 @@
       "provider": "openai"
     },
     {
+      "model": "gpt-5.4(medium)",
+      "id": "custom:GPT-5.4-Medium-0",
+      "index": 1,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.4 Medium",
+      "noImageSupport": false,
+      "provider": "generic-chat-completion-api"
+    },
+    {
+      "model": "gpt-5.4(high)",
+      "id": "custom:GPT-5.4-High-1",
+      "index": 1,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.4 High",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.4(xhigh)",
+      "id": "custom:GPT-5.4-X-High-2",
+      "index": 1,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.4 X-High",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
       "model": "gpt-5.3-codex-spark(xhigh)",
       "id": "custom:GPT-5.3-Codex-Spark-3",
       "index": 1,
@@ -78,7 +108,7 @@
       "provider": "openai"
     },
     {
-      "model": "zai-glm-4.7",
+      "model": "Pzai-glm-4.7",
       "id": "custom:cerebras",
       "index": 4,
       "baseUrl": "http://cliproxyapi:8317/v1",
@@ -86,11 +116,66 @@
       "displayName": "Cerebras",
       "noImageSupport": false,
       "provider": "generic-chat-completion-api"
+    },
+    {
+      "model": "zai-glm-4.7",
+      "displayName": "Cerebras ZAI",
+      "baseUrl": "https://api.cerebras.ai/v1",
+      "apiKey": "csk-vtvp5fmkfd28h56h8pd234vvmn9dnmrh4v6f848pdw65vv2p",
+      "provider": "generic-chat-completion-api",
+      "extraArgs": {
+        "temperature": 1,
+        "top_p": 0.95
+      },
+      "maxOutputTokens": 40000
     }
   ],
   "logoAnimation": "off",
   "sessionDefaultSettings": {
     "model": "custom:GPT-5.3-Codex-High-1"
   },
-  "terminalColorMode": "light"
+  "terminalColorMode": "light",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/ethan/.superset/hooks/notify.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/ethan/.superset/hooks/notify.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/ethan/.superset/hooks/notify.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/ethan/.superset/hooks/notify.sh"
+          }
+        ]
+      }
+    ]
+  }
 }

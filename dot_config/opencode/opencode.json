@@ -1,5 +1,12 @@
 {
-  "plugin": ["opencode-antigravity-auth@1.4.3"],
+  "plugin": ["opencode-antigravity-auth@1.6.0"],
+  "mcp": {
+    "auggie": {
+      "type": "remote",
+      "url": "https://api.augmentcode.com/mcp",
+      "enabled": true
+    }
+  },
   "permission": {
     "skill": {
       "*": "allow"
