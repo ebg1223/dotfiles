@@ -1,90 +1,10 @@
-notify = ["/Users/ethan/.codex/notify.sh"]
-model_auto_compact_token_limit = 233000
-sandbox_mode = "workspace-write"
-forced_login_method = "chatgpt"
-personality = "pragmatic"
-profile = "balanced"
 model = "gpt-5.4"
-model_reasoning_effort = "xhigh"
-
-[sandbox_workspace_write]
-network_access = true
-
-# UI & notifications (can be toggled by installer)
-[tui]
-notifications = true
-
-# Centralized feature flags (booleans only). Prefer leaving these unset unless you
-# know what you're enabling.
-alternate_screen = "auto"
-
-[features]
-shell_tool = true
-unified_exec = true
-exec_policy = true
-remote_compaction = true
-collaboration_modes = true
-steer = true
-multi_agent = true
-responses_websockets = true
-responses_websockets_v2 = true
-js_repl = true
-guardian_approval = true
-
-[profiles.balanced]
-approval_policy = "on-request"
-sandbox_mode = "workspace-write"
 model_reasoning_effort = "high"
-web_search = "live"
-personality = "pragmatic"
-model = "gpt-5.4"
-plan_mode_reasoning_effort = "high"
-service_tier = "fast"
-
-[profiles.safe]
-approval_policy = "on-failure"
-sandbox_mode = "read-only"
-model_reasoning_effort = "high"
-web_search = "live"
-
-[profiles.yolo]
-approval_policy = "never"
-sandbox_mode = "danger-full-access"
-model_reasoning_effort = "high"
-web_search = "live"
-
-[profiles.balanced.sandbox_workspace_write]
-network_access = true
-
-[profiles.safe.sandbox_workspace_write]
-network_access = true
-
-[profiles.yolo.sandbox_workspace_write]
-network_access = true
-
-[profiles.balanced.features]
-shell_snapshot = true
-steer = true
-collaboration_modes = true
-unified_exec = true
-personality = true
-
-[profiles.safe.features]
-shell_snapshot = true
-steer = true
-collaboration_modes = true
-unified_exec = true
-personality = true
-
-[profiles.yolo.features]
-shell_snapshot = true
-steer = true
-collaboration_modes = true
-unified_exec = true
-personality = true
-
-[mcp_servers.linear]
-url = "https://mcp.linear.app/mcp"
-
 [projects."/Users/ethan/EMR/WHHC-CUA"]
 trust_level = "trusted"
+
+[notice.model_migrations]
+"gpt-5.3-codex" = "gpt-5.4"
+
+[features]
+js_repl = true
