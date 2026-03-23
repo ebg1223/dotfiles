@@ -10,9 +10,13 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-
 # Customize to your needs...
+{{- if eq .chezmoi.os "darwin" }}
 eval "$(/opt/homebrew/bin/mise activate zsh)"
+{{- else if eq .chezmoi.os "linux" }}
+eval "$(/home/linuxbrew/.linuxbrew/bin/mise activate zsh)"
+{{- end }}
+
 
 # Runs after mise as zoxide is a mise installable package.
 eval "$(zoxide init zsh)"
