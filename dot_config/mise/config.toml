@@ -36,6 +36,7 @@ opencode = "latest"
 "npm:@augmentcode/auggie" = "latest"
 "github:JetBrains/junie" = "latest"
 opentofu = "latest"
+jless = "latest"
 
 [tools."http:zmx"]
 version = "0.2.0"

@@ -1,6 +1,14 @@
 model = "gpt-5.4"
 model_reasoning_effort = "high"
+personality = "friendly"
+approvals_reviewer = "guardian_subagent"
+service_tier = "fast"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
 [projects."/Users/ethan/EMR/WHHC-CUA"]
+trust_level = "trusted"
+
+[projects."/Users/ethan"]
 trust_level = "trusted"
 
 [notice.model_migrations]
@@ -8,3 +16,8 @@ trust_level = "trusted"
 
 [features]
 js_repl = true
+multi_agent = true
+guardian_approval = true
+
+[tui]
+theme = "github"
