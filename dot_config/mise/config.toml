@@ -37,6 +37,7 @@ opencode = "latest"
 "github:JetBrains/junie" = "latest"
 opentofu = "latest"
 jless = "latest"
+"npm:droid" = "latest"
 
 [tools."http:zmx"]
 version = "0.2.0"
