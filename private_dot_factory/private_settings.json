@@ -1,0 +1,100 @@
+{
+  "customModels": [
+    {
+      "model": "gpt-5.4(medium)",
+      "id": "custom:GPT-5.4-Medi-0",
+      "index": 0,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.4 Medi",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.4(high)",
+      "id": "custom:GPT-5.4-High-1",
+      "index": 1,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.4 High",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.4(xhigh)",
+      "id": "custom:GPT-5.4-X-High-2",
+      "index": 2,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.4 X-High",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.4-mini(medium)",
+      "id": "custom:GPT-5.4-Mini-Medium-3",
+      "index": 3,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.4 Mini Medium",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.4-mini(high)",
+      "id": "custom:GPT-5.4-Mini-High-4",
+      "index": 4,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.4 Mini High",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "gpt-5.4-mini(xhigh)",
+      "id": "custom:GPT-5.4-Mini-X-High-5",
+      "index": 5,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GPT-5.4 Mini X-High",
+      "noImageSupport": false,
+      "provider": "openai"
+    },
+    {
+      "model": "zai-glm-4.7",
+      "id": "custom:GLM-4.7-6",
+      "index": 6,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "GLM 4.7",
+      "maxOutputTokens": 40000,
+      "extraArgs": {
+        "temperature": 1,
+        "top_p": 0.95
+      },
+      "noImageSupport": false,
+      "provider": "generic-chat-completion-api"
+    },
+    {
+      "model": "claude-opus-4-6",
+      "id": "custom:Claude-Opus-4.6-7",
+      "index": 7,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "Claude Opus 4.6",
+      "noImageSupport": false,
+      "provider": "anthropic"
+    },
+    {
+      "model": "claude-sonnet-4-6",
+      "id": "custom:Claude-Sonnet-4.6-8",
+      "index": 8,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "dummy-not-used",
+      "displayName": "Claude Sonnet 4.6",
+      "noImageSupport": false,
+      "provider": "anthropic"
+    }
+  ],
+  "logoAnimation": "off"
+}
