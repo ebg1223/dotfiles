@@ -8,7 +8,10 @@
       "apiKey": "dummy-not-used",
       "displayName": "GPT-5.4 Medi",
       "noImageSupport": false,
-      "provider": "openai"
+      "provider": "openai",
+      "extraArgs": {
+        "service_tier": "priority"
+      }
     },
     {
       "model": "gpt-5.4(high)",
@@ -18,7 +21,10 @@
       "apiKey": "dummy-not-used",
       "displayName": "GPT-5.4 High",
       "noImageSupport": false,
-      "provider": "openai"
+      "provider": "openai",
+      "extraArgs": {
+        "service_tier": "priority"
+      }
     },
     {
       "model": "gpt-5.4(xhigh)",
@@ -28,7 +34,10 @@
       "apiKey": "dummy-not-used",
       "displayName": "GPT-5.4 X-High",
       "noImageSupport": false,
-      "provider": "openai"
+      "provider": "openai",
+      "extraArgs": {
+        "service_tier": "priority"
+      }
     },
     {
       "model": "gpt-5.4-mini(medium)",
@@ -38,7 +47,10 @@
       "apiKey": "dummy-not-used",
       "displayName": "GPT-5.4 Mini Medium",
       "noImageSupport": false,
-      "provider": "openai"
+      "provider": "openai",
+      "extraArgs": {
+        "service_tier": "priority"
+      }
     },
     {
       "model": "gpt-5.4-mini(high)",
@@ -58,7 +70,10 @@
       "apiKey": "dummy-not-used",
       "displayName": "GPT-5.4 Mini X-High",
       "noImageSupport": false,
-      "provider": "openai"
+      "provider": "openai",
+      "extraArgs": {
+        "service_tier": "priority"
+      }
     },
     {
       "model": "zai-glm-4.7",
