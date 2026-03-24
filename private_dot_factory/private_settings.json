@@ -96,5 +96,13 @@
       "provider": "anthropic"
     }
   ],
-  "logoAnimation": "off"
+  "logoAnimation": "off",
+  "sessionDefaultSettings": {
+    "model": "custom:GPT-5.4-High-1",
+    "reasoningEffort": "none",
+    "interactionMode": "auto",
+    "autonomyLevel": "low",
+    "autonomyMode": "auto-low"
+  },
+  "includeCoAuthoredByDroid": false
 }
