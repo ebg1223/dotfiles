@@ -5,4 +5,11 @@
 
 [user]
 	name = Ethan Greenfeld
-	email = egreenfeld@azswa.org
+  email = egreenfeld@azswa.org
+
+[core]
+    pager = delta
+[delta]
+    side-by-side = true
+    line-numbers = true
+
