@@ -15,6 +15,8 @@ fi
 eval "$(/opt/homebrew/bin/mise activate zsh)"
 {{- else if eq .chezmoi.os "linux" }}
 eval "$(/home/linuxbrew/.linuxbrew/bin/mise activate zsh)"
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 {{- end }}
 
 
