@@ -38,6 +38,7 @@ opencode = "latest"
 opentofu = "latest"
 jless = "latest"
 "npm:droid" = "latest"
+oh-my-posh = "latest"
 
 [tools."http:zmx"]
 version = "0.2.0"
