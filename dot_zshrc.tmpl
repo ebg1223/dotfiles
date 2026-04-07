@@ -4,13 +4,8 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
-
-# Customize to your needs...
+#
+#
 {{- if eq .chezmoi.os "darwin" }}
 eval "$(/opt/homebrew/bin/mise activate zsh)"
 {{- else if eq .chezmoi.os "linux" }}
@@ -19,9 +14,17 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 {{- end }}
 
-
 # Runs after mise as zoxide is a mise installable package.
 eval "$(zoxide init zsh)"
 
 # Runs last to capture all changes to shell from the previous commands.
 eval "$(starship init zsh)"
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+
+
