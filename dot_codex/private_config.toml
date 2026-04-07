@@ -1,7 +1,6 @@
 model = "gpt-5.4"
 model_reasoning_effort = "high"
 personality = "friendly"
-approvals_reviewer = "guardian_subagent"
 service_tier = "fast"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
@@ -11,13 +10,22 @@ trust_level = "trusted"
 [projects."/Users/ethan"]
 trust_level = "trusted"
 
+[projects."/Users/ethan/printing/bed"]
+trust_level = "trusted"
+
 [notice.model_migrations]
 "gpt-5.3-codex" = "gpt-5.4"
 
 [features]
+codex_hooks = true
 js_repl = true
 multi_agent = true
-guardian_approval = true
 
 [tui]
 theme = "github"
+
+[plugins."gmail@openai-curated"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true

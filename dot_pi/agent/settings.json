@@ -1,40 +1,27 @@
 {
-  "lastChangelogVersion": "0.61.1",
+  "lastChangelogVersion": "0.65.2",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.4",
-  "defaultThinkingLevel": "high",
-  "hideThinkingBlock": false,
+  "defaultThinkingLevel": "xhigh",
+  "hideThinkingBlock": true,
   "compaction": {
     "enabled": true
   },
   "theme": "light",
   "packages": [
-    "npm:pi-interactive-shell",
     "npm:pi-extmgr",
-    {
-      "source": "npm:pi-subagents",
-      "extensions": [
-        "+index.ts",
-        "+notify.ts"
-      ]
-    },
     "npm:pi-web-access",
-    {
-      "source": "npm:pi-amplike",
-      "extensions": [
-        "+extensions/modes.ts",
-        "-extensions/subagent.ts"
-      ]
-    },
     "npm:@calesennett/pi-codex-fast",
-    "npm:pi-tool-display",
+    "git:github.com/ghoseb/pi-askuserquestion",
+    "npm:pi-claude-bridge",
     {
-      "source": "npm:pi-notify",
+      "source": "npm:@jordyvd/pi-openai-compaction",
       "extensions": [
-        "+index.ts"
+        "-index.ts"
       ]
     },
-    "git:github.com/ghoseb/pi-askuserquestion"
+    "npm:@sting8k/pi-vcc",
+    "npm:pi-interactive-shell"
   ],
   "enabledModels": [
     "cerebras/zai-glm-4.7",
