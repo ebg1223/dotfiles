@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+
+client_tty=${1:?client tty required}
+b64=$(base64 | tr -d '\r\n')
+printf '\033]52;c;%s\a' "$b64" > "$client_tty"
