@@ -128,49 +128,5 @@
     "workerReasoningEffort": "none",
     "validationWorkerModel": "custom:GPT-5.4-High-1",
     "validationWorkerReasoningEffort": "none"
-  },
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/ethan/.superset/hooks/notify.sh"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/ethan/.superset/hooks/notify.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/ethan/.superset/hooks/notify.sh"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/ethan/.superset/hooks/notify.sh"
-          }
-        ]
-      }
-    ]
   }
 }
-
