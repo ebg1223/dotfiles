@@ -121,12 +121,15 @@
   },
   "includeCoAuthoredByDroid": false,
   "terminalColorMode": "light",
-  "theme": "factory-dark",
+  "theme": "factory-light",
   "hasSeenMissionOnboarding": true,
   "missionModelSettings": {
     "workerModel": "custom:GLM-4.7-6",
     "workerReasoningEffort": "none",
-    "validationWorkerModel": "custom:GPT-5.4-High-1",
+    "validationWorkerModel": "gpt-5.3-codex",
     "validationWorkerReasoningEffort": "none"
+  },
+  "enabledPlugins": {
+    "core@factory-plugins": true
   }
 }
