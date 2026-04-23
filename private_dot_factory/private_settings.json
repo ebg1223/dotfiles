@@ -111,9 +111,8 @@
       "provider": "anthropic"
     }
   ],
-  "logoAnimation": "off",
   "sessionDefaultSettings": {
-    "model": "custom:GPT-5.4-High-1",
+    "model": "custom:GPT-5.5-High-1",
     "reasoningEffort": "none",
     "interactionMode": "auto",
     "autonomyLevel": "low",
@@ -124,11 +123,12 @@
   "theme": "factory-light",
   "hasSeenMissionOnboarding": true,
   "missionModelSettings": {
-    "workerModel": "custom:GLM-4.7-6",
+    "workerModel": "custom:GPT-5.5-Medi-0",
     "workerReasoningEffort": "none",
-    "validationWorkerModel": "gpt-5.3-codex",
-    "validationWorkerReasoningEffort": "none"
+    "validationWorkerModel": "custom:GPT-5.5-High-1"
   },
+  "logoAnimation": "off",
+
   "enabledPlugins": {
     "core@factory-plugins": true
   }
