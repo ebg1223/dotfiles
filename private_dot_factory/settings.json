@@ -1,12 +1,12 @@
 {
   "customModels": [
     {
-      "model": "gpt-5.4(medium)",
-      "id": "custom:GPT-5.4-Medi-0",
+      "model": "gpt-5.5(medium)",
+      "id": "custom:GPT-5.5-Medi-0",
       "index": 0,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "dummy-not-used",
-      "displayName": "GPT-5.4 Medi",
+      "displayName": "GPT-5.5 Medi",
       "extraArgs": {
         "service_tier": "priority"
       },
@@ -14,12 +14,12 @@
       "provider": "openai"
     },
     {
-      "model": "gpt-5.4(high)",
-      "id": "custom:GPT-5.4-High-1",
+      "model": "gpt-5.5(high)",
+      "id": "custom:GPT-5.5-High-1",
       "index": 1,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "dummy-not-used",
-      "displayName": "GPT-5.4 High",
+      "displayName": "GPT-5.5 High",
       "extraArgs": {
         "service_tier": "priority"
       },
@@ -27,12 +27,12 @@
       "provider": "openai"
     },
     {
-      "model": "gpt-5.4(xhigh)",
-      "id": "custom:GPT-5.4-X-High-2",
+      "model": "gpt-5.5(xhigh)",
+      "id": "custom:GPT-5.5-X-High-2",
       "index": 2,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "dummy-not-used",
-      "displayName": "GPT-5.4 X-High",
+      "displayName": "GPT-5.5 X-High",
       "extraArgs": {
         "service_tier": "priority"
       },
@@ -173,3 +173,4 @@
     ]
   }
 }
+
