@@ -1,11 +1,62 @@
 {
+  "diffMode": "github",
+  "ideExtensionPromptedAt": {},
+  "ideActivationNudgedForVersion": {},
+  "enableCompletionBell": true,
+  "completionSound": "fx-ok01",
+  "awaitingInputSound": "fx-ack01",
+  "soundFocusMode": "always",
+  "commandAllowlist": [
+    "ls",
+    "pwd",
+    "dir",
+    "git status",
+    "git diff",
+    "git log",
+    "git show",
+    "git blame",
+    "git ls-files"
+  ],
+  "commandDenylist": [
+    "rm -rf /",
+    "rm -rf /*",
+    "rm -rf .",
+    "rm -rf ~",
+    "rm -rf ~/*",
+    "rm -rf $HOME",
+    "rm -r /",
+    "rm -r /*",
+    "rm -r ~",
+    "rm -r ~/*",
+    "mkfs",
+    "mkfs.ext4",
+    "mkfs.ext3",
+    "mkfs.vfat",
+    "mkfs.ntfs",
+    "dd if=/dev/zero of=/dev",
+    "dd of=/dev",
+    "shutdown",
+    "reboot",
+    "halt",
+    "poweroff",
+    "init 0",
+    "init 6",
+    ":(){ :|: & };:",
+    ":() { :|:& };:",
+    "chmod -R 777 /",
+    "chmod -R 000 /",
+    "chown -R",
+    "powershell Remove-Item -Recurse -Force",
+    "Format-Volume",
+    "format.com"
+  ],
   "customModels": [
     {
       "model": "gpt-5.5(low)",
       "id": "custom:GPT-5.5-Low-0",
       "index": 0,
       "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "dummy-not-used",
+      "apiKey": "CLI_PROXY_API_KEY",
       "displayName": "GPT-5.5 Low",
       "extraArgs": {
         "service_tier": "priority"
@@ -15,11 +66,11 @@
     },
     {
       "model": "gpt-5.5(medium)",
-      "id": "custom:GPT-5.5-Medi-1",
-      "index": 0,
+      "id": "custom:GPT-5.5-Medium-1",
+      "index": 1,
       "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "dummy-not-used",
-      "displayName": "GPT-5.5 Medi",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "displayName": "GPT-5.5 Medium",
       "extraArgs": {
         "service_tier": "priority"
       },
@@ -29,9 +80,9 @@
     {
       "model": "gpt-5.5(high)",
       "id": "custom:GPT-5.5-High-2",
-      "index": 1,
+      "index": 2,
       "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "dummy-not-used",
+      "apiKey": "CLI_PROXY_API_KEY",
       "displayName": "GPT-5.5 High",
       "extraArgs": {
         "service_tier": "priority"
@@ -42,9 +93,9 @@
     {
       "model": "gpt-5.5(xhigh)",
       "id": "custom:GPT-5.5-X-High-3",
-      "index": 2,
+      "index": 3,
       "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "dummy-not-used",
+      "apiKey": "CLI_PROXY_API_KEY",
       "displayName": "GPT-5.5 X-High",
       "extraArgs": {
         "service_tier": "priority"
@@ -55,9 +106,9 @@
     {
       "model": "gpt-5.4-mini(medium)",
       "id": "custom:GPT-5.4-Mini-Medium-4",
-      "index": 3,
+      "index": 4,
       "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "dummy-not-used",
+      "apiKey": "CLI_PROXY_API_KEY",
       "displayName": "GPT-5.4 Mini Medium",
       "extraArgs": {
         "service_tier": "priority"
@@ -68,20 +119,10 @@
     {
       "model": "gpt-5.4-mini(high)",
       "id": "custom:GPT-5.4-Mini-High-5",
-      "index": 4,
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "dummy-not-used",
-      "displayName": "GPT-5.4 Mini High",
-      "noImageSupport": false,
-      "provider": "openai"
-    },
-    {
-      "model": "gpt-5.4-mini(xhigh)",
-      "id": "custom:GPT-5.4-Mini-X-High-6",
       "index": 5,
       "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "dummy-not-used",
-      "displayName": "GPT-5.4 Mini X-High",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "displayName": "GPT-5.4 Mini High",
       "extraArgs": {
         "service_tier": "priority"
       },
@@ -89,19 +130,17 @@
       "provider": "openai"
     },
     {
-      "model": "zai-glm-4.7",
-      "id": "custom:GLM-4.7-7",
+      "model": "gpt-5.4-mini(xhigh)",
+      "id": "custom:GPT-5.4-Mini-X-High-6",
       "index": 6,
       "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "dummy-not-used",
-      "displayName": "GLM 4.7",
-      "maxOutputTokens": 40000,
+      "apiKey": "CLI_PROXY_API_KEY",
+      "displayName": "GPT-5.4 Mini X-High",
       "extraArgs": {
-        "temperature": 1,
-        "top_p": 0.95
+        "service_tier": "priority"
       },
       "noImageSupport": false,
-      "provider": "generic-chat-completion-api"
+      "provider": "openai"
     }
   ],
   "sessionDefaultSettings": {
@@ -112,6 +151,20 @@
     "autonomyMode": "auto-low"
   },
   "includeCoAuthoredByDroid": false,
+  "enableDroidShield": false,
+  "todoDisplayMode": "pinned",
+  "allowBackgroundProcesses": true,
+  "showThinkingInMainView": false,
+  "ideAutoConnect": false,
+  "showTokenUsageIndicator": true,
+  "enableWarmup": true,
+  "enableCustomDroids": true,
+  "enableReadinessReport": false,
+  "enableHooks": false,
+  "completionSoundFocusMode": "always",
+  "enableSkills": false,
+  "autonomyLevel": "auto-medium",
+  "specSaveEnabled": true,
   "terminalColorMode": "light",
   "theme": "factory-light",
   "hasSeenMissionOnboarding": true,
