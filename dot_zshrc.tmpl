@@ -18,6 +18,8 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 {{- end }}
 
+export PATH="$HOME/.local/bin:$PATH"
+
 if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate zsh)"
 fi
@@ -39,27 +41,7 @@ if command -v oh-my-posh >/dev/null 2>&1; then
   eval "$(oh-my-posh init zsh --config "$POSH_THEME")"
 fi
 
-function _omp_get_prompt() {
-  local type=$1
-  local args=("${@[2,-1]}")
-  $_omp_executable print $type \
-    --config "$POSH_THEME" \
-    --save-cache \
-    --shell=zsh \
-    --shell-version=$ZSH_VERSION \
-    --status=$_omp_status \
-    --pipestatus="${_omp_pipestatus[*]}" \
-    --no-status=$_omp_no_status \
-    --execution-time=$_omp_execution_time \
-    --job-count=$_omp_job_count \
-    --stack-count=$_omp_stack_count \
-    --terminal-width="${COLUMNS-0}" \
-    ${args[@]}
-}
-
 # Customize to your needs...
-
-export PATH="$HOME/.local/bin:$PATH"
 
 # smux
 export PATH="$HOME/.smux/bin:$PATH"
