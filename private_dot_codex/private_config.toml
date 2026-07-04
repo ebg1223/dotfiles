@@ -1,0 +1,179 @@
+model = "gpt-5.5"
+model_reasoning_effort = "high"
+personality = "pragmatic"
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+approvals_reviewer = "user"
+service_tier = "priority"
+[projects."/Users/ethan/EMR/WHHC-CUA"]
+trust_level = "trusted"
+
+[projects."/Users/ethan"]
+trust_level = "trusted"
+
+[projects."/Users/ethan/printing/bed"]
+trust_level = "trusted"
+
+[projects."/home/ethan/EMR/WHHC-CUA"]
+trust_level = "trusted"
+
+[projects."/home/ethan/EMR/WHHC-DEPLOY"]
+trust_level = "trusted"
+
+[projects."/home/ethan"]
+trust_level = "trusted"
+
+[projects."/home/ethan/dpcode"]
+trust_level = "trusted"
+
+[projects."/home/ethan/EMR/worktrees/hatchet-billing-simple"]
+trust_level = "trusted"
+
+[projects."/home/ethan/.factory"]
+trust_level = "trusted"
+
+[projects."/home/ethan/.paseo"]
+trust_level = "trusted"
+
+[projects."/home/ethan/paseo"]
+trust_level = "trusted"
+
+[projects."/tmp"]
+trust_level = "trusted"
+
+[projects."/home/ethan/EMR/convexlance"]
+trust_level = "trusted"
+
+[projects."/home/ethan/codex-plugin-cc"]
+trust_level = "trusted"
+
+[projects."/home/ethan/EMR/plaincare"]
+trust_level = "trusted"
+
+[notice]
+fast_default_opt_out = true
+
+[notice.model_migrations]
+"gpt-5.3-codex" = "gpt-5.4"
+
+[features]
+hooks = true
+js_repl = true
+multi_agent = true
+terminal_resize_reflow = true
+
+[tui]
+theme = "inspired-github"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[plugins."gmail@openai-curated"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."aws-agents@agent-toolkit-for-aws"]
+enabled = true
+
+[plugins."aws-core@agent-toolkit-for-aws"]
+enabled = true
+
+[plugins."aws-data-analytics@agent-toolkit-for-aws"]
+enabled = true
+
+[marketplaces.agent-toolkit-for-aws]
+last_updated = "2026-07-03T16:27:39Z"
+last_revision = "ff1481a7bc1a04ee00ebf63d3a8a149aa6a2c546"
+source_type = "git"
+source = "https://github.com/aws/agent-toolkit-for-aws.git"
+
+[hooks.state]
+
+[hooks.state."/home/ethan/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:15ac0f492769bea28174a129cf7d3299b27e3aa3fb496af21935e7eccd6c6098"
+
+[hooks.state."/home/ethan/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:6e5fe1cb31c1d700a29ddcb475e174e69ff747a053c88a7b4415488a138b3743"
+
+[hooks.state."/home/ethan/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:822e7336d89c6109e2ae4c46064d2fe6756831dc4b46b6dba8684d722b3ae4d9"
+
+[hooks.state."/home/ethan/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:737ce864435c42bc89af757e55fc381412ab969e8534bd8a95b025139e6ab036"
+
+[hooks.state."aws-core@agent-toolkit-for-aws:hooks/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:f2e089d549167d9ad7d1533fe22613de38f4243a4dd4cbce0e0a808c1162503b"
+
+[hooks.state."aws-core@agent-toolkit-for-aws:hooks/hooks.json:pre_tool_use:0:1"]
+trusted_hash = "sha256:f4d63c326c4abfdf5778f51824153e17ebb7bd61a600e95ec596448824b364d8"
+
+[hooks.state."aws-core@agent-toolkit-for-aws:hooks/hooks.json:pre_tool_use:0:2"]
+trusted_hash = "sha256:f4d63c326c4abfdf5778f51824153e17ebb7bd61a600e95ec596448824b364d8"
+
+[hooks.state."aws-core@agent-toolkit-for-aws:hooks/hooks.json:pre_tool_use:0:3"]
+trusted_hash = "sha256:f4d63c326c4abfdf5778f51824153e17ebb7bd61a600e95ec596448824b364d8"
+
+[hooks.state."aws-core@agent-toolkit-for-aws:hooks/hooks.json:pre_tool_use:0:4"]
+trusted_hash = "sha256:f4d63c326c4abfdf5778f51824153e17ebb7bd61a600e95ec596448824b364d8"
+
+[hooks.state."aws-core@agent-toolkit-for-aws:hooks/hooks.json:pre_tool_use:0:5"]
+trusted_hash = "sha256:f4d63c326c4abfdf5778f51824153e17ebb7bd61a600e95ec596448824b364d8"
+
+[hooks.state."aws-core@agent-toolkit-for-aws:hooks/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:11d7b53fbeb9861a03b33c63ffd33734b5248f3522bdd96fbcd7c38402ac5305"
+
+[hooks.state."/home/ethan/.codex/hooks.json:session_start:1:0"]
+trusted_hash = "sha256:7e0801ff0d463d3db38dacf39cb9387568c43fc448af5bade59d64d4a5315bd1"
+
+[hooks.state."/home/ethan/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:9b3aaae7107e2592c0c891d19da4abfc2ba6100372e9ec9b0338e95ee06c61e5"
+
+[hooks.state."/home/ethan/.codex/hooks.json:permission_request:1:0"]
+trusted_hash = "sha256:dc3b9f2c80c5e770377ef306e0581064aebd057bd181d6923262e040f7be0860"
+
+[hooks.state."/home/ethan/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:20e42019cbb87d2650f0dd5c22b89b0a45a954b65f55d0aa09113212725446e3"
+
+[hooks.state."/home/ethan/.codex/hooks.json:user_prompt_submit:1:0"]
+trusted_hash = "sha256:7d4368bbafc1d4dcc43578456dbefddb384418737cbf9fc3bf3299d43247674e"
+
+[hooks.state."/home/ethan/.codex/hooks.json:stop:1:0"]
+trusted_hash = "sha256:19e5880192dae9cb8c23571c40d71f838f8f45d829ecfd563b3c0e0e4aad4ae4"
+
+[[skills.config]]
+path = "/home/ethan/.codex/plugins/cache/agent-toolkit-for-aws/aws-data-analytics/1.0.0/skills/querying-data-lake/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/ethan/.codex/plugins/cache/agent-toolkit-for-aws/aws-data-analytics/1.0.0/skills/storing-and-querying-vectors/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/ethan/.codex/plugins/cache/agent-toolkit-for-aws/aws-data-analytics/1.0.0/skills/ingesting-into-data-lake/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/ethan/.codex/plugins/cache/agent-toolkit-for-aws/aws-data-analytics/1.0.0/skills/finding-data-lake-assets/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/ethan/.codex/plugins/cache/agent-toolkit-for-aws/aws-data-analytics/1.0.0/skills/exploring-data-catalog/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/ethan/.codex/plugins/cache/agent-toolkit-for-aws/aws-data-analytics/1.0.0/skills/creating-data-lake-table/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/ethan/.codex/plugins/cache/agent-toolkit-for-aws/aws-data-analytics/1.0.0/skills/connecting-to-data-source/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/ethan/.codex/plugins/cache/agent-toolkit-for-aws/aws-core/1.1.0/skills/aws-sdk-swift-usage/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/ethan/.codex/plugins/cache/agent-toolkit-for-aws/aws-core/1.1.0/skills/aws-amplify/SKILL.md"
+enabled = false

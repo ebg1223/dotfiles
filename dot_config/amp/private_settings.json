@@ -1,4 +1,4 @@
 {
-  "amp.url": "http://cliproxyapi:8317",
-  "amp.agent.deepReasoningEffort": "high"
+  "amp.dangerouslyAllowAll": true,
+  "amp.gauge": "cost"
 }

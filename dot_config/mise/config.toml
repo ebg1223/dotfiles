@@ -1,6 +1,6 @@
 [tools]
 bun = "latest"
-node = "25"
+node = "22"
 rclone = "latest"
 github-cli = "latest"
 ripgrep = "latest"
@@ -12,11 +12,10 @@ zoxide = "latest"
 fzf = "latest"
 yazi = "latest"
 uv = "latest"
-codex = "latest"
 "github:shantur/CodeNomad" = "latest"
-"npm:@just-every/code" = "latest"
 "npm:btca" = "latest"
-amp = "latest"
+amp = { version = "latest", npm_args = "--ignore-scripts=false" }
+"npm:droid" = { version = "latest", npm_args = "--ignore-scripts=false" }
 "npm:clawdbot" = "latest"
 gemini-cli = "latest"
 rust = "latest"
@@ -26,26 +25,38 @@ yq = "latest"
 ast-grep = "latest"
 bat = "latest"
 delta = "latest"
-"npm:@mariozechner/pi-coding-agent" = "latest"
-"github:can1357/oh-my-pi" = "latest"
 "aqua:neovim/neovim" = "latest"
-"npm:@anthropic-ai/claude-code" = "latest"
 "github:Dicklesworthstone/beads_rust" = "latest"
 "github:Dicklesworthstone/beads_viewer" = "latest"
-opencode = "latest"
 "npm:@augmentcode/auggie" = "latest"
 "github:JetBrains/junie" = "latest"
 opentofu = "latest"
 jless = "latest"
-"npm:droid" = "latest"
 oh-my-posh = "latest"
+"github:gmuxapp/gmux" = "latest"
+television = "latest"
+"npm:@openchamber/web" = "latest"
+"github:ogulcancelik/herdr" = "latest"
+"npm:@earendil-works/pi-coding-agent" = "latest"
+codex = "latest"
+python = "3.12"
+"npm:omegacode" = "latest"
+"pipx:omnigent" = { version = "latest", extras = "cursor" }
+"github:can1357/oh-my-pi" = "latest"
+hunk = "latest"
+claude = "latest"
+"github:sinelaw/fresh" = "latest"
+"npm:@getpaseo/cli" = "latest"
+"npm:opencode-ai" = { version = "beta", npm_args = "--ignore-scripts=false" }
+pnpm = "latest"
 
-[tools."http:zmx"]
-version = "0.2.0"
-
-[tools."http:zmx".platforms]
-# {{version}} is NOT supported here, so we must hardcode it.
-linux-x64 = { url = "https://zmx.sh/a/zmx-0.2.0-linux-x86_64.tar.gz" }
-linux-arm64 = { url = "https://zmx.sh/a/zmx-0.2.0-linux-aarch64.tar.gz" }
-macos-x64 = { url = "https://zmx.sh/a/zmx-0.2.0-macos-x86_64.tar.gz" }
-macos-arm64 = { url = "https://zmx.sh/a/zmx-0.2.0-macos-aarch64.tar.gz" }
+[settings]
+minimum_release_age_excludes = [
+  "npm:@earendil-works/pi-coding-agent",
+  "claude",
+  "opencode",
+  "npm:droid",
+  "codex",
+  "amp",
+  "github:can1357/oh-my-pi",
+]

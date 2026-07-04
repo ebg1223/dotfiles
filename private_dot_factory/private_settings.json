@@ -1,11 +1,7 @@
 {
-  "diffMode": "github",
-  "ideExtensionPromptedAt": {},
-  "ideActivationNudgedForVersion": {},
-  "enableCompletionBell": true,
-  "completionSound": "fx-ok01",
+  "allowBackgroundProcesses": true,
+  "autonomyLevel": "auto-medium",
   "awaitingInputSound": "fx-ack01",
-  "soundFocusMode": "always",
   "commandAllowlist": [
     "ls",
     "pwd",
@@ -50,14 +46,17 @@
     "Format-Volume",
     "format.com"
   ],
+  "compactionModelMode": "current-model",
+  "completionSound": "fx-ok01",
+  "completionSoundFocusMode": "always",
   "customModels": [
     {
-      "model": "gpt-5.5(low)",
-      "id": "custom:GPT-5.5-Low-0",
+      "model": "gpt-5.5",
+      "id": "custom:GPT-5.5",
       "index": 0,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "GPT-5.5 Low",
+      "displayName": "$GPT-5.5",
       "extraArgs": {
         "service_tier": "priority"
       },
@@ -65,117 +64,139 @@
       "provider": "openai"
     },
     {
-      "model": "gpt-5.5(medium)",
-      "id": "custom:GPT-5.5-Medium-1",
+      "model": "claude-opus-4-8",
+      "id": "custom:Claude-Opus-4-8",
       "index": 1,
-      "baseUrl": "http://cliproxyapi:8317/v1",
+      "baseUrl": "http://cliproxyapi:8317",
       "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "GPT-5.5 Medium",
-      "extraArgs": {
-        "service_tier": "priority"
-      },
+      "displayName": "$Claude Opus 4.8",
       "noImageSupport": false,
-      "provider": "openai"
+      "provider": "anthropic"
     },
     {
-      "model": "gpt-5.5(high)",
-      "id": "custom:GPT-5.5-High-2",
+      "model": "grok-composer-2.5-fast",
+      "id": "custom:Grok-Composer-2.5-Fast",
       "index": 2,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "GPT-5.5 High",
-      "extraArgs": {
-        "service_tier": "priority"
-      },
+      "displayName": "$Grok Composer 2.5 Fast",
       "noImageSupport": false,
       "provider": "openai"
     },
     {
-      "model": "gpt-5.5(xhigh)",
-      "id": "custom:GPT-5.5-X-High-3",
+      "model": "glm-5.2",
+      "id": "custom:GLM-5.2",
       "index": 3,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "GPT-5.5 X-High",
-      "extraArgs": {
-        "service_tier": "priority"
-      },
-      "noImageSupport": false,
+      "displayName": "$GLM 5.2",
+      "noImageSupport": true,
       "provider": "openai"
     },
     {
-      "model": "gpt-5.4-mini(medium)",
-      "id": "custom:GPT-5.4-Mini-Medium-4",
+      "model": "deepseek-v4-pro",
+      "id": "custom:DeepSeek-V4-Pro",
       "index": 4,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "GPT-5.4 Mini Medium",
-      "extraArgs": {
-        "service_tier": "priority"
-      },
-      "noImageSupport": false,
+      "displayName": "$Deepseek V4 Pro",
+      "noImageSupport": true,
       "provider": "openai"
     },
     {
-      "model": "gpt-5.4-mini(high)",
-      "id": "custom:GPT-5.4-Mini-High-5",
+      "model": "deepseek-v4-flash",
+      "id": "custom:DeepSeek-V4-Flash",
       "index": 5,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "GPT-5.4 Mini High",
-      "extraArgs": {
-        "service_tier": "priority"
-      },
-      "noImageSupport": false,
+      "displayName": "$Deepseek V4 Flash",
+      "noImageSupport": true,
       "provider": "openai"
     },
     {
-      "model": "gpt-5.4-mini(xhigh)",
-      "id": "custom:GPT-5.4-Mini-X-High-6",
+      "model": "kimi-k2.7-code",
+      "id": "custom:Kimi-K2.7-Code",
       "index": 6,
       "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "GPT-5.4 Mini X-High",
-      "extraArgs": {
-        "service_tier": "priority"
-      },
-      "noImageSupport": false,
+      "displayName": "$Kimi K2.7 Code",
+      "noImageSupport": true,
       "provider": "openai"
     }
   ],
-  "sessionDefaultSettings": {
-    "model": "custom:GPT-5.5-Low-0",
-    "reasoningEffort": "none",
-    "interactionMode": "auto",
-    "autonomyLevel": "low",
-    "autonomyMode": "auto-low"
-  },
-  "includeCoAuthoredByDroid": false,
-  "enableDroidShield": false,
-  "todoDisplayMode": "pinned",
-  "allowBackgroundProcesses": true,
-  "showThinkingInMainView": false,
-  "ideAutoConnect": false,
-  "showTokenUsageIndicator": true,
-  "enableWarmup": true,
+  "diffMode": "github",
+  "enableCompletionBell": true,
   "enableCustomDroids": true,
+  "enableDroidShield": false,
+  "enableHooks": true,
   "enableReadinessReport": false,
-  "enableHooks": false,
-  "completionSoundFocusMode": "always",
-  "enableSkills": false,
-  "autonomyLevel": "auto-medium",
+  "enableSkills": true,
+  "enableWarmup": true,
+  "enabledPlugins": {
+    "core@factory-plugins": true,
+    "droid-control@factory-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "agent-toolkit-for-aws": {
+      "source": {
+        "repo": "aws/agent-toolkit-for-aws",
+        "source": "github"
+      }
+    }
+  },
+  "hasSeenMissionOnboarding": true,
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/home/ethan/.agents/hooks/session-start' droid",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "ideActivationNudgedForVersion": {},
+  "ideAutoConnect": false,
+  "ideExtensionPromptedAt": {},
+  "includeCoAuthoredByDroid": false,
+  "logoAnimation": "off",
+  "missionModelSettings": {
+    "validationWorkerModel": "custom:GPT-5.5",
+    "workerModel": "custom:Grok-Composer-2.5-Fast",
+    "validationWorkerReasoningEffort": "high",
+    "skipScrutiny": true
+  },
+  "missionOrchestratorModel": "custom:Claude-Opus-4-8",
+  "sessionDefaultSettings": {
+    "autonomyLevel": "medium",
+    "autonomyMode": "auto-medium",
+    "interactionMode": "auto",
+    "model": "glm-5.2",
+    "reasoningEffort": "high"
+  },
+  "showThinkingInMainView": true,
+  "showTokenUsageIndicator": true,
+  "soundFocusMode": "always",
   "specSaveEnabled": true,
   "terminalColorMode": "light",
   "theme": "factory-light",
-  "hasSeenMissionOnboarding": true,
-  "missionModelSettings": {
-    "workerModel": "custom:GPT-5.5-Low-0",
-    "workerReasoningEffort": "none",
-    "validationWorkerModel": "custom:GPT-5.5-High-2"
-  },
-  "logoAnimation": "off",
-
-  "enabledPlugins": {
-    "core@factory-plugins": true
-  }
+  "todoDisplayMode": "pinned",
+  "toolResultDisplay": "compact",
+  "cloudSessionSync": true,
+  "modelFavorites": [
+    "glm-5.2",
+    "custom:GPT-5.5",
+    "custom:Grok-Composer-2.5-Fast",
+    "custom:Claude-Opus-4-8",
+    "custom:GLM-5.2"
+  ],
+  "dismissedNewModels": [
+    "glm-5.2",
+    "claude-opus-4-8",
+    "kimi-k2.7-code",
+    "minimax-m3"
+  ]
 }

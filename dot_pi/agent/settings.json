@@ -1,33 +1,73 @@
 {
-  "lastChangelogVersion": "0.65.2",
+  "lastChangelogVersion": "0.80.3",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4",
-  "defaultThinkingLevel": "xhigh",
-  "hideThinkingBlock": true,
-  "compaction": {
-    "enabled": true
-  },
-  "theme": "light",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "high",
   "packages": [
-    "npm:pi-extmgr",
+    "npm:@juanibiapina/pi-extension-settings",
+    "npm:@howaboua/pi-codex-conversion",
+    "npm:pi-cursor-sdk",
     "npm:pi-web-access",
-    "npm:@calesennett/pi-codex-fast",
-    "git:github.com/ghoseb/pi-askuserquestion",
-    "npm:pi-claude-bridge",
-    {
-      "source": "npm:@jordyvd/pi-openai-compaction",
-      "extensions": [
-        "-index.ts"
-      ]
-    },
-    "npm:@sting8k/pi-vcc",
-    "npm:pi-interactive-shell"
+    "npm:pi-windsurf",
+    "npm:pi-ask-user",
+    "npm:pi-mcp-adapter",
+    "git:github.com/VandeeFeng/pi-memory-md",
+    "npm:@devkade/pi-plan",
+    "npm:pi-simplify",
+    "npm:pi-add-dir",
+    "npm:pi-prompt-template-model",
+    "npm:@plannotator/pi-extension",
+    "npm:pi-slopchop",
+    "npm:@juanibiapina/pi-powerbar",
+    "npm:@tmustier/pi-usage-extension",
+    "npm:@tmustier/pi-raw-paste",
+    "npm:pi-btw",
+    "npm:pi-interactive-shell",
+    "git:github.com/davebcn87/pi-autoresearch",
+    "npm:@tmustier/pi-ralph-wiggum",
+    "git:github.com/javierportillo/pi-hackerman@63b0a3ef2c7b14985ffeb6cac44614ba59cd5693",
+    "npm:@victor-software-house/pi-curated-themes",
+    "npm:pi-terminal-theme",
+    "../../pi-subagents",
+    "../../pi-tasks",
+    "/home/ethan/.local/share/mise/installs/npm-blackbelt-technology-pi-agent-dashboard/0.5.4/lib/node_modules/@blackbelt-technology/pi-agent-dashboard/packages/extension"
   ],
+  "hideThinkingBlock": false,
+  "theme": "light",
+  "providers": {
+    "anthropic": {
+      "modelOverrides": {
+        "claude-fable-5": {
+          "contextWindow": 216384
+        }
+      }
+    }
+  },
   "enabledModels": [
-    "cerebras/zai-glm-4.7",
-    "openai-codex/gpt-5.4"
+    "openai-codex/gpt-5.5",
+    "cursor/composer-2.5:fast"
   ],
-  "pi-codex-fast": {
-    "enabled": true
-  }
+  "subagents": {
+    "agentOverrides": {
+      "context-builder": {
+        "model": ""
+      },
+      "planner": {
+        "model": ""
+      },
+      "researcher": {
+        "model": ""
+      },
+      "reviewer": {
+        "model": ""
+      },
+      "scout": {
+        "model": ""
+      },
+      "worker": {
+        "model": ""
+      }
+    }
+  },
+  "tasksMode": "open"
 }

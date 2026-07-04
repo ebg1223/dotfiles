@@ -1,88 +1,55 @@
 {
-  "plugin": ["opencode-antigravity-auth@1.6.0"],
-  "mcp": {
-    "auggie": {
-      "type": "remote",
-      "url": "https://api.augmentcode.com/mcp",
-      "enabled": true
-    }
-  },
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "opencode-antigravity-auth@1.6.0"
+  ],
+  "model": "openai/gpt-5.5-fast",
   "permission": {
     "skill": {
       "*": "allow"
     }
   },
+  "disabled_providers": [],
   "provider": {
-    "google": {
-      "name": "Google",
+    "cliproxyapi": {
+      "name": "CLI Proxy Anthropic",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://cliproxyapi:8317/v1",
+        "apiKey": "cliproxy"
+      },
       "models": {
-        "gemini-3-pro-high": {
-          "name": "Gemini 3 Pro High",
-          "attachment": true,
-          "limit": {
-            "context": 1048576,
-            "output": 65535
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          }
+        "claude-opus-4-8": {
+          "name": "Claude Opus 4 8"
         },
-        "gemini-3-flash": {
-          "name": "Gemini 3 Flash",
-          "attachment": true,
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          }
+        "grok-composer-2.5-fast": {
+          "name": "Grok Composer 2.5 Fast"
         },
-        "claude-opus-4-5-thinking": {
-          "name": "Claude Opus 4.5 Thinking",
-          "attachment": true,
-          "limit": {
-            "context": 200000,
-            "output": 32000
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          }
-        },
-        "claude-sonnet-4-5-thinking": {
-          "name": "Claude Sonnet 4.5 Thinking",
-          "attachment": true,
-          "limit": {
-            "context": 200000,
-            "output": 32000
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          }
+        "glm-5.2":{
+          "name": "GLM 5.2"
         }
       }
     }
   },
+  "shell": "/usr/bin/zsh",
   "agent": {
-    "implementer": {
-      "description": "Implementer handles specific tasks with clearly defined boundaries. These are usually part of a larger plan. The Implementer must not be tasked with dividing tasks; all decomposition into discrete sub-steps (e.g., Analysis -> Structure -> Code) must be performed by the orchestrator beforehand. Follow these direct requirements for every call: Front-Load Constraints: Inject all mandatory directives at the absolute start of the system prompt. The Implementer ignores instructions placed later in the context. Use Imperative Commands: Use binary, forceful language (MUST, REQUIRED, STRICTLY). Do not use suggestive or soft phrasing Mandatory Output Review: Do not allow the Implementer to self-validate. Always route its output to a separate critic or agent for verification.",
-      "mode": "subagent",
-      "model": "cerebras/zai-glm-4.7",
-      "prompt": "You are an expert implementation specialist. You are working as part of a team. You are given specific tasks as part of a plan from the architect. Implement to the very best of your abilities. Stop early and ask questions if you are unsure of something. Return an outline of your actions so the architect can review your work when done.",
-      "tools": {
-        "write": true,
-        "edit": true,
-        "bash": true
-      },
+    "explore": {
+      "model": "baseten/zai-org/GLM-5.2"
+    },
+    "orchestrator": {
       "permission": {
-        "edit": "allow",
-        "bash": "allow"
+        "task": {
+          "*": "deny",
+          "explore": "allow",
+          "general": "allow",
+          "default-junior-engineer": "allow",
+          "codex-junior-engineer": "allow",
+          "glm-junior-engineer": "allow",
+          "senior-engineer": "allow",
+          "planner-reviewer": "allow",
+          "second-opinion": "allow"
+        }
       }
     }
-  },
-  "$schema": "https://opencode.ai/config.json"
+  }
 }

@@ -24,8 +24,80 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-eval "$(oh-my-posh init zsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/rudolfs-light.omp.json)"
+export POSH_THEME="rudolfs-light"
+eval "$(oh-my-posh init zsh --config "$POSH_THEME")"
+
+function _omp_get_prompt() {
+  local type=$1
+  local args=("${@[2,-1]}")
+  $_omp_executable print $type \
+    --config "$POSH_THEME" \
+    --save-cache \
+    --shell=zsh \
+    --shell-version=$ZSH_VERSION \
+    --status=$_omp_status \
+    --pipestatus="${_omp_pipestatus[*]}" \
+    --no-status=$_omp_no_status \
+    --execution-time=$_omp_execution_time \
+    --job-count=$_omp_job_count \
+    --stack-count=$_omp_stack_count \
+    --terminal-width="${COLUMNS-0}" \
+    ${args[@]}
+}
 
 # Customize to your needs...
 
 export PATH="$HOME/.local/bin:$PATH"
+
+# smux
+export PATH="$HOME/.smux/bin:$PATH"
+
+sesh-cc() {
+  local session
+  session="$(sesh list | fzf)"
+  [ -z "$session" ] && return
+  tmux -CC attach -t "$session" 2>/dev/null || tmux -CC new-session -A -s "$session"
+}
+
+synclaude() {
+  : "${SYNTHETIC_AUTH_TOKEN:?Set SYNTHETIC_AUTH_TOKEN}"
+  ANTHROPIC_BASE_URL=https://api.synthetic.new/anthropic \
+  ANTHROPIC_AUTH_TOKEN="$SYNTHETIC_AUTH_TOKEN" \
+  ANTHROPIC_DEFAULT_OPUS_MODEL=syn:large:text \
+  ANTHROPIC_DEFAULT_SONNET_MODEL=syn:large:vision \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL=syn:small:text \
+  CLAUDE_CODE_SUBAGENT_MODEL=syn:large:vision \
+  CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 \
+  CLAUDE_CODE_ATTRIBUTION_HEADER=0 \
+  claude --dangerously-skip-permissions "$@"
+}
+
+cc() {
+  claude --dangerously-skip-permissions "$@"
+}
+
+basetenclaude() {
+  : "${BASETEN_API_KEY:?Set BASETEN_API_KEY}"
+  ANTHROPIC_BASE_URL=https://inference.baseten.co \
+  ANTHROPIC_AUTH_TOKEN="$BASETEN_API_KEY" \
+  ANTHROPIC_DEFAULT_OPUS_MODEL=zai-org/GLM-5.2 \
+  ANTHROPIC_DEFAULT_SONNET_MODEL=zai-org/GLM-5.2 \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL=zai-org/GLM-5.2 \
+  CLAUDE_CODE_SUBAGENT_MODEL=zai-org/GLM-5.2 \
+  CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 \
+  CLAUDE_CODE_ATTRIBUTION_HEADER=0 \
+  claude --dangerously-skip-permissions "$@"
+}
+
+fireworksclaude() {
+  : "${FIREWORKS_API_KEY:?Set FIREWORKS_API_KEY}"
+  ANTHROPIC_BASE_URL=https://api.fireworks.ai/inference \
+  ANTHROPIC_AUTH_TOKEN="$FIREWORKS_API_KEY" \
+  ANTHROPIC_DEFAULT_OPUS_MODEL=accounts/fireworks/models/glm-5p2 \
+  ANTHROPIC_DEFAULT_SONNET_MODEL=accounts/fireworks/models/kimi-k2p7-code \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL=accounts/fireworks/models/deepseek-v4-flash \
+  CLAUDE_CODE_SUBAGENT_MODEL=accounts/fireworks/models/deepseek-v4-flash \
+  CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 \
+  CLAUDE_CODE_ATTRIBUTION_HEADER=0 \
+  claude --dangerously-skip-permissions "$@"
+}
