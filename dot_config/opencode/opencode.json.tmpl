@@ -31,7 +31,7 @@
       }
     }
   },
-  "shell": "/usr/bin/zsh",
+  "shell": "{{ if eq .chezmoi.os "darwin" }}/bin/zsh{{ else if eq .chezmoi.os "linux" }}/usr/bin/zsh{{ else }}zsh{{ end }}",
   "agent": {
     "explore": {
       "model": "baseten/zai-org/GLM-5.2"

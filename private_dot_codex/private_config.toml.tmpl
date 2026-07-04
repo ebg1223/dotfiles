@@ -1,0 +1,82 @@
+model = "gpt-5.5"
+model_reasoning_effort = "high"
+personality = "pragmatic"
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+approvals_reviewer = "user"
+service_tier = "priority"
+
+[projects."{{ .chezmoi.homeDir }}"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/EMR/WHHC-CUA"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/EMR/WHHC-DEPLOY"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/EMR/convexlance"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/EMR/plaincare"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/EMR/worktrees/hatchet-billing-simple"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/printing/bed"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/dpcode"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/.factory"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/.paseo"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/paseo"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/codex-plugin-cc"]
+trust_level = "trusted"
+
+[notice]
+fast_default_opt_out = true
+
+[notice.model_migrations]
+"gpt-5.3-codex" = "gpt-5.4"
+
+[features]
+hooks = true
+js_repl = true
+multi_agent = true
+terminal_resize_reflow = true
+
+[tui]
+theme = "inspired-github"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[plugins."gmail@openai-curated"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."aws-agents@agent-toolkit-for-aws"]
+enabled = true
+
+[plugins."aws-core@agent-toolkit-for-aws"]
+enabled = true
+
+[plugins."aws-data-analytics@agent-toolkit-for-aws"]
+enabled = true
+
+[marketplaces.agent-toolkit-for-aws]
+last_updated = "2026-07-03T16:27:39Z"
+last_revision = "ff1481a7bc1a04ee00ebf63d3a8a149aa6a2c546"
+source_type = "git"
+source = "https://github.com/aws/agent-toolkit-for-aws.git"

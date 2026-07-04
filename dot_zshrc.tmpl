@@ -7,15 +7,25 @@
 #
 #
 {{- if eq .chezmoi.os "darwin" }}
-eval "$(/opt/homebrew/bin/mise activate zsh)"
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 {{- else if eq .chezmoi.os "linux" }}
-eval "$(/home/linuxbrew/.linuxbrew/bin/mise activate zsh)"
+if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 {{- end }}
 
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+
 # Runs after mise as zoxide is a mise installable package.
-eval "$(zoxide init zsh)"
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
 
 # Runs last to capture all changes to shell from the previous commands.
 
@@ -25,7 +35,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 export POSH_THEME="rudolfs-light"
-eval "$(oh-my-posh init zsh --config "$POSH_THEME")"
+if command -v oh-my-posh >/dev/null 2>&1; then
+  eval "$(oh-my-posh init zsh --config "$POSH_THEME")"
+fi
 
 function _omp_get_prompt() {
   local type=$1

@@ -3,17 +3,26 @@
 if test -x /home/linuxbrew/.linuxbrew/bin/brew
     eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
+{{- else if eq .chezmoi.os "darwin" }}
+# Homebrew
+if test -x /opt/homebrew/bin/brew
+    eval (/opt/homebrew/bin/brew shellenv)
+end
 {{- end }}
 
 
 
 fish_add_path ~/.npm-global/bin ~/.bun/bin $HOME/.local/scripts $HOME/.local/bin $HOME/.local/share/mise/shims
-# mise activate fish | source
+if command -q mise
+    mise activate fish | source
+end
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
     #
-    starship init fish | source
+    if command -q starship
+        starship init fish | source
+    end
 {{- if eq .chezmoi.os "darwin" }}
     ssh-add --apple-load-keychain -q >/dev/null 2>&1
     if test "$TERM_PROGRAM" = ghostty; and not set -q TMUX
@@ -25,7 +34,7 @@ if status is-interactive
         set -gx TERM xterm-256color
     end
     set -gx FORCE_COLOR 3
-    fish_add_path /home/linuxbrew/.linuxbrew/bin/brew
+    fish_add_path /home/linuxbrew/.linuxbrew/bin
 
     # Set window title to show hostname and shpool session
     function fish_title
@@ -42,4 +51,6 @@ if status is-interactive
 {{- end }}
 end
 
-zoxide init fish | source
+if command -q zoxide
+    zoxide init fish | source
+end

@@ -150,7 +150,7 @@
       {
         "hooks": [
           {
-            "command": "bash '/home/ethan/.agents/hooks/session-start' droid",
+            "command": "test ! -x '{{ .chezmoi.homeDir }}/.agents/hooks/session-start' || bash '{{ .chezmoi.homeDir }}/.agents/hooks/session-start' droid",
             "timeout": 10,
             "type": "command"
           }
