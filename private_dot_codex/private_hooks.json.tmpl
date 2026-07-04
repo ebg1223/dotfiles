@@ -1,0 +1,48 @@
+{
+  "hooks": {
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "command": "test ! -x '{{ .chezmoi.homeDir }}/.agents/hooks/permission-request' || bash '{{ .chezmoi.homeDir }}/.agents/hooks/permission-request' codex",
+            "timeout": 300,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "test ! -x '{{ .chezmoi.homeDir }}/.agents/hooks/session-start' || bash '{{ .chezmoi.homeDir }}/.agents/hooks/session-start' codex",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "test ! -x '{{ .chezmoi.homeDir }}/.agents/hooks/agent-stop' || bash '{{ .chezmoi.homeDir }}/.agents/hooks/agent-stop' codex",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "test ! -x '{{ .chezmoi.homeDir }}/.agents/hooks/prompt-submit' || bash '{{ .chezmoi.homeDir }}/.agents/hooks/prompt-submit' codex",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+#!/usr/bin/env bash
+# Unified agent hook dispatcher.
+# Safe by default: missing tools, missing Herdr env, malformed hook payloads, and
+# unsupported events all no-op unless the delegated hook itself intentionally fails.
+set +e
+
+agent="${1:-}"
+event="${2:-}"
+
+if [ -z "$agent" ] || [ -z "$event" ]; then
+  echo "usage: agent-hook <agent> <event>" >&2
+  exit 0
+fi
+
+hook_input_file="$(mktemp "${TMPDIR:-/tmp}/agent-hook-${agent}-${event}.XXXXXX" 2>/dev/null)" || exit 0
+trap 'rm -f "$hook_input_file"' EXIT HUP INT TERM
+cat >"$hook_input_file" 2>/dev/null || true
+
+log_dir="${AGENT_HOOK_LOG_DIR:-{{ .chezmoi.homeDir }}/.agents/hooks/logs}"
+mkdir -p "$log_dir" 2>/dev/null || true
+log_file="$log_dir/agent-hook.log"
+
+log() {
+  [ "${AGENT_HOOK_DEBUG:-}" = "1" ] || return 0
+  printf '%s agent=%s event=%s %s\n' "$(date -Is 2>/dev/null || date)" "$agent" "$event" "$*" >>"$log_file" 2>/dev/null || true
+}
+
+moshi_arg=""
+case "$agent" in
+  codex) moshi_arg="codex-hook" ;;
+  cursor) moshi_arg="cursor-hook" ;;
+  gemini) moshi_arg="gemini-hook" ;;
+  pi) moshi_arg="pi-hook" ;;
+  omp) moshi_arg="omp-hook" ;;
+  *) moshi_arg="" ;;
+esac
+
+run_moshi() {
+  [ -n "$moshi_arg" ] || return 0
+  [ "${AGENT_HOOK_DISABLE_MOSHI:-}" = "1" ] && return 0
+  helper="${MOSHI_HOOK_BIN:-{{ .chezmoi.homeDir }}/.local/bin/moshi-hook}"
+  [ -x "$helper" ] || { log "moshi missing: $helper"; return 0; }
+
+  # Permission hooks may intentionally return a decision; preserve their status.
+  if [ "$event" = "PermissionRequest" ] || [ "$event" = "permission-request" ]; then
+    "$helper" "$moshi_arg" <"$hook_input_file"
+    return $?
+  fi
+
+  # Lifecycle/notification hooks should never block or fail the parent agent.
+  if command -v timeout >/dev/null 2>&1; then
+    timeout "${AGENT_HOOK_MOSHI_TIMEOUT:-10}" "$helper" "$moshi_arg" <"$hook_input_file" >/dev/null 2>&1 || log "moshi exited nonzero"
+  else
+    "$helper" "$moshi_arg" <"$hook_input_file" >/dev/null 2>&1 || log "moshi exited nonzero"
+  fi
+  return 0
+}
+
+run_herdr_session_report() {
+  [ "${AGENT_HOOK_DISABLE_HERDR:-}" = "1" ] && return 0
+  case "$event" in
+    SessionStart|sessionStart|session_start|BeforeAgent|AgentStart|agent_start) ;;
+    *) return 0 ;;
+  esac
+  [ "${HERDR_ENV:-}" = "1" ] || { log "not in Herdr env"; return 0; }
+  [ -n "${HERDR_SOCKET_PATH:-}" ] || { log "missing HERDR_SOCKET_PATH"; return 0; }
+  [ -n "${HERDR_PANE_ID:-}" ] || { log "missing HERDR_PANE_ID"; return 0; }
+  command -v python3 >/dev/null 2>&1 || { log "python3 missing"; return 0; }
+
+  AGENT_HOOK_AGENT="$agent" AGENT_HOOK_EVENT="$event" AGENT_HOOK_INPUT_FILE="$hook_input_file" python3 - <<'PY' >/dev/null 2>&1
+import json, os, random, socket, time
+
+agent = os.environ.get("AGENT_HOOK_AGENT", "")
+event = os.environ.get("AGENT_HOOK_EVENT", "")
+pane_id = os.environ.get("HERDR_PANE_ID")
+socket_path = os.environ.get("HERDR_SOCKET_PATH")
+hook_input_file = os.environ.get("AGENT_HOOK_INPUT_FILE")
+if not agent or not pane_id or not socket_path:
+    raise SystemExit(0)
+
+try:
+    raw = open(hook_input_file, encoding="utf-8").read() if hook_input_file else ""
+    payload = json.loads(raw) if raw.strip() else {}
+except Exception:
+    payload = {}
+if not isinstance(payload, dict):
+    payload = {}
+
+# Avoid letting Claude subagent events update the parent pane.
+if agent == "claude" and payload.get("agent_id"):
+    raise SystemExit(0)
+
+hook_event_name = payload.get("hook_event_name") or payload.get("hookEventName") or event
+if agent == "claude" and hook_event_name == "SubagentStop":
+    raise SystemExit(0)
+
+session_id = None
+for key in ("session_id", "sessionId", "conversation_id", "conversationId"):
+    value = payload.get(key)
+    if isinstance(value, str) and value:
+        session_id = value
+        break
+if not session_id:
+    # Some agent hooks do not expose a durable session id. In those cases do not
+    # invent one; Herdr can still infer state from its native integrations.
+    raise SystemExit(0)
+
+agent_name = "droid" if agent in ("factory", "droid") else agent
+source = f"herdr:{agent_name}"
+params = {
+    "pane_id": pane_id,
+    "source": source,
+    "agent": agent_name,
+    "seq": time.time_ns(),
+    "agent_session_id": session_id,
+}
+transcript_path = payload.get("transcript_path")
+if isinstance(transcript_path, str) and transcript_path:
+    params["agent_session_path"] = transcript_path
+session_start_source = payload.get("source") if hook_event_name in ("SessionStart", "sessionStart", "session_start") else None
+if isinstance(session_start_source, str) and session_start_source:
+    params["session_start_source"] = session_start_source
+
+request = {
+    "id": f"{source}:session:{int(time.time() * 1000)}:{random.randrange(1_000_000):06d}",
+    "method": "pane.report_agent_session",
+    "params": params,
+}
+try:
+    client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    client.settimeout(0.5)
+    client.connect(socket_path)
+    client.sendall((json.dumps(request) + "\n").encode())
+    try:
+        client.recv(4096)
+    except Exception:
+        pass
+    client.close()
+except Exception:
+    pass
+PY
+  return 0
+}
+
+run_herdr_session_report
+run_moshi
+status=$?
+
+# Never let non-permission hook failures break the agent.
+if [ "$event" = "PermissionRequest" ] || [ "$event" = "permission-request" ]; then
+  exit "$status"
+fi
+exit 0
