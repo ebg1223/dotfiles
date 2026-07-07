@@ -76,8 +76,8 @@ function upstreamModelId(id: string, reasoning?: string): string {
 
 async function loadOpenAIResponsesStreamSimple(): Promise<StreamSimple | undefined> {
   const candidates = [
-    "/home/ethan/.local/share/mise/installs/npm-earendil-works-pi-coding-agent/0.80.3/lib/node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-ai/dist/api/openai-responses.js",
-    "/home/ethan/.pi/agent/npm/node_modules/@earendil-works/pi-ai/dist/providers/openai-responses.js",
+    "/home/fedora/.local/share/mise/installs/npm-earendil-works-pi-coding-agent/0.80.3/lib/node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-ai/dist/api/openai-responses.js",
+    "/home/fedora/.pi/agent/npm/node_modules/@earendil-works/pi-ai/dist/providers/openai-responses.js",
   ];
   for (const candidate of candidates) {
     try {

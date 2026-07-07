@@ -1,0 +1,9 @@
+[synara]
+enabled = false
+# Empty path defaults to "$HOME/synara" in templates.
+path = ""
+host = "0.0.0.0"
+port = 3773
+# When Synara is enabled, try to enable systemd user lingering by default
+# so the service starts at boot without an interactive login.
+linger = true

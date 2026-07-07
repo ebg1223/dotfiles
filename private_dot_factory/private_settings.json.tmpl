@@ -2,6 +2,7 @@
   "allowBackgroundProcesses": true,
   "autonomyLevel": "auto-medium",
   "awaitingInputSound": "fx-ack01",
+  "cloudSessionSync": true,
   "commandAllowlist": [
     "ls",
     "pwd",
@@ -51,80 +52,86 @@
   "completionSoundFocusMode": "always",
   "customModels": [
     {
-      "model": "gpt-5.5",
-      "id": "custom:GPT-5.5",
-      "index": 0,
-      "baseUrl": "http://cliproxyapi:8317/v1",
       "apiKey": "CLI_PROXY_API_KEY",
+      "baseUrl": "http://cliproxyapi:8317/v1",
       "displayName": "$GPT-5.5",
       "extraArgs": {
         "service_tier": "priority"
       },
+      "id": "custom:GPT-5.5",
+      "index": 0,
+      "model": "gpt-5.5",
       "noImageSupport": false,
       "provider": "openai"
     },
     {
-      "model": "claude-opus-4-8",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "baseUrl": "http://cliproxyapi:8317",
+      "displayName": "$Claude Opus 4.8",
       "id": "custom:Claude-Opus-4-8",
       "index": 1,
-      "baseUrl": "http://cliproxyapi:8317",
-      "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "$Claude Opus 4.8",
+      "model": "claude-opus-4-8",
       "noImageSupport": false,
       "provider": "anthropic"
     },
     {
-      "model": "grok-composer-2.5-fast",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "displayName": "$Grok Composer 2.5 Fast",
       "id": "custom:Grok-Composer-2.5-Fast",
       "index": 2,
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "$Grok Composer 2.5 Fast",
+      "model": "grok-composer-2.5-fast",
       "noImageSupport": false,
       "provider": "openai"
     },
     {
-      "model": "glm-5.2",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "displayName": "$GLM 5.2",
       "id": "custom:GLM-5.2",
       "index": 3,
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "$GLM 5.2",
+      "model": "glm-5.2",
       "noImageSupport": true,
       "provider": "openai"
     },
     {
-      "model": "deepseek-v4-pro",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "displayName": "$Deepseek V4 Pro",
       "id": "custom:DeepSeek-V4-Pro",
       "index": 4,
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "$Deepseek V4 Pro",
+      "model": "deepseek-v4-pro",
       "noImageSupport": true,
       "provider": "openai"
     },
     {
-      "model": "deepseek-v4-flash",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "displayName": "$Deepseek V4 Flash",
       "id": "custom:DeepSeek-V4-Flash",
       "index": 5,
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "$Deepseek V4 Flash",
+      "model": "deepseek-v4-flash",
       "noImageSupport": true,
       "provider": "openai"
     },
     {
-      "model": "kimi-k2.7-code",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "displayName": "$Kimi K2.7 Code",
       "id": "custom:Kimi-K2.7-Code",
       "index": 6,
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "apiKey": "CLI_PROXY_API_KEY",
-      "displayName": "$Kimi K2.7 Code",
+      "model": "kimi-k2.7-code",
       "noImageSupport": true,
       "provider": "openai"
     }
   ],
   "diffMode": "github",
+  "dismissedNewModels": [
+    "glm-5.2",
+    "claude-opus-4-8",
+    "kimi-k2.7-code",
+    "minimax-m3"
+  ],
   "enableCompletionBell": true,
   "enableCustomDroids": true,
   "enableDroidShield": false,
@@ -155,6 +162,15 @@
             "type": "command"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "bash '{{ .chezmoi.homeDir }}/.factory/hooks/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
       }
     ]
   },
@@ -164,12 +180,19 @@
   "includeCoAuthoredByDroid": false,
   "logoAnimation": "off",
   "missionModelSettings": {
+    "skipScrutiny": true,
     "validationWorkerModel": "custom:GPT-5.5",
-    "workerModel": "custom:Grok-Composer-2.5-Fast",
     "validationWorkerReasoningEffort": "high",
-    "skipScrutiny": true
+    "workerModel": "custom:Grok-Composer-2.5-Fast"
   },
   "missionOrchestratorModel": "custom:Claude-Opus-4-8",
+  "modelFavorites": [
+    "glm-5.2",
+    "custom:GPT-5.5",
+    "custom:Grok-Composer-2.5-Fast",
+    "custom:Claude-Opus-4-8",
+    "custom:GLM-5.2"
+  ],
   "sessionDefaultSettings": {
     "autonomyLevel": "medium",
     "autonomyMode": "auto-medium",
@@ -184,19 +207,5 @@
   "terminalColorMode": "light",
   "theme": "factory-light",
   "todoDisplayMode": "pinned",
-  "toolResultDisplay": "compact",
-  "cloudSessionSync": true,
-  "modelFavorites": [
-    "glm-5.2",
-    "custom:GPT-5.5",
-    "custom:Grok-Composer-2.5-Fast",
-    "custom:Claude-Opus-4-8",
-    "custom:GLM-5.2"
-  ],
-  "dismissedNewModels": [
-    "glm-5.2",
-    "claude-opus-4-8",
-    "kimi-k2.7-code",
-    "minimax-m3"
-  ]
+  "toolResultDisplay": "compact"
 }

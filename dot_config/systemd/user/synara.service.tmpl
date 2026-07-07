@@ -1,0 +1,24 @@
+{{- $synaraPath := .synara.path -}}
+{{- if not $synaraPath -}}
+{{- $synaraPath = printf "%s/synara" .chezmoi.homeDir -}}
+{{- end -}}
+[Unit]
+Description=Synara web service
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists={{ $synaraPath }}/package.json
+
+[Service]
+Type=simple
+WorkingDirectory={{ $synaraPath }}
+Environment=HOME={{ .chezmoi.homeDir }}
+Environment=NODE_ENV=production
+EnvironmentFile=-%h/.config/synara/service.env
+ExecStartPre={{ .chezmoi.homeDir }}/.local/share/mise/shims/bun run build
+ExecStart={{ .chezmoi.homeDir }}/.local/share/mise/shims/bun run --cwd apps/server start -- --host {{ .synara.host }} --port {{ .synara.port }} --mode web
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=120
+
+[Install]
+WantedBy=default.target

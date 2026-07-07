@@ -1,0 +1,30 @@
+#!/bin/sh
+set -eu
+
+{{- if eq .chezmoi.os "linux" }}
+unit_name="synara.service"
+unit_path="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user/$unit_name"
+
+if ! command -v systemctl >/dev/null 2>&1; then
+  exit 0
+fi
+
+{{- if .synara.enabled }}
+if [ ! -e "$unit_path" ]; then
+  echo "Synara service is enabled in chezmoi, but $unit_path was not created."
+  exit 0
+fi
+
+systemctl --user enable --now "$unit_name" || {
+  echo "Could not enable/start the Synara systemd user service. Run manually:"
+  echo "  systemctl --user daemon-reload"
+  echo "  systemctl --user enable --now $unit_name"
+}
+{{- else }}
+systemctl --user disable --now "$unit_name" 2>/dev/null || true
+rm -f "$unit_path"
+systemctl --user daemon-reload 2>/dev/null || true
+{{- end }}
+{{- else }}
+:
+{{- end }}

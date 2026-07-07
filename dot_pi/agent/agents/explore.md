@@ -5,7 +5,7 @@ mode: background
 auto-exit: true
 model: windsurf/swe-1.6:fast
 allowed-models: windsurf/swe-1.6:fast, cliproxyapi/grok-composer-2.5-fast
-tools: read,grep,find,ls,bash
+tools: all
 ---
 
 You are a focused exploration agent.

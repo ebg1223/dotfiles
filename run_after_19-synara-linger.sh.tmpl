@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu
+
+{{- if and (eq .chezmoi.os "linux") .synara.enabled .synara.linger }}
+user="{{ .chezmoi.username }}"
+
+if ! command -v loginctl >/dev/null 2>&1; then
+  exit 0
+fi
+
+if [ "$(loginctl show-user "$user" -p Linger --value 2>/dev/null || true)" = "yes" ]; then
+  exit 0
+fi
+
+if command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
+  sudo loginctl enable-linger "$user"
+else
+  echo "Synara linger is enabled in chezmoi, but sudo is required."
+  echo "Run manually:"
+  echo "  sudo loginctl enable-linger $user"
+fi
+{{- else }}
+:
+{{- end }}

@@ -42,6 +42,15 @@ trust_level = "trusted"
 [projects."{{ .chezmoi.homeDir }}/codex-plugin-cc"]
 trust_level = "trusted"
 
+[projects."{{ .chezmoi.homeDir }}/quackvex"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/synara"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/t3code"]
+trust_level = "trusted"
+
 [notice]
 fast_default_opt_out = true
 
@@ -76,7 +85,11 @@ enabled = true
 enabled = true
 
 [marketplaces.agent-toolkit-for-aws]
-last_updated = "2026-07-03T16:27:39Z"
-last_revision = "ff1481a7bc1a04ee00ebf63d3a8a149aa6a2c546"
+last_updated = "2026-07-07T20:11:48Z"
+last_revision = "91433388bdca4ccff61482ee5a1d097dc5a8bbc9"
 source_type = "git"
 source = "https://github.com/aws/agent-toolkit-for-aws.git"
+
+[mcp_servers.lfg]
+command = "{{ .chezmoi.homeDir }}/.local/share/mise/installs/bun/latest/bin/bun"
+args = ["{{ .chezmoi.homeDir }}/.local/share/mise/installs/github-benny-kok-lfg/0.1.16/src/cli.ts", "mcp"]
