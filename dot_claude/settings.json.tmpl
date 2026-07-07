@@ -1,0 +1,38 @@
+{
+  "model": "claude-fable-5[1m]",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '{{ .chezmoi.homeDir }}/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "grok@grok-build-plugin": true,
+    "codex@codex-fable": true
+  },
+  "extraKnownMarketplaces": {
+    "codex-fable": {
+      "source": {
+        "source": "github",
+        "repo": "andrewmaspero/codex-plugin-cc"
+      }
+    },
+    "grok-build-plugin": {
+      "source": {
+        "source": "github",
+        "repo": "VasiHemanth/grok-build-plugin"
+      }
+    }
+  },
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "light"
+}
