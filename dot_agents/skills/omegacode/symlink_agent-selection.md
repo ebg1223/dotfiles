@@ -1,1 +1,1 @@
-/home/fedora/.agents/reference/agent-selection.md
+../../reference/agent-selection.md
