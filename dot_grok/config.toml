@@ -1,0 +1,18 @@
+[ui]
+max_thoughts_width = 120
+theme = "grokday"
+fork_secondary_model = "grok-build"
+yolo = false
+compact_mode = false
+permission_mode = "always-approve"
+remember_tool_approvals = true
+
+[marketplace]
+official_marketplace_auto_installed = true
+
+[[marketplace.sources]]
+name = "xAI Official"
+git = "https://github.com/xai-org/plugin-marketplace.git"
+
+[cli]
+auto_update = true
