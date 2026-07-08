@@ -1,7 +1,7 @@
 providers:
-  cliproxyapi:
+  cliproxy:
     baseUrl: http://cliproxyapi:8317/v1
-    api: openai-responses
-    auth: none
+    auth: "none"
+    disableStrictTools: true
     discovery:
       type: proxy

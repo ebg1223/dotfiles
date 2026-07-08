@@ -4,15 +4,24 @@ task:
   eager: preferred
 async: 
   enabled: true
+disabledProviders: 
+  - anthropic
+  - openrouter
+  - google
+  - nvidia
+  - openai
+  - ollama
+  - llama.cpp
+  - lm-studio
 modelRoles: 
-  default: devin/swe-1-6-fast
-  smol: devin/swe-1-6-fast
-  plan: openai-codex/gpt-5.5:xhigh
-  slow: openai-codex/gpt-5.5:high
-  task: devin/swe-1-6-fast
-  designer: anthropic/claude-opus-4-8:high
-  vision: anthropic/claude-opus-4-8:medium
-  advisor: openai-codex/gpt-5.5:xhigh
+  default: openai-codex/gpt-5.5:high
+  smol: cliproxy/grok-composer-2.5-fast
+  plan: cliproxy/claude-fable-5:high
+  slow: openai-codex/gpt-5.5:xhigh
+  task: cliproxy/grok-composer-2.5-fast
+  designer: cliproxyapi/claude-opus-4-8:high
+  vision: cliproxyapi/claude-opus-4-8:medium
+  advisor: cliproxy/claude-opus-4-8:xhigh
   tiny: devin/swe-1-6-fast
 theme: 
   dark: light-monochrome
@@ -29,7 +38,7 @@ setupVersion: 1
 defaultThinkingLevel: auto
 advisor: 
   enabled: true
-  subagents: true
+  subagents: false
   syncBacklog: "5"
   immuneTurns: 3
 disabledExtensions: 
