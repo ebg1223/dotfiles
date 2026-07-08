@@ -1,0 +1,15 @@
+{
+  "plugins": {
+    "@plannotator/pi-extension": {
+      "version": "0.17.7",
+      "enabledFeatures": null,
+      "enabled": true
+    },
+    "@ygncode/pi-web": {
+      "version": "0.0.1-beta.34",
+      "enabledFeatures": null,
+      "enabled": true
+    }
+  },
+  "settings": {}
+}

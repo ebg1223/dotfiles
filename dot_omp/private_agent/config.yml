@@ -1,0 +1,69 @@
+task: 
+  agentModelOverrides: 
+    {}
+  eager: preferred
+async: 
+  enabled: true
+modelRoles: 
+  default: devin/swe-1-6-fast
+  smol: devin/swe-1-6-fast
+  plan: openai-codex/gpt-5.5:xhigh
+  slow: openai-codex/gpt-5.5:high
+  task: devin/swe-1-6-fast
+  designer: anthropic/claude-opus-4-8:high
+  vision: anthropic/claude-opus-4-8:medium
+  advisor: openai-codex/gpt-5.5:xhigh
+  tiny: devin/swe-1-6-fast
+theme: 
+  dark: light-monochrome
+  light: light
+startup: 
+  checkUpdate: true
+renderMermaid: 
+  enabled: true
+hideThinkingBlock: false
+providers: 
+  webSearch: codex
+symbolPreset: unicode
+setupVersion: 1
+defaultThinkingLevel: auto
+advisor: 
+  enabled: true
+  subagents: true
+  syncBacklog: "5"
+  immuneTurns: 3
+disabledExtensions: 
+  - skill:omegacode
+  - skill:paseo-orchestrator
+  - skill:cursor-headless-cli
+  - skill:paseo
+  - skill:paseo-advisor
+  - skill:paseo-committee
+  - skill:paseo-handoff
+  - skill:paseo-loop
+  - skill:codex-cli
+  - skill:cursor-agent
+  - skill:claude-plan-orchestration
+  - context-file:user:CLAUDE.md
+compaction: 
+  idleEnabled: true
+  strategy: snapcompact
+  remoteEnabled: true
+github: 
+  enabled: true
+commands: 
+  enableClaudeUser: false
+  enableClaudeProject: false
+autolearn: 
+  enabled: false
+mcp: 
+  notifications: false
+  discoveryMode: false
+textVerbosity: medium
+dev: 
+  autoqa: 
+    consent: granted
+tier: 
+  openai: priority
+  subagent: priority
+  advisor: priority
