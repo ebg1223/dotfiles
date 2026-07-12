@@ -16,7 +16,7 @@ uv = "latest"
 "npm:btca" = "latest"
 amp = { version = "latest", npm_args = "--ignore-scripts=false" }
 "npm:droid" = { version = "latest", npm_args = "--ignore-scripts=false" }
-"npm:clawdbot" = "latest"
+"npm:openclaw" = "latest"
 gemini-cli = "latest"
 rust = "latest"
 "cargo:shpool" = { version = "latest", os = ["linux"] }
@@ -43,14 +43,14 @@ python = "3.12"
 "npm:omegacode" = "latest"
 "pipx:omnigent" = { version = "latest", extras = "cursor" }
 "github:can1357/oh-my-pi" = "latest"
-hunk = "latest"
+"npm:hunkdiff" = "latest"
 claude = "latest"
 "github:sinelaw/fresh" = "latest"
 "npm:@getpaseo/cli" = "latest"
-pnpm = "latest"
+"npm:pnpm" = "latest"
 infisical = { version = "latest", asset_pattern = "cli_{{ version }}_{{ os(macos='darwin') }}_{{ arch(x64='amd64') }}.tar.gz" }
 "npm:node-gyp" = "latest"
-"aqua:x.ai/cli/grok" = "0.2.87"
+"npm:@xai-official/grok" = "latest"
 opencode = "latest"
 npm = "latest"
 
@@ -96,13 +96,3 @@ exec "$BUN_BIN" run "$DIR/src/cli.ts" "$@"
 EOF
 chmod +x bin/lfg' '''
 
-[settings]
-minimum_release_age_excludes = [
-  "npm:@earendil-works/pi-coding-agent",
-  "claude",
-  "opencode",
-  "npm:droid",
-  "codex",
-  "amp",
-  "github:can1357/oh-my-pi",
-]
