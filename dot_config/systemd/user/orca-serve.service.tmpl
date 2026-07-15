@@ -1,0 +1,17 @@
+[Unit]
+Description=Orca runtime server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=LIBGL_ALWAYS_SOFTWARE=1
+UnsetEnvironment=DISPLAY
+Environment=ELECTRON_OZONE_PLATFORM_HINT=x11
+Environment=XDG_SESSION_TYPE=x11
+ExecStart={{ .chezmoi.homeDir }}/.local/bin/orca serve --port 6768 --pairing-address {{ .chezmoi.hostname }} --json
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

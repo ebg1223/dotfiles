@@ -6,5 +6,95 @@
   "shell": {
     "setup_complete": true
   },
-  "theme_mode": "light"
+  "theme_mode": "light",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh'; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh'; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh'; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostCompaction": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh'; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh'; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh'; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh'; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/devin-hook.sh'; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
 }

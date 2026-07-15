@@ -10,9 +10,10 @@ remember_tool_approvals = true
 [marketplace]
 official_marketplace_auto_installed = true
 
-[[marketplace.sources]]
-name = "xAI Official"
-git = "https://github.com/xai-org/plugin-marketplace.git"
+  [[marketplace.sources]]
+  name = "xAI Official"
+  git = "https://github.com/xai-org/plugin-marketplace.git"
 
 [cli]
 auto_update = true
+installer = "npm"

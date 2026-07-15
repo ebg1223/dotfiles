@@ -2,6 +2,7 @@ task:
   agentModelOverrides: 
     {}
   eager: preferred
+  batch: true
 async: 
   enabled: true
 disabledProviders: 
@@ -13,18 +14,21 @@ disabledProviders:
   - ollama
   - llama.cpp
   - lm-studio
+  - codex
+  - opencode
+  - claude
 modelRoles: 
-  default: openai-codex/gpt-5.5:high
-  smol: cliproxy/grok-composer-2.5-fast
-  plan: cliproxy/claude-fable-5:high
-  slow: openai-codex/gpt-5.5:xhigh
-  task: cliproxy/grok-composer-2.5-fast
+  default: openai-codex/gpt-5.6-sol:medium
+  task: openai-codex/gpt-5.6-sol:low
   designer: cliproxyapi/claude-opus-4-8:high
   vision: cliproxyapi/claude-opus-4-8:medium
   advisor: cliproxy/claude-opus-4-8:xhigh
-  tiny: devin/swe-1-6-fast
+  tiny: openai-codex/gpt-5.6-luna:low
+  slow: openai-codex/gpt-5.6-sol:high
+  smol: openai-codex/gpt-5.6-terra:low
+  plan: cliproxy/claude-fable-5
 theme: 
-  dark: light-monochrome
+  dark: light
   light: light
 startup: 
   checkUpdate: true
@@ -33,11 +37,11 @@ renderMermaid:
 hideThinkingBlock: false
 providers: 
   webSearch: codex
-symbolPreset: unicode
+symbolPreset: nerd
 setupVersion: 1
-defaultThinkingLevel: auto
+defaultThinkingLevel: medium
 advisor: 
-  enabled: true
+  enabled: false
   subagents: false
   syncBacklog: "5"
   immuneTurns: 3
@@ -68,11 +72,18 @@ autolearn:
 mcp: 
   notifications: false
   discoveryMode: false
-textVerbosity: medium
+textVerbosity: low
 dev: 
   autoqa: 
     consent: granted
 tier: 
-  openai: priority
-  subagent: priority
-  advisor: priority
+  openai: none
+  subagent: inherit
+  advisor: none
+colorBlindMode: false
+statusLine:
+  separator: powerline-thin
+snapcompact:
+  toolResults: true
+edit:
+  mode: hashline

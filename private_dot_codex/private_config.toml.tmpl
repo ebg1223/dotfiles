@@ -68,6 +68,7 @@ theme = "inspired-github"
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
+"gpt-5.6-sol" = 1
 
 [plugins."gmail@openai-curated"]
 enabled = true
@@ -85,11 +86,91 @@ enabled = true
 enabled = true
 
 [marketplaces.agent-toolkit-for-aws]
-last_updated = "2026-07-07T20:11:48Z"
-last_revision = "91433388bdca4ccff61482ee5a1d097dc5a8bbc9"
+last_updated = "2026-07-15T17:20:47Z"
+last_revision = "8ea76325645dbbc4d3d2224d0432980889ea7238"
 source_type = "git"
 source = "https://github.com/aws/agent-toolkit-for-aws.git"
 
 [mcp_servers.lfg]
 command = "{{ .chezmoi.homeDir }}/.local/share/mise/installs/bun/latest/bin/bun"
 args = ["{{ .chezmoi.homeDir }}/.local/share/mise/installs/github-benny-kok-lfg/0.1.16/src/cli.ts", "mcp"]
+
+[hooks.state]
+
+[hooks.state."{{ .chezmoi.homeDir }}/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:505a95c91523063cf775538fec3f7932d1ac00c0108f763c6e707c8171a1a337"
+
+[hooks.state."{{ .chezmoi.homeDir }}/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:7befa05667b414a4c6fa12907cab9a7e7b5ff21471b44b34b347e0061ee96541"
+
+[hooks.state."{{ .chezmoi.homeDir }}/.codex/hooks.json:session_start:1:0"]
+trusted_hash = "sha256:7e0801ff0d463d3db38dacf39cb9387568c43fc448af5bade59d64d4a5315bd1"
+
+[hooks.state."/home/ethan/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:a69f63a2011d221cc0cd008b3ef9dd6a00ae96a2c395ba616de87f6a1bcda553"
+
+[hooks.state."/home/ethan/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:0d065616ec5b09233cf82085288caa1f255d6fbe86d341d1cd3aef8bcc661221"
+
+[hooks.state."aws-core@agent-toolkit-for-aws:hooks/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:f2e089d549167d9ad7d1533fe22613de38f4243a4dd4cbce0e0a808c1162503b"
+
+[hooks.state."aws-core@agent-toolkit-for-aws:hooks/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:11d7b53fbeb9861a03b33c63ffd33734b5248f3522bdd96fbcd7c38402ac5305"
+
+[projects."/home/ethan/src/synara-omp"]
+trust_level = "trusted"
+
+[projects."/tmp/paseo-real-omp-Uk8xMe"]
+trust_level = "trusted"
+
+[projects."/tmp/paseo-real-omp-W5gG3X"]
+trust_level = "trusted"
+
+[projects."/tmp/paseo-real-omp-tyQWmg"]
+trust_level = "trusted"
+
+[projects."/tmp/paseo-real-omp-Ol7aSv"]
+trust_level = "trusted"
+
+[projects."/tmp/paseo-real-omp-Z66wmO"]
+trust_level = "trusted"
+
+[projects."/tmp/paseo-real-omp-DXk6Wp"]
+trust_level = "trusted"
+
+[projects."/tmp/paseo-real-omp-YPfgWT"]
+trust_level = "trusted"
+
+[projects."/tmp/paseo-real-omp-aresn0"]
+trust_level = "trusted"
+
+[projects."/tmp/paseo-real-omp-rLRk7O"]
+trust_level = "trusted"
+
+[projects."/tmp/paseo-real-omp-QevGKH"]
+trust_level = "trusted"
+
+[projects."/home/ethan/src/WHHC-CUA"]
+trust_level = "trusted"
+
+[projects."/home/ethan/src/oh-my-pi"]
+trust_level = "trusted"
+
+[projects."/home/ethan/src/paseo"]
+trust_level = "trusted"
+
+[projects."/tmp/codex-multi-agent-v2-e2e-a7H6HH"]
+trust_level = "trusted"
+
+[projects."/tmp/codex-multi-agent-v2-e2e-lu9NQF"]
+trust_level = "trusted"
+
+[projects."/tmp/codex-multi-agent-v2-e2e-hJ9X3P"]
+trust_level = "trusted"
+
+[projects."/tmp/codex-multi-agent-v2-e2e-9RJKz5"]
+trust_level = "trusted"
+
+[projects."/tmp/codex-multi-agent-v2-e2e-eXPNzE"]
+trust_level = "trusted"
