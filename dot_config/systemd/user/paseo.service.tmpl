@@ -5,10 +5,10 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory={{ .chezmoi.homeDir }}/src/paseo
+WorkingDirectory=/ethan/src/paseo
 Environment=HOME={{ .chezmoi.homeDir }}
 Environment=PATH={{ .chezmoi.homeDir }}/.local/share/mise/shims:{{ .chezmoi.homeDir }}/.local/bin:/usr/local/bin:/usr/bin
-Environment=PASEO_HOME={{ .chezmoi.homeDir }}/.paseo
+Environment=PASEO_HOME=/ethan/data/paseo
 Environment=PASEO_LISTEN=0.0.0.0:6767
 Environment=PASEO_HOSTNAMES={{ .chezmoi.hostname }}
 ExecStartPre=/bin/sh -c 'test -f packages/server/dist/scripts/supervisor-entrypoint.js || exec {{ .chezmoi.homeDir }}/.local/share/mise/shims/npm run build:server'
