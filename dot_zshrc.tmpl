@@ -20,6 +20,10 @@ export LC_ALL=en_US.UTF-8
 
 export PATH="$HOME/.local/bin:$PATH"
 
+if [[ -d /ethan ]]; then
+  export MISE_DATA_DIR=/ethan/data/mise
+fi
+
 if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate zsh)"
 fi
