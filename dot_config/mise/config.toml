@@ -96,3 +96,6 @@ exec "$BUN_BIN" run "$DIR/src/cli.ts" "$@"
 EOF
 chmod +x bin/lfg' '''
 
+
+[settings]
+minimum_release_age_excludes = ["amp"]
