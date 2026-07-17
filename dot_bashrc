@@ -10,5 +10,6 @@ alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 if [[ -d /ethan ]]; then
   export MISE_DATA_DIR=/ethan/data/mise
+  export UV_CACHE_DIR=/ethan/cache/uv
 fi
 export PATH="${MISE_DATA_DIR:-$HOME/.local/share/mise}/shims:$PATH"
