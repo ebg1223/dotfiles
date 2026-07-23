@@ -1,0 +1,11 @@
+[Unit]
+Description=Plans HTML server (~/plans)
+
+[Service]
+ExecStart=/ethan/data/mise/installs/bun/latest/bin/bun run /home/ethan/plans-server/server.ts
+Restart=on-failure
+Environment=PORT=7788
+Environment=HOST=100.68.72.82
+
+[Install]
+WantedBy=default.target

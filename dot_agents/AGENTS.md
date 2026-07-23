@@ -4,23 +4,17 @@ These instructions are shared across local coding-agent harnesses. Harness-speci
 files may add details, but should not duplicate or override these rules without a
 clear reason.
 
-## Shared agent/model selection
+## Orchestration
 
-MANDATORY, NO EXCEPTIONS: before every delegation — including quick smoke tests,
-throwaway checks, or "just verifying something works" — you MUST actually read
-@~/.agents/reference/agent-selection.md (or recall its contents from
-having read it earlier in this same session) before picking a provider/model.
-Do not default to a habitual model choice and rationalize it afterward as
-"obviously fine" — verify against the guide first, even when you expect the
-answer to match your instinct. Use the absolute path because this file is
-symlinked into multiple harness config directories.
+For complex tasks, act as the orchestrator rather than trying to solve everything yourself.
 
-Core rule: choose the fastest/cheapest agent that can actually complete the task
-correctly, but for anything that ships prefer correctness over reasoning depth,
-taste, speed, or cost.
-
-If you realize partway through a task that you picked a model without checking
-the guide, stop and say so explicitly rather than quietly continuing.
+- Do not assume. Ask the appropriate expert to investigate and make decisions.
+- Use planners to break up complex work, identify dependencies, and produce an execution plan before implementation.
+- Delegate implementation to the appropriate specialists. Use other specialist roles whenever their expertise applies.
+- Run independent work in parallel whenever practical.
+- Coordinate the specialists, reconcile their outputs, and ensure the complete plan is executed.
+- After all implementation is complete, use a reviewer to review the finished work. Address the review findings before declaring the task done.
+- Assume you are not the smartest person in the room. Your job is to orchestrate; experts make the expert decisions.
 
 ## Delegated work contract
 
@@ -31,18 +25,33 @@ the guide, stop and say so explicitly rather than quietly continuing.
 - Keep mutating agents isolated when they might edit the same files; prefer
   worktrees or non-overlapping scopes.
 
-## Runbooks and working notes
+## Living plans (and operational notes)
 
-When work has an operational procedure, migration path, multi-step plan,
-deployment sequence, or long-running investigation, keep a runbook or planning
-note up to date while working.
+For larger jobs — implementations, refactors, migrations, or any effort bigger
+than a self-contained single prompt — the living plan is the primary planning
+and status document. Use the `living-plan` skill
+(`~/.agents/skills/living-plan/`) if available:
 
-- Prefer existing project locations such as `planning/RUNBOOK.md`,
-  `planning/*.md`, or the repo's established runbook path.
-- Record commands run, verification results, known blockers, current state,
-  remaining steps, and rollback/recovery notes when relevant.
-- Update the runbook as facts change; do not leave stale instructions behind.
-- If no runbook exists and the task is substantial enough to need handoff,
-  create one in the project's planning/docs area unless the user asked not to.
-- Keep runbook updates factual and concise; avoid dumping raw logs unless a short
-  excerpt is needed as evidence.
+- Starting such an effort without a living plan: create one first (canonical
+  location: `living-plans/` at the repo top level).
+- Working in a project that already has one (`living-plans/` dir, or any
+  `*.living-plan.html` / `STATUS-DASHBOARD.html`): keep it in sync as you work,
+  per the skill's rules. It is the source of truth and the human↔agent contract
+  for the job.
+- Orchestrators: never pass the raw plan file to subagents — excerpt or distill
+  per the skill.
+
+The runbook lives inside the plan file itself, as an embedded markdown block
+the skill manages. The plan stays curated and scannable; command-level detail
+goes in the runbook:
+
+- Record exact commands run, verification output, entrypoints, and
+  rollback/recovery steps via `plan-data runbook-append` (read with
+  `plan-data runbook`; `plan-data read` never loads it). If the project has an
+  established runbook (e.g. `planning/RUNBOOK.md`), keep using and citing that
+  instead of duplicating it.
+- The living plan's DATA carries the status, decisions, and next actions
+  distilled from that detail, with citations pointing at runbook entries/docs.
+- Update both as facts change; never leave stale instructions behind.
+- If a job is substantial enough for handoff but has no living plan and the
+  skill is unavailable, fall back to a markdown runbook file alone.

@@ -1,0 +1,128 @@
+#!/usr/bin/env node
+// plan-data — read/write the DATA block and embedded runbook of a living-plan
+// HTML file without touching (or loading into agent context) the surrounding
+// CSS/JS.
+//
+//   plan-data read  <plan.html>                 # print DATA object source (no runbook)
+//   plan-data write <plan.html> <data.js|->     # replace DATA block (runbook untouched)
+//   plan-data check <plan.html>                 # verify DATA parses; print section keys
+//   plan-data runbook <plan.html>               # print embedded runbook markdown
+//   plan-data runbook-append <plan.html> <md|-> # append markdown to the runbook
+//
+// The data.js payload must be a bare JS object literal: `{ ... }`
+// (exactly what `read` outputs). Validated by parsing before injection;
+// on success the original file is updated in place (backup at <file>.bak).
+//
+// The runbook is stored inside the same HTML file in a
+// `<script type="text/markdown" id="runbook">` block (browsers ignore
+// non-JS script types, so it never renders). `read`/`write` exclude it;
+// only `runbook`/`runbook-append` touch it. Literal `</script` in content
+// is stored escaped as `<\/script` and unescaped on read.
+
+const fs = require("fs");
+
+const [, , cmd, file, src] = process.argv;
+const usage = () => {
+  console.error(
+    "usage: plan-data read|write|check|runbook|runbook-append <plan.html> [data.js|md|-]",
+  );
+  process.exit(2);
+};
+if (!cmd || !file) usage();
+
+const OPEN = /const DATA = /;
+const CLOSE = "\n};\n</script>";
+const RB_OPEN = '<script type="text/markdown" id="runbook">';
+const RB_CLOSE = "</script>";
+
+function locate(html) {
+  const m = html.match(OPEN);
+  if (!m) throw new Error("no `const DATA = ` found");
+  const start = m.index + m[0].length;
+  const p = html.indexOf(CLOSE, start);
+  if (p === -1) throw new Error("no closing `};\\n</script>` found for DATA");
+  // CLOSE = "\n};\n</script>": object source ends after "}" (p+2), block after ";" (p+3)
+  return { start, end: p + 3 };
+}
+
+function locateRunbook(html) {
+  const o = html.indexOf(RB_OPEN);
+  if (o === -1) return null;
+  const start = o + RB_OPEN.length;
+  const p = html.indexOf(RB_CLOSE, start);
+  if (p === -1) throw new Error("runbook block has no closing </script>");
+  return { start, end: p };
+}
+
+function parse(objSrc) {
+  // Validate: must eval to a plain object.
+  const val = eval("(" + objSrc + ")");
+  if (typeof val !== "object" || val === null || Array.isArray(val)) {
+    throw new Error("DATA must be an object literal");
+  }
+  return val;
+}
+
+const readSrc = (s) =>
+  (s === "-" ? fs.readFileSync(0, "utf8") : fs.readFileSync(s, "utf8"));
+
+const html = fs.readFileSync(file, "utf8");
+
+if (cmd === "runbook") {
+  const rb = locateRunbook(html);
+  if (!rb) {
+    console.error("no runbook block in", file);
+    process.exit(1);
+  }
+  const body = html.slice(rb.start, rb.end).replace(/<\\\/script/g, "</script").trim();
+  process.stdout.write(body ? body + "\n" : "");
+  process.exit(0);
+}
+
+if (cmd === "runbook-append") {
+  if (!src) usage();
+  const entry = readSrc(src).trimEnd().replace(/<\/script/g, "<\\/script");
+  if (!entry) throw new Error("empty runbook entry");
+  const rb = locateRunbook(html);
+  let next;
+  if (rb) {
+    const existing = html.slice(rb.start, rb.end).replace(/^\n+|\s+$/g, "");
+    const body = "\n" + (existing ? existing + "\n\n" : "") + entry + "\n";
+    next = html.slice(0, rb.start) + body + html.slice(rb.end);
+  } else {
+    // Create the block just before </body>.
+    const b = html.lastIndexOf("</body>");
+    if (b === -1) throw new Error("no </body> to insert runbook before");
+    next =
+      html.slice(0, b) + RB_OPEN + "\n" + entry + "\n" + RB_CLOSE + "\n" + html.slice(b);
+  }
+  fs.writeFileSync(file + ".bak", html);
+  fs.writeFileSync(file, next);
+  console.log("runbook appended:", file, `(backup: ${file}.bak)`);
+  process.exit(0);
+}
+
+const { start, end } = locate(html);
+const current = html.slice(start, end - 1); // "{ ... }" without trailing ";"
+
+if (cmd === "read") {
+  process.stdout.write(current + "\n");
+} else if (cmd === "check") {
+  const data = parse(current);
+  console.log("ok:", Object.keys(data).join(", "));
+  const rb = locateRunbook(html);
+  console.log(
+    rb ? `runbook: ${rb.end - rb.start} chars` : "runbook: none",
+  );
+} else if (cmd === "write") {
+  if (!src) usage();
+  const next = readSrc(src).trim().replace(/;$/, "");
+  const data = parse(next); // throws on invalid input; file untouched
+  if (!data.updateLog || !data.updateLog.length) {
+    console.error("warning: DATA.updateLog is empty — every edit should log itself");
+  }
+  fs.writeFileSync(file + ".bak", html);
+  fs.writeFileSync(file, html.slice(0, start) + next + ";" + html.slice(end));
+  console.log("written:", file, `(backup: ${file}.bak)`);
+  console.log("sections:", Object.keys(data).join(", "));
+} else usage();
