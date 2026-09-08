@@ -1,3 +1,35 @@
-{{- if or (ne .chezmoi.os "linux") (not .synara.enabled) }}
+# Repository documentation and verification tools.
+living-plans
+scripts
+README.md
+
+{{ if or (ne .chezmoi.os "linux") (not .synara.enabled) }}
 .config/systemd/user/synara.service
-{{- end }}
+{{ end }}
+
+# Linux desktop configuration and services do not apply to macOS.
+{{ if ne .chezmoi.os "linux" }}
+.config/systemd
+.config/autostart
+.config/chromium-flags.conf
+.config/elephant
+.config/environment.d
+.config/fastfetch
+.config/fcitx5
+.config/fontconfig
+.config/foot
+.config/gtk-3.0
+.config/hypr
+.config/hyprland-preview-share-picker
+.config/imv
+.config/mimeapps.list
+.config/nvim/lua/plugins/theme.lua
+.config/shpool
+.config/swayosd
+.config/user-dirs.dirs
+.config/uwsm
+.config/walker
+.config/waybar
+.config/wiremix
+.config/xdg-terminals.list
+{{ end }}

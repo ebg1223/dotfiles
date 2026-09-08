@@ -3,10 +3,12 @@ task:
     {}
   eager: preferred
   batch: true
+  agentAdvisor: 
+    task: "off"
 async: 
   enabled: true
 disabledProviders: 
-  - anthropic
+  - amazon-bedrock
   - openrouter
   - google
   - nvidia
@@ -16,17 +18,19 @@ disabledProviders:
   - lm-studio
   - codex
   - opencode
-  - claude
+  - github
 modelRoles: 
-  default: openai-codex/gpt-5.6-sol:medium
-  task: openai-codex/gpt-5.6-sol:low
-  designer: cliproxyapi/claude-opus-4-8:high
-  vision: cliproxyapi/claude-opus-4-8:medium
-  advisor: cliproxy/claude-opus-4-8:xhigh
-  tiny: openai-codex/gpt-5.6-luna:low
-  slow: openai-codex/gpt-5.6-sol:high
-  smol: openai-codex/gpt-5.6-terra:low
-  plan: cliproxy/claude-fable-5
+  designer: anthropic/claude-opus-5:high
+  vision: openai-codex/gpt-5.6-sol:low
+  advisor: openai-codex/gpt-5.6-sol:high
+  tiny: cursor/composer-2.5-fast
+  slow: openai-codex/gpt-5.6-sol:xhigh
+  smol: cursor/cursor-grok-4.5-high-fast
+  plan: cliproxy/claude-fable-5:high
+  task: cursor/cursor-grok-4.5-high-fast
+  commit: openai-codex/gpt-5.6-luna:low
+  EXPERT: cliproxy/claude-fable-5:high
+  default: cursor/grok-4.6
 theme: 
   dark: light
   light: light
@@ -36,13 +40,35 @@ renderMermaid:
   enabled: true
 hideThinkingBlock: false
 providers: 
-  webSearch: codex
+  webSearchOrder: 
+    - codex
+    - perplexity
+    - gemini
+    - anthropic
+    - xai
+    - zai
+    - exa
+    - tinyfish
+    - jina
+    - kagi
+    - tavily
+    - firecrawl
+    - brave
+    - kimi
+    - parallel
+    - synthetic
+    - searxng
+    - startpage
+    - duckduckgo
+    - ecosia
+    - google
+    - mojeek
+    - public
 symbolPreset: nerd
 setupVersion: 1
-defaultThinkingLevel: medium
+defaultThinkingLevel: auto
 advisor: 
   enabled: false
-  subagents: false
   syncBacklog: "5"
   immuneTurns: 3
 disabledExtensions: 
@@ -58,6 +84,17 @@ disabledExtensions:
   - skill:cursor-agent
   - skill:claude-plan-orchestration
   - context-file:user:CLAUDE.md
+  - extension-module:orca-titlebar-spinner
+  - extension-module:orca-prefill
+  - extension-module:orca-agent-status
+  - extension-module:herdr-omp-agent-state
+  - extension-module:moshi-hooks
+  - skill:aws-sdk-swift-usage
+  - skill:aws-sdk-python-usage
+  - skill:aws-messaging-and-streaming
+  - skill:aws-database
+  - skill:aws-cdk
+  - skill:aws-blocks
 compaction: 
   idleEnabled: true
   strategy: snapcompact
@@ -71,19 +108,35 @@ autolearn:
   enabled: false
 mcp: 
   notifications: false
-  discoveryMode: false
 textVerbosity: low
 dev: 
-  autoqa: 
-    consent: granted
+  autoqaConsent: granted
 tier: 
-  openai: none
+  openai: priority
   subagent: inherit
   advisor: none
 colorBlindMode: false
-statusLine:
+statusLine: 
   separator: powerline-thin
-snapcompact:
+snapcompact: 
   toolResults: true
-edit:
+edit: 
   mode: hashline
+retry: 
+  fallbackChains: 
+    designer: 
+      - devin/claude-sonnet-5-medium
+    plan: 
+      - openai-codex/gpt-5.6-sol
+    tiny: 
+      - openai-codex/gpt-5.6-luna
+    task: 
+      - xai-oauth/grok-4.5
+    commit: 
+      - cursor/composer-2.5-fast
+    vision: 
+      - anthropic/claude-opus-5
+    smol: 
+      - xai-oauth/grok-4.5
+    slow: 
+      - anthropic/claude-opus-5

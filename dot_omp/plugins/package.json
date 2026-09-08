@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@oh-my-pi/swarm-extension": "^13.17.0",
-    "@plannotator/pi-extension": "^0.17.7"
+    "@plannotator/pi-extension": "^0.17.7",
+    "pi-cursor-sdk": "^0.1.62"
   }
 }

@@ -52,84 +52,89 @@
   "completionSoundFocusMode": "always",
   "customModels": [
     {
-      "apiKey": "CLI_PROXY_API_KEY",
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "displayName": "$GPT-5.5",
-      "extraArgs": {
-        "service_tier": "priority"
-      },
-      "id": "custom:GPT-5.5",
+      "model": "gpt-5.6-sol",
+      "id": "custom:GPT-5.6-Sol",
       "index": 0,
-      "model": "gpt-5.5",
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "displayName": "$GPT-5.6 Sol",
       "noImageSupport": false,
       "provider": "openai"
     },
     {
-      "apiKey": "CLI_PROXY_API_KEY",
-      "baseUrl": "http://cliproxyapi:8317",
-      "displayName": "$Claude Opus 4.8",
+      "model": "claude-opus-4-8",
       "id": "custom:Claude-Opus-4-8",
       "index": 1,
-      "model": "claude-opus-4-8",
+      "baseUrl": "http://cliproxyapi:8317",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "displayName": "$Claude Opus 4.8",
       "noImageSupport": false,
       "provider": "anthropic"
     },
     {
-      "apiKey": "CLI_PROXY_API_KEY",
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "displayName": "$Grok Composer 2.5 Fast",
+      "model": "grok-composer-2.5-fast",
       "id": "custom:Grok-Composer-2.5-Fast",
       "index": 2,
-      "model": "grok-composer-2.5-fast",
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "displayName": "$Grok Composer 2.5 Fast",
       "noImageSupport": false,
       "provider": "openai"
     },
     {
-      "apiKey": "CLI_PROXY_API_KEY",
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "displayName": "$GLM 5.2",
-      "id": "custom:GLM-5.2",
+      "model": "gpt-5.6-terra",
+      "id": "custom:GPT-5.6-Terra",
       "index": 3,
-      "model": "glm-5.2",
-      "noImageSupport": true,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "displayName": "$GPT-5.6 Terra",
+      "noImageSupport": false,
       "provider": "openai"
     },
     {
-      "apiKey": "CLI_PROXY_API_KEY",
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "displayName": "$Deepseek V4 Pro",
-      "id": "custom:DeepSeek-V4-Pro",
+      "model": "gpt-5.6-luna",
+      "id": "custom:GPT-5.6-Luna",
       "index": 4,
-      "model": "deepseek-v4-pro",
-      "noImageSupport": true,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "displayName": "$GPT-5.6 Luna",
+      "noImageSupport": false,
       "provider": "openai"
     },
     {
-      "apiKey": "CLI_PROXY_API_KEY",
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "displayName": "$Deepseek V4 Flash",
-      "id": "custom:DeepSeek-V4-Flash",
+      "model": "claude-fable-5",
+      "id": "custom:Claude-Fable-5",
       "index": 5,
-      "model": "deepseek-v4-flash",
-      "noImageSupport": true,
-      "provider": "openai"
+      "baseUrl": "http://cliproxyapi:8317",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "displayName": "$Claude Fable 5",
+      "noImageSupport": false,
+      "provider": "anthropic"
     },
     {
-      "apiKey": "CLI_PROXY_API_KEY",
-      "baseUrl": "http://cliproxyapi:8317/v1",
-      "displayName": "$Kimi K2.7 Code",
-      "id": "custom:Kimi-K2.7-Code",
+      "model": "claude-sonnet-5",
+      "id": "custom:Claude-Sonnet-5",
       "index": 6,
-      "model": "kimi-k2.7-code",
-      "noImageSupport": true,
+      "baseUrl": "http://cliproxyapi:8317",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "displayName": "$Claude Sonnet 5",
+      "noImageSupport": false,
+      "provider": "anthropic"
+    },
+    {
+      "model": "grok-4.5",
+      "id": "custom:Grok-4.5",
+      "index": 7,
+      "baseUrl": "http://cliproxyapi:8317/v1",
+      "apiKey": "CLI_PROXY_API_KEY",
+      "displayName": "$Grok 4.5",
+      "noImageSupport": false,
       "provider": "openai"
     }
   ],
   "diffMode": "github",
   "dismissedNewModels": [
-    "glm-5.2",
     "claude-opus-4-8",
-    "kimi-k2.7-code",
     "minimax-m3"
   ],
   "enableCompletionBell": true,
@@ -152,117 +157,7 @@
     }
   },
   "hasSeenMissionOnboarding": true,
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "command": "test ! -x '{{ .chezmoi.homeDir }}/.agents/hooks/session-start' || bash '{{ .chezmoi.homeDir }}/.agents/hooks/session-start' droid",
-            "timeout": 10,
-            "type": "command"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "command": "bash '{{ .chezmoi.homeDir }}/.factory/hooks/herdr-agent-state.sh' session",
-            "timeout": 10,
-            "type": "command"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh'; fi",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh'; fi",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh'; fi",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
-    "SubagentStop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh'; fi",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh'; fi",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh'; fi",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
-    "PermissionRequest": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh'; fi",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if [ -x '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh' ]; then /bin/sh '{{ .chezmoi.homeDir }}/.orca/agent-hooks/droid-hook.sh'; fi",
-            "timeout": 10
-          }
-        ]
-      }
-    ]
-  },
+  "hooks": {},
   "ideActivationNudgedForVersion": {},
   "ideAutoConnect": false,
   "ideExtensionPromptedAt": {},
@@ -270,23 +165,26 @@
   "logoAnimation": "off",
   "missionModelSettings": {
     "skipScrutiny": true,
-    "validationWorkerModel": "custom:GPT-5.5",
+    "validationWorkerModel": "custom:GPT-5.6-Sol",
     "validationWorkerReasoningEffort": "high",
     "workerModel": "custom:Grok-Composer-2.5-Fast"
   },
   "missionOrchestratorModel": "custom:Claude-Opus-4-8",
   "modelFavorites": [
-    "glm-5.2",
-    "custom:GPT-5.5",
-    "custom:Grok-Composer-2.5-Fast",
+    "custom:GPT-5.6-Sol",
+    "custom:GPT-5.6-Terra",
+    "custom:GPT-5.6-Luna",
     "custom:Claude-Opus-4-8",
-    "custom:GLM-5.2"
+    "custom:Claude-Fable-5",
+    "custom:Claude-Sonnet-5",
+    "custom:Grok-Composer-2.5-Fast",
+    "custom:Grok-4.5"
   ],
   "sessionDefaultSettings": {
     "autonomyLevel": "medium",
     "autonomyMode": "auto-medium",
     "interactionMode": "auto",
-    "model": "glm-5.2",
+    "model": "custom:GPT-5.6-Sol",
     "reasoningEffort": "high"
   },
   "showThinkingInMainView": true,
@@ -296,5 +194,13 @@
   "terminalColorMode": "light",
   "theme": "factory-light",
   "todoDisplayMode": "pinned",
-  "toolResultDisplay": "compact"
+  "toolResultDisplay": "compact",
+  "trustedFolders": {
+    "{{ if eq .chezmoi.os "linux" }}/ethan/src{{ else }}{{ .chezmoi.homeDir }}/src{{ end }}": {
+      "trustedAt": "2026-07-20T17:07:25.932Z"
+    },
+    "{{ .chezmoi.homeDir }}": {
+      "trustedAt": "2026-07-23T22:08:15.008Z"
+    }
+  }
 }

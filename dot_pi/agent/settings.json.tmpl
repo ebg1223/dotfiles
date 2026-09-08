@@ -1,72 +1,27 @@
 {
-  "lastChangelogVersion": "0.80.3",
-  "defaultProvider": "cliproxyapi",
-  "defaultModel": "claude-opus-4-8",
-  "defaultThinkingLevel": "medium",
-  "packages": [
-    "npm:@juanibiapina/pi-extension-settings",
-    "npm:@howaboua/pi-codex-conversion",
-    "npm:pi-cursor-sdk",
-    "npm:pi-web-access",
-    "npm:pi-windsurf",
-    "npm:pi-ask-user",
-    "npm:pi-mcp-adapter",
-    "git:github.com/VandeeFeng/pi-memory-md",
-    "npm:@devkade/pi-plan",
-    "npm:pi-simplify",
-    "npm:pi-add-dir",
-    "npm:pi-prompt-template-model",
-    "npm:@plannotator/pi-extension",
-    "npm:pi-slopchop",
-    "npm:@juanibiapina/pi-powerbar",
-    "npm:@tmustier/pi-usage-extension",
-    "npm:@tmustier/pi-raw-paste",
-    "npm:pi-btw",
-    "npm:pi-interactive-shell",
-    "git:github.com/davebcn87/pi-autoresearch",
-    "npm:@tmustier/pi-ralph-wiggum",
-    "git:github.com/javierportillo/pi-hackerman@63b0a3ef2c7b14985ffeb6cac44614ba59cd5693",
-    "npm:@victor-software-house/pi-curated-themes",
-    "npm:pi-terminal-theme",
-    "https://github.com/ebg1223/pi-subagents@79d9d3f98853dfaf026d46034df86af5596fc351",
-    "https://github.com/ebg1223/pi-tasks@42b6c1cf830b4ebbec5c435ef7a9a34214091c7f"
-  ],
-  "hideThinkingBlock": false,
+  "lastChangelogVersion": "0.84.4",
   "theme": "light",
-  "providers": {
-    "anthropic": {
-      "modelOverrides": {
-        "claude-fable-5": {
-          "contextWindow": 216384
-        }
-      }
-    }
-  },
-  "enabledModels": [
-    "openai-codex/gpt-5.5",
-    "cursor/composer-2.5:fast"
+  "defaultProvider": "cursor",
+  "defaultModel": "grok-4.6:fast",
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "npm:pi-web-access",
+    "npm:@howaboua/pi-codex-conversion",
+    "npm:pi-claude-bridge",
+    "npm:pi-cursor-sdk",
+    "npm:@router-for-me/pi-cliproxyapi-provider"
   ],
-  "subagents": {
-    "agentOverrides": {
-      "context-builder": {
-        "model": ""
-      },
-      "planner": {
-        "model": ""
-      },
-      "researcher": {
-        "model": ""
-      },
-      "reviewer": {
-        "model": ""
-      },
-      "scout": {
-        "model": ""
-      },
-      "worker": {
-        "model": ""
-      }
-    }
-  },
-  "tasksMode": "open"
+  "enabledModels": [
+    "openai-codex/gpt-5.6-sol",
+    "openai-codex/gpt-5.6-luna",
+    "openai-codex/gpt-5.6-terra",
+    "cursor/grok-4.6:fast",
+    "cliproxyapi/glm-53",
+    "cliproxyapi/kimi-k3",
+    "cliproxyapi/glm-53-flash",
+    "cliproxyapi/kimi-k3-fast",
+    "cliproxyapi/deepseek-v4-pro-0813",
+    "cliproxyapi/deepseek-v4-flash-0731"
+  ],
+  "tuiMode": "fullscreen"
 }

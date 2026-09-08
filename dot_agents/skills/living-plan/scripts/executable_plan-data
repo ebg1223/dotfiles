@@ -75,7 +75,8 @@ if (cmd === "runbook") {
     process.exit(1);
   }
   const body = html.slice(rb.start, rb.end).replace(/<\\\/script/g, "</script").trim();
-  process.stdout.write(body ? body + "\n" : "");
+  // Blocking write: process.exit() after async stdout.write truncates piped output.
+  if (body) fs.writeSync(1, body + "\n");
   process.exit(0);
 }
 

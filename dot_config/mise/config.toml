@@ -36,7 +36,6 @@ oh-my-posh = "latest"
 "github:gmuxapp/gmux" = "latest"
 television = "latest"
 "npm:@openchamber/web" = "latest"
-"github:ogulcancelik/herdr" = "latest"
 "npm:@earendil-works/pi-coding-agent" = "latest"
 codex = "latest"
 python = "3.12"
@@ -46,13 +45,16 @@ python = "3.12"
 "npm:hunkdiff" = "latest"
 claude = "latest"
 "github:sinelaw/fresh" = "latest"
-"npm:@getpaseo/cli" = "latest"
 "npm:pnpm" = "latest"
 infisical = { version = "latest", asset_pattern = "cli_{{ version }}_{{ os(macos='darwin') }}_{{ arch(x64='amd64') }}.tar.gz" }
 "npm:node-gyp" = "latest"
 "npm:@xai-official/grok" = "latest"
 opencode = "latest"
 npm = "latest"
+"npm:@getpaseo/cli" = "latest"
+"asdf:icholy/asdf-cursor-agent" = "latest"
+"npm:calldiff" = "latest"
+aube = "latest"
 
 [tools."http:devin"]
 version = "latest"
@@ -67,7 +69,6 @@ linux-arm64 = { url = "https://static.devin.ai/cli/{{version}}/devin-{{version}}
 linux-x64 = { url = "https://static.devin.ai/cli/{{version}}/devin-{{version}}-x86_64-unknown-linux.tar.gz" }
 macos-arm64 = { url = "https://static.devin.ai/cli/{{version}}/devin-{{version}}-aarch64-apple-darwin.tar.gz" }
 macos-x64 = { url = "https://static.devin.ai/cli/{{version}}/devin-{{version}}-x86_64-apple-darwin.tar.gz" }
-
 
 [tools."github:BennyKok/lfg"]
 version = "0.1.16"
@@ -96,6 +97,18 @@ exec "$BUN_BIN" run "$DIR/src/cli.ts" "$@"
 EOF
 chmod +x bin/lfg' '''
 
+[env]
+_.path = ["{{ env.HOME }}/.local/share/prime-agent/bin"]
+
+[tasks."prime-agent:install"]
+description = "Install or update Prime Agent beta"
+tools = { node = "22", npm = "11" }
+run = '''
+prefix="$HOME/.local/share/prime-agent"
+mkdir -p "$prefix"
+curl -fsSL https://app.primeintellect.ai/prime-agent/install.sh |
+  NPM_CONFIG_PREFIX="$prefix" sh -s -- beta
+'''
 
 [settings]
-minimum_release_age_excludes = ["amp"]
+minimum_release_age_excludes = ["amp", "npm:droid", "codex", "npm:@earendil-works/pi-coding-agent", "github:can1357/oh-my-pi", "claude", "npm:@getpaseo/cli", "npm:@getpaseo/cli@beta"]

@@ -1,0 +1,25 @@
+[Unit]
+Description=bb-app nightly
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h
+Environment=HOME={{ .chezmoi.homeDir }}
+Environment=MISE_DATA_DIR=/ethan/data/mise
+Environment=PATH=/ethan/data/mise/shims:/ethan/data/mise/installs/node/latest/bin:{{ .chezmoi.homeDir }}/.local/bin:/usr/local/bin:/usr/bin
+# Isolated npm cache so interactive `npx bb-app` runs can never poison the
+# service's install tree (a script-less first install leaves native bindings
+# missing, and npx reuses the tree without re-running scripts).
+Environment=BB_PARAKEET_BIN={{ .chezmoi.homeDir }}/.local/opt/sherpa-onnx/bin/sherpa-onnx-offline
+Environment=BB_PARAKEET_FFMPEG={{ .chezmoi.homeDir }}/.local/bin/ffmpeg
+Environment=BB_PARAKEET_MODEL_DIR={{ .chezmoi.homeDir }}/.local/share/bb-parakeet/model
+Environment=NPM_CONFIG_CACHE=%h/.cache/bb-app/npm
+ExecStart=/ethan/data/mise/installs/node/latest/bin/npx --yes --allow-scripts=better-sqlite3,node-pty,@parcel/watcher bb-app@nightly
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target

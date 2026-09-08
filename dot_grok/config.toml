@@ -1,19 +1,120 @@
 [ui]
 max_thoughts_width = 120
 theme = "grokday"
-fork_secondary_model = "grok-build"
+fork_secondary_model = "grok-4.5"
 yolo = false
 compact_mode = false
 permission_mode = "always-approve"
 remember_tool_approvals = true
 
+[endpoints]
+models_base_url = "http://cliproxyapi:8317/v1"
+
+[model."grok-composer-2.5-fast"]
+supports_reasoning_effort = true
+
+[model."grok-4.5"]
+supports_reasoning_effort = true
+
+[model."grok-4.3"]
+supports_reasoning_effort = true
+
+[model."gpt-5.5"]
+supports_reasoning_effort = true
+
+[model."gpt-5.6-sol"]
+supports_reasoning_effort = true
+
+[model."gpt-5.6-luna"]
+supports_reasoning_effort = true
+
+[model."gpt-5.6-terra"]
+supports_reasoning_effort = true
+
+[model.claude-sonnet-5]
+supports_reasoning_effort = true
+
+[model.claude-opus-4-8]
+supports_reasoning_effort = true
+
+[model.claude-fable-5]
+supports_reasoning_effort = true
+
+[subagents]
+enabled = true
+
+[subagents.toggle]
+explore = true
+plan = true
+
+[subagents.models]
+general-purpose = "grok-4.5"
+quick-search = "grok-composer-2.5-fast"
+explore = "grok-4.5"
+implementer = "grok-4.5"
+test-writer = "gpt-5.6-sol"
+plan = "claude-fable-5"
+reviewer = "claude-fable-5"
+security-auditor = "gpt-5.6-sol"
+design-doc-writer = "claude-fable-5"
+design-doc-reviewer = "gpt-5.6-sol"
+
+[compat.claude]
+skills = false
+rules = false
+agents = false
+mcps = false
+hooks = false
+sessions = false
+
+[compat.codex]
+sessions = false
+
 [marketplace]
 official_marketplace_auto_installed = true
 
-  [[marketplace.sources]]
-  name = "xAI Official"
-  git = "https://github.com/xai-org/plugin-marketplace.git"
+[[marketplace.sources]]
+name = "xAI Official"
+git = "https://github.com/xai-org/plugin-marketplace.git"
 
 [cli]
 auto_update = true
 installer = "npm"
+
+[skills]
+paths = []
+ignore = []
+disabled = [
+    "omegacode",
+    "paseo",
+    "paseo-workflow",
+    "codex-cli-runtime",
+    "gpt-5-4-prompting",
+    "codex-result-handling",
+    "adversarial-review",
+    "alerts",
+    "artifacts",
+    "cancel",
+    "continue",
+    "goal",
+    "items",
+    "result",
+    "rescue",
+    "review",
+    "status",
+    "setup",
+    "steer",
+    "thread",
+    "tail",
+    "threads",
+    "turns",
+    "transfer",
+    "grok-runtime",
+    "search",
+]
+server_skill_dirs = []
+bundled_skill_dirs = []
+
+[models]
+default = "grok-4.6"
+default_reasoning_effort = "xhigh"
