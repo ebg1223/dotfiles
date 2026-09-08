@@ -1,9 +1,9 @@
 # Dotfiles for Linux and macOS
 
-Chezmoi manages shell and application settings, 50 custom skills under
+Chezmoi manages shell and application settings, 44 custom skills under
 `~/.agents/skills`, and shared agent definitions under `~/.agents/agents`.
-Claude and Codex skill links point to the shared files. Existing separate
-Codex Paseo skills are preserved.
+Claude and Codex skill links point to the shared files. Paseo skills have been
+removed from both the shared and Codex-specific skill directories.
 
 ## Sync to a Mac
 

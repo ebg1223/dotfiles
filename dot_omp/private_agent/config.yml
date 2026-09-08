@@ -72,23 +72,11 @@ advisor:
   syncBacklog: "5"
   immuneTurns: 3
 disabledExtensions: 
-  - skill:omegacode
-  - skill:paseo-orchestrator
   - skill:cursor-headless-cli
-  - skill:paseo
-  - skill:paseo-advisor
-  - skill:paseo-committee
-  - skill:paseo-handoff
-  - skill:paseo-loop
   - skill:codex-cli
   - skill:cursor-agent
   - skill:claude-plan-orchestration
   - context-file:user:CLAUDE.md
-  - extension-module:orca-titlebar-spinner
-  - extension-module:orca-prefill
-  - extension-module:orca-agent-status
-  - extension-module:herdr-omp-agent-state
-  - extension-module:moshi-hooks
   - skill:aws-sdk-swift-usage
   - skill:aws-sdk-python-usage
   - skill:aws-messaging-and-streaming

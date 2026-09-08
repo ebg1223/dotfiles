@@ -39,7 +39,6 @@ television = "latest"
 "npm:@earendil-works/pi-coding-agent" = "latest"
 codex = "latest"
 python = "3.12"
-"npm:omegacode" = "latest"
 "pipx:omnigent" = { version = "latest", extras = "cursor" }
 "github:can1357/oh-my-pi" = "latest"
 "npm:hunkdiff" = "latest"
@@ -51,7 +50,6 @@ infisical = { version = "latest", asset_pattern = "cli_{{ version }}_{{ os(macos
 "npm:@xai-official/grok" = "latest"
 opencode = "latest"
 npm = "latest"
-"npm:@getpaseo/cli" = "latest"
 "asdf:icholy/asdf-cursor-agent" = "latest"
 "npm:calldiff" = "latest"
 aube = "latest"
@@ -111,4 +109,4 @@ curl -fsSL https://app.primeintellect.ai/prime-agent/install.sh |
 '''
 
 [settings]
-minimum_release_age_excludes = ["amp", "npm:droid", "codex", "npm:@earendil-works/pi-coding-agent", "github:can1357/oh-my-pi", "claude", "npm:@getpaseo/cli", "npm:@getpaseo/cli@beta"]
+minimum_release_age_excludes = ["amp", "npm:droid", "codex", "npm:@earendil-works/pi-coding-agent", "github:can1357/oh-my-pi", "claude"]

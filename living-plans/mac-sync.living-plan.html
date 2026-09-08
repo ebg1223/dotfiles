@@ -39,7 +39,7 @@ const DATA = {
       "Keep credentials and generated caches out",
       "Do not run service scripts during verification"
     ],
-    "whereWeAre": "Implementation and three platform render checks are complete. Commit and push are authorized; the next destination step is to fetch and review the diff on the Mac.",
+    "whereWeAre": "Skill and service cleanup is complete and verified. Publication is authorized; the destination Mac should fetch and review the updated configuration.",
     "glossary": [
       {
         "term": "Target",
@@ -54,7 +54,7 @@ const DATA = {
       "status": "done",
       "pct": 100,
       "summary": "Track custom content and its links.",
-      "plain": "The repository now contains 50 custom shared skills and both agent definitions. Claude and Codex links resolve within the rendered home directory.",
+      "plain": "The repository contains 44 custom shared skills and both agent definitions. The six Paseo skill names were removed from shared and Codex-specific directories.",
       "details": "146 add targets, including existing living-plan and separate Codex Paseo directories. Secret scanning passed. See runbook 2026-09-07."
     },
     {
@@ -64,13 +64,13 @@ const DATA = {
       "pct": 100,
       "summary": "Render both operating systems without applying.",
       "plain": "Linux and both Mac architectures render successfully. Mac output excludes Linux desktop configuration and services.",
-      "details": "Linux: 523 archive entries. macOS arm64 and amd64: 459 entries each. All resolve 93 agent links and pass configuration/shell checks. Native macOS execution has not been tested."
+      "details": "After service cleanup: Linux has 480 archive entries; macOS arm64 and amd64 have 419 each. All three resolve 93 agent links and pass configuration/shell checks. Native macOS execution has not been tested."
     }
   ],
   "nextActions": [
     {
       "pri": 1,
-      "action": "On the Mac, fetch the published changes and review chezmoi diff before applying",
+      "action": "Fetch the published cleanup on other machines and review chezmoi diff",
       "ref": "README.md"
     }
   ],
@@ -90,6 +90,18 @@ const DATA = {
   "updateLog": [
     {
       "date": "2026-09-08",
+      "note": "User authorized committing and pushing the verified skill and service cleanup."
+    },
+    {
+      "date": "2026-09-08",
+      "note": "Retired unused services, removed Paseo/omegacode installations and generated Claude plugin record, removed obsolete Synara scripts, and passed all platform checks."
+    },
+    {
+      "date": "2026-09-08",
+      "note": "Verified no Paseo skills/plugins remain; forgot 12 chezmoi skill directories. All three portability checks still pass."
+    },
+    {
+      "date": "2026-09-08",
       "note": "User authorized commit and push. Re-ran all three portability checks successfully."
     },
     {
@@ -104,8 +116,8 @@ const DATA = {
   "headline": [
     {
       "label": "Custom shared skills",
-      "value": "50",
-      "detail": "Includes existing living-plan."
+      "value": "44",
+      "detail": "Six Paseo skill names removed on 2026-09-08."
     },
     {
       "label": "Verified agent links",
@@ -456,6 +468,30 @@ No commit, push, service restart, or native Mac execution occurred. README.md do
 ## 2026-09-08: Publication
 
 User authorized commit and push. Re-ran `python3 scripts/check-portability.py`; Linux amd64 and both Mac architectures passed. `git -c core.whitespace=-blank-at-eol diff --check` passed. Publish commands: `git add -A`, `git commit -m "Sync agent configuration and skills; support macOS dotfile rendering"`, `git push origin main`. Confirm publication using `git status --short` and `git ls-remote origin refs/heads/main`.
+
+## 2026-09-08: Paseo skills and plugins cleanup
+
+User deleted Paseo skills and requested verification and chezmoi update. Checked shared, Claude, Codex, BB, Grok, OMP, and Pi skill/plugin locations, including plugin caches. No Paseo-named paths remained. Claude plugin registries, OMP plugin manifests, Pi settings, and Codex configuration showed no Paseo plugin registrations. `bb plugin list --json` returned 45 installed plugins, none named or sourced from Paseo. `.paseo/plugins`, `.config/paseo/plugins`, and `.grok/plugins` were absent.
+
+Removed 12 source directories using `chezmoi forget --force <target>`: six names under each of `.agents/skills` and `.codex/skills`, covering paseo, paseo-advisor, paseo-committee, paseo-handoff, paseo-help, and paseo-plugin. The application, CLI installation, service, project trust entries, and disabled-skill names were left unchanged because they are not installed skills or plugins.
+
+`python3 scripts/check-portability.py` passed: Linux 487 entries, each Mac architecture 423 entries, 93 resolved agent links on every platform. README now reports 44 custom shared skills. No commit or push made for this follow-up. Recovery of tracked deletions is available from parent commit a0bf3da; use selected paths only.
+
+## 2026-09-08: Retired services and generated records
+
+User authorized all four proposed cleanup items. Ran `systemctl --user disable --now paseo.service paseo-checkout.service collie.service orca-serve.service orca-xvfb.service t3code.service`, then `systemctl --user reset-failed t3code.service`. Backed up the five retired unit files, Herdr plugin registry and mise configuration under `/tmp/retired-agent-services-0diukjs7`. Removed retired units from disk and, when tracked, via `chezmoi forget --force`. Ran `systemctl --user daemon-reload`. T3 Code's unit remains available but disabled; no application data or logs were deleted.
+
+Set the Collie entry in `~/.config/herdr/plugins.json` to disabled so its registration is inactive. Removed Paseo and omegacode global tool declarations and Paseo release-age exceptions from both live and chezmoi mise configurations. Ran `mise uninstall --all npm:@getpaseo/cli npm:omegacode`; all three Paseo versions and the one omegacode version were removed. Verified neither tool remains in `mise ls --installed --json`.
+
+Stopped tracking `.claude/plugins/installed_plugins.json` while preserving the live registry. Deleted all three obsolete Synara run-after scripts from chezmoi. Removed obsolete disabled-skill and extension entries from OMP and Grok, with rendered source equality verified for those configs and mise.
+
+Verification: five retired services are not-found/inactive; T3 Code is loaded/inactive/disabled. BB and plans-server remain active/enabled. Collie plugin enabled=false. `python3 scripts/check-portability.py` passes Linux amd64 (480 entries) and both Mac architectures (419 each), with 93 resolved links each. Chezmoi status has no pending run-after scripts.
+
+Recovery: restore selected unit files and the plugin registry from the temporary backup, reload systemd, then explicitly enable/start only services wanted again. Restore mise tool declarations and use mise to reinstall packages if needed. Source changes can be recovered selectively from Git; do not discard the earlier pending Paseo skill removal. No commit or push was performed for this cleanup.
+
+## 2026-09-08: Cleanup publication
+
+User authorized commit and push. Diff whitespace check passed. Publish with `git add -A`, `git commit -m "Remove retired Paseo skills and obsolete service configuration"`, and `git push origin main`. Verify remote main matches local HEAD and the source working tree is clean. Previous platform checks cover this unchanged implementation.
 </script>
 </body>
 </html>

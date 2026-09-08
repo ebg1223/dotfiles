@@ -85,9 +85,6 @@ installer = "npm"
 paths = []
 ignore = []
 disabled = [
-    "omegacode",
-    "paseo",
-    "paseo-workflow",
     "codex-cli-runtime",
     "gpt-5-4-prompting",
     "codex-result-handling",
