@@ -1,6 +1,6 @@
 # Dotfiles for Linux and macOS
 
-Chezmoi manages shell and application settings, 44 custom skills under
+Chezmoi manages shell and application settings, 2 custom skills under
 `~/.agents/skills`, and shared agent definitions under `~/.agents/agents`.
 Claude and Codex skill links point to the shared files. Paseo skills have been
 removed from both the shared and Codex-specific skill directories.
@@ -35,6 +35,12 @@ Downloaded skills recorded in the skills installer lockfile are not vendored
 here. Reinstall them with their original installer when needed. Authentication
 files, session databases, caches, and generated plugin installation records
 are not part of this portability pass.
+
+The local Claude `env.TYPESAFE_API_KEY` is deliberately excluded from Git.
+Its removal is an expected difference in `chezmoi diff`; preserve the local
+credential before applying that settings file. This sync does not modify
+the live file. The Hunk skill is supplied by its installed package rather
+than tracking its machine-specific package symlink.
 
 ## Verify changes
 

@@ -16,7 +16,7 @@ Environment=BB_PARAKEET_BIN={{ .chezmoi.homeDir }}/.local/opt/sherpa-onnx/bin/sh
 Environment=BB_PARAKEET_FFMPEG={{ .chezmoi.homeDir }}/.local/bin/ffmpeg
 Environment=BB_PARAKEET_MODEL_DIR={{ .chezmoi.homeDir }}/.local/share/bb-parakeet/model
 Environment=NPM_CONFIG_CACHE=%h/.cache/bb-app/npm
-ExecStart=/ethan/data/mise/installs/node/latest/bin/npx --yes --allow-scripts=better-sqlite3,node-pty,@parcel/watcher bb-app@nightly
+ExecStart=/ethan/data/mise/installs/node/latest/bin/npx --yes --allow-scripts=better-sqlite3,node-pty,@parcel/watcher bb-app@latest
 Restart=on-failure
 RestartSec=5
 TimeoutStopSec=30

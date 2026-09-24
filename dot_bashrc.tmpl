@@ -8,10 +8,10 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
-{{ if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
 if [[ -d /ethan ]]; then
   export MISE_DATA_DIR=/ethan/data/mise
   export UV_CACHE_DIR=/ethan/cache/uv
 fi
-{{ end }}
+{{- end }}
 export PATH="${MISE_DATA_DIR:-$HOME/.local/share/mise}/shims:$PATH"

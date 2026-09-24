@@ -39,7 +39,7 @@ television = "latest"
 "npm:@earendil-works/pi-coding-agent" = "latest"
 codex = "latest"
 python = "3.12"
-"pipx:omnigent" = { version = "latest", extras = "cursor" }
+"pipx:omnigent" = { version = "latest", extras = "cursor", uvx_args = "--python 3.12" }
 "github:can1357/oh-my-pi" = "latest"
 "npm:hunkdiff" = "latest"
 claude = "latest"

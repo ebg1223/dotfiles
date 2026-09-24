@@ -1,6 +1,6 @@
-{{ if eq .chezmoi.os "linux" }}
+{{ if eq .chezmoi.os "linux" -}}
 general.import = [ "~/.config/omarchy/current/theme/alacritty.toml" ]
-{{ end }}
+{{- end }}
 
 [env]
 TERM = "xterm-256color"

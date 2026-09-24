@@ -1,10 +1,24 @@
 {
+  "env": {
+    "CLAUDE_CODE_ENABLE_FUNCTION_HOOKS": "1"
+  },
   "model": "claude-fable-5-1[1m]",
+  "modelPicker": {
+    "options": [
+      {
+        "model": "deepseek-v41-flash",
+        "label": "DeepSeek V4.1 Flash"
+      },
+      {
+        "model": "glm-53",
+        "label": "GLM 5.3"
+      }
+    ]
+  },
   "hooks": {},
   "enabledPlugins": {
-    "aws-core@claude-plugins-official": true,
-    "mattpocock-skills@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true
+    "frontend-design@claude-plugins-official": true,
+    "fast-jev-compaction@fast-jev-compaction": false
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -13,23 +27,17 @@
         "repo": "anthropics/claude-plugins-official"
       }
     },
-    "codex-fable": {
+    "fast-jev-compaction": {
       "source": {
         "source": "github",
-        "repo": "andrewmaspero/codex-plugin-cc"
-      }
-    },
-    "grok-build-plugin": {
-      "source": {
-        "source": "github",
-        "repo": "VasiHemanth/grok-build-plugin"
+        "repo": "tamaratran/fast-jev-compaction"
       }
     }
   },
   "effortLevel": "high",
   "modelSettings": {
     "claude-fable-5-1": {
-      "effortLevel": "medium"
+      "effortLevel": "xhigh"
     }
   },
   "tui": "fullscreen",

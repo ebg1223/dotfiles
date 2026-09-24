@@ -1,0 +1,25 @@
+{
+  "lastChangelogVersion": "0.87.1",
+  "theme": "light",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-6-astra",
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "npm:pi-web-access",
+    "npm:@howaboua/pi-codex-conversion",
+    "npm:pi-claude-bridge",
+    "npm:pi-cursor-sdk",
+    "npm:@router-for-me/pi-cliproxyapi-provider"
+  ],
+  "enabledModels": [
+    "openai-codex/gpt-5.6-terra",
+    "cliproxyapi/glm-53",
+    "cliproxyapi/glm-53-flash",
+    "openai-codex/gpt-6-astra",
+    "cliproxyapi/deepseek-v41-flash",
+    "openai-codex/gpt-6-luna",
+    "openai-codex/gpt-6-sol",
+    "cursor/grok-4.7@256k:fast"
+  ],
+  "tuiMode": "fullscreen"
+}

@@ -23,7 +23,7 @@ const DATA = {
   "meta": {
     "title": "Portable chezmoi configuration",
     "subtitle": "Restore custom agent skills on Linux and macOS",
-    "asOf": "2026-09-08",
+    "asOf": "2026-09-24",
     "sources": "Local configuration audit; embedded runbook"
   },
   "orientation": {
@@ -39,7 +39,7 @@ const DATA = {
       "Keep credentials and generated caches out",
       "Do not run service scripts during verification"
     ],
-    "whereWeAre": "Skill and service cleanup is complete and verified. Publication is authorized; the destination Mac should fetch and review the updated configuration.",
+    "whereWeAre": "This machine's current configuration and skill removals are captured and verified. The local Claude API key remains excluded. Other machines should fetch and review the changes before applying.",
     "glossary": [
       {
         "term": "Target",
@@ -54,8 +54,8 @@ const DATA = {
       "status": "done",
       "pct": 100,
       "summary": "Track custom content and its links.",
-      "plain": "The repository contains 44 custom shared skills and both agent definitions. The six Paseo skill names were removed from shared and Codex-specific directories.",
-      "details": "146 add targets, including existing living-plan and separate Codex Paseo directories. Secret scanning passed. See runbook 2026-09-07."
+      "plain": "The repository now contains two custom shared skills and both agent definitions. Skills removed on this machine are no longer restored by chezmoi. Installer-managed skills remain outside the repository.",
+      "details": "Originally 146 add targets (runbook 2026-09-07), then 44 shared skills after Paseo cleanup. The 2026-09-24 sync forgets 126 missing shared/Claude/Codex skill roots, leaving living-plan and tdd; see runbook."
     },
     {
       "id": "M2",
@@ -64,7 +64,7 @@ const DATA = {
       "pct": 100,
       "summary": "Render both operating systems without applying.",
       "plain": "Linux and both Mac architectures render successfully. Mac output excludes Linux desktop configuration and services.",
-      "details": "After service cleanup: Linux has 480 archive entries; macOS arm64 and amd64 have 419 each. All three resolve 93 agent links and pass configuration/shell checks. Native macOS execution has not been tested."
+      "details": "2026-09-24: Linux has 221 archive entries; macOS arm64 and amd64 have 160 each. All three resolve 9 agent links and pass configuration/shell checks. This supersedes the prior 480/419-entry, 93-link results. Native macOS execution has not been tested."
     }
   ],
   "nextActions": [
@@ -88,6 +88,10 @@ const DATA = {
     "open": []
   },
   "updateLog": [
+    {
+      "date": "2026-09-24",
+      "note": "Synced this machine's settings and skill removals, preserved platform templates, excluded the local Claude API key, and verified all three platform renders. See the dated runbook entry."
+    },
     {
       "date": "2026-09-08",
       "note": "User authorized committing and pushing the verified skill and service cleanup."
@@ -116,12 +120,12 @@ const DATA = {
   "headline": [
     {
       "label": "Custom shared skills",
-      "value": "44",
-      "detail": "Six Paseo skill names removed on 2026-09-08."
+      "value": "2",
+      "detail": "living-plan and tdd; current machine inventory on 2026-09-24."
     },
     {
       "label": "Verified agent links",
-      "value": "93",
+      "value": "9",
       "detail": "Within each rendered archive."
     },
     {
@@ -492,6 +496,18 @@ Recovery: restore selected unit files and the plugin registry from the temporary
 ## 2026-09-08: Cleanup publication
 
 User authorized commit and push. Diff whitespace check passed. Publish with `git add -A`, `git commit -m "Remove retired Paseo skills and obsolete service configuration"`, and `git push origin main`. Verify remote main matches local HEAD and the source working tree is clean. Previous platform checks cover this unchanged implementation.
+
+## 2026-09-24: Sync from this machine
+
+User requested that chezmoi be up to date from this machine. `git fetch origin` confirmed a clean source tree aligned with origin/main at 1eab144 before changes. Treated live managed files as authoritative without running apply, changing services, or copying credentials.
+
+Forgot 126 absent skill roots with `chezmoi forget --force`, covering 42 names in each of the shared, Claude, and Codex directories. Synced seven changed non-template files using `chezmoi add --secrets=error`, plus the tdd agent metadata. Kept installer-managed skills and the package-owned Hunk skill out of Git. Updated templates for current Claude/Codex settings, the BB latest channel, and shell helpers while retaining home-path substitution and platform guards. Pi settings contain no substitutions and are now a plain file. Captured file permissions and the portable absolute living-plan link.
+
+The only remaining `chezmoi status` entry is `.claude/settings.json`: its local `env.TYPESAFE_API_KEY` is intentionally not stored. Parsed local/source settings compare equal after excluding that one key, and its value is absent from the source tree. The live file is untouched. Before any later apply, preserve this local credential; README documents the expected difference.
+
+Verification: `python3 scripts/check-portability.py` passes Linux amd64 (221 entries) and both Mac architectures (160 each), with 9 resolved agent links per platform. `plan-data check` passes. `git -c core.whitespace=-blank-at-eol,-blank-at-eof diff --check` passes; the EOF exception preserves the live Codex config's trailing blank line. The first portability run caught the package-owned Hunk symlink; forgetting that newly added target resolved it without changing the live installation.
+
+Publication: commit as `Sync current machine settings and remove retired skills`, push origin/main, then verify a clean Git worktree and matching remote HEAD. Recovery is available from 1eab144 by restoring selected source paths; do not apply old settings over live files without review. No native macOS execution was performed.
 </script>
 </body>
 </html>

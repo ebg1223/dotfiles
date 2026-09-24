@@ -1,16 +1,10 @@
 ---
 name: living-plan
 description: >
-  Create and maintain a living-plan HTML dashboard: a single self-contained
-  HTML file that is the plan, runbook, status board, and the live contract
-  between humans and agents for a project or program. Use when the user asks
-  to create a plan dashboard, "living plan", "living document", status
-  dashboard, program dashboard, update/sync the plan, or runs /living-plan.
-  Also use proactively: for any job bigger than a self-contained single
-  prompt (implementations, refactors, migrations, multi-session efforts),
-  and when finishing a meaningful unit of work in a project that has a
-  living plan (a living-plans/ dir, *.living-plan.html, or
-  STATUS-DASHBOARD.html), update it before declaring the work done.
+  Create and maintain a living-plan HTML dashboard. Use when explicitly
+  requested, when work spans sessions, or when it needs persistent
+  coordination. Update an existing plan when the task changes that plan's
+  scope, decisions, status, dependencies, or verification evidence.
 metadata:
   short-description: "Create/maintain living-plan HTML dashboards"
 ---
@@ -74,7 +68,10 @@ detail. Every claim cites its source (planning doc, PR, commit, run id).
 
 ## When to CREATE a new living plan
 
-Trigger: user starts a substantial multi-session effort, or asks for one.
+Create a plan when explicitly requested, when work will span sessions, or
+when multiple workstreams need persistent coordination. Reuse a relevant
+existing plan before creating another. Bounded work that can finish in one
+session needs no new plan unless one of these conditions applies.
 
 1. **Assess first, write second.** Read the relevant planning docs, code,
    and git history. For large corpora, fan out parallel explore subagents
@@ -139,12 +136,11 @@ Trigger: user starts a substantial multi-session effort, or asks for one.
 
 ## When to UPDATE an existing living plan (the sync loop)
 
-This is the ongoing contract duty. After completing any meaningful unit of
-work in a project that has a living plan — a milestone step, a fix, a run,
-a decision from the user — sync the document as part of finishing the work.
-(Routine sync changes content within the existing structure; if the
-structure itself no longer fits, that's a reconciliation — see next
-section.)
+Update the plan when the current task changes an effort it tracks: its
+scope, decisions, status, dependencies, or verification evidence. A plan
+directory or unrelated dashboard in the repository does not trigger an
+update. Routine sync changes content within the existing structure; if
+that structure no longer fits, use reconciliation below.
 
 1. **Read before writing.** `plan-data read` the current DATA (never the
    whole file); understand what it claims.

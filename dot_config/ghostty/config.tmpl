@@ -1,7 +1,7 @@
 # Dynamic theme colors
-{{ if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
 config-file = ?"~/.config/omarchy/current/theme/ghostty.conf"
-{{ end }}
+{{- end }}
 
 # Font
 font-family = "JetBrainsMono Nerd Font"
