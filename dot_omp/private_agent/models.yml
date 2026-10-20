@@ -1,7 +1,0 @@
-providers:
-  cliproxy:
-    baseUrl: http://cliproxyapi:8317/v1
-    auth: "none"
-    disableStrictTools: true
-    discovery:
-      type: proxy

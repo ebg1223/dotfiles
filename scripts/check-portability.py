@@ -9,6 +9,12 @@ import tarfile
 import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
+MISE_CONFIG = tomllib.loads((ROOT / "dot_config/mise/config.toml").read_text())
+unused_excludes = (
+    set(MISE_CONFIG.get("settings", {}).get("minimum_release_age_excludes", []))
+    - MISE_CONFIG["tools"].keys()
+)
+assert not unused_excludes, ("Release-age exceptions for undeclared tools", sorted(unused_excludes))
 
 
 def chezmoi(*args, data, content=None):
@@ -56,7 +62,12 @@ for os_name, arch, home in [
             if "/skills/" not in name:
                 json.loads(body)
         if name.endswith(".toml"):
-            tomllib.loads(body.decode())
+            config = tomllib.loads(body.decode())
+            if name == ".config/mise/config.toml":
+                assert config == MISE_CONFIG, (os_name, "Mise config changed during rendering")
+            if name == ".codex/config.toml":
+                if "github:BennyKok/lfg" not in MISE_CONFIG["tools"]:
+                    assert "lfg" not in config.get("mcp_servers", {}), "LFG MCP requires the retired mise tool"
         if name in (".bashrc", ".bash_profile"):
             subprocess.run(["bash", "-n"], input=body, check=True)
         if name == ".zshrc":

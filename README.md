@@ -19,6 +19,21 @@ This sync copies configuration. It does not install the applications, recreate
 agent sessions, or transfer credentials. Mise's tool configuration is included;
 install the tools you need with mise on the destination machine.
 
+## Mise cleanup
+
+`dot_config/mise/config.toml` tracks the cleaned global tool list, including
+native Grok, btop, and T3 nightly. Retired LFG and Prime Agent installation
+recipes are removed, along with LFG's Codex MCP entry and the absent OMP
+configuration. Release-age exceptions cover only tools still in the list.
+
+To save future global tool changes, run
+`chezmoi add --secrets=error ~/.config/mise/config.toml`, then review and commit
+the source diff. Keep this file untemplated: its `{{ ... }}` expressions belong
+to mise, not chezmoi. Existing settings for other removed tools remain available;
+removing a tool declaration does not authorize deleting its data or credentials.
+On other machines, review obsolete installations and MCP entries separately;
+this repository does not automatically uninstall tools or erase local files.
+
 ## Platform differences
 
 - Home paths use `{{ .chezmoi.homeDir }}` where an absolute path is needed.

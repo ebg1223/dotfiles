@@ -23,7 +23,7 @@ const DATA = {
   "meta": {
     "title": "Portable chezmoi configuration",
     "subtitle": "Restore custom agent skills on Linux and macOS",
-    "asOf": "2026-09-24",
+    "asOf": "2026-10-20",
     "sources": "Local configuration audit; embedded runbook"
   },
   "orientation": {
@@ -39,7 +39,7 @@ const DATA = {
       "Keep credentials and generated caches out",
       "Do not run service scripts during verification"
     ],
-    "whereWeAre": "This machine's current configuration and skill removals are captured and verified. The local Claude API key remains excluded. Other machines should fetch and review the changes before applying.",
+    "whereWeAre": "The cleaned global tool list and its orphaned settings are captured and verified on all three platform renders. Unrelated local agent and shell changes remain unsynced. The local Claude API key remains excluded. Other machines should fetch and review changes before applying; see runbook 2026-10-20.",
     "glossary": [
       {
         "term": "Target",
@@ -64,7 +64,16 @@ const DATA = {
       "pct": 100,
       "summary": "Render both operating systems without applying.",
       "plain": "Linux and both Mac architectures render successfully. Mac output excludes Linux desktop configuration and services.",
-      "details": "2026-09-24: Linux has 221 archive entries; macOS arm64 and amd64 have 160 each. All three resolve 9 agent links and pass configuration/shell checks. This supersedes the prior 480/419-entry, 93-link results. Native macOS execution has not been tested."
+      "details": "2026-10-20: Linux has 213 archive entries; macOS arm64 and amd64 have 152 each. All three resolve 9 agent links and pass configuration/shell checks, plus tool-list and LFG dependency checks; see dated runbook. Prior 2026-09-24 results were 221/160 entries and 9 links, superseding 480/419 entries and 93 links. Native macOS execution has not been tested."
+    },
+    {
+      "id": "M3",
+      "name": "Save the cleaned tool list",
+      "status": "done",
+      "pct": 100,
+      "summary": "Sync mise and remove orphaned tool settings.",
+      "plain": "The saved tool list now matches this machine. Removed tools no longer return through this configuration, and Codex no longer tries to start the retired LFG integration. Other application data stays untouched.",
+      "details": "Removed 22 retired declarations and LFG/Prime Agent installation recipes; added native Grok, btop, and T3 nightly. Removed the unused OMP release-age exception, five absent OMP configuration files, and LFG's Codex MCP entry in both live and source settings. No chezmoi apply, tool uninstall, service restart, or credential sync occurred. See runbook 2026-10-20."
     }
   ],
   "nextActions": [
@@ -88,6 +97,10 @@ const DATA = {
     "open": []
   },
   "updateLog": [
+    {
+      "date": "2026-10-20",
+      "note": "Synced the cleaned mise configuration, removed orphaned OMP and LFG settings, added regression checks, and verified Linux and both Mac renders. Unrelated local differences remain outside this task. See dated runbook."
+    },
     {
       "date": "2026-09-24",
       "note": "Synced this machine's settings and skill removals, preserved platform templates, excluded the local Claude API key, and verified all three platform renders. See the dated runbook entry."
@@ -508,6 +521,16 @@ The only remaining `chezmoi status` entry is `.claude/settings.json`: its local 
 Verification: `python3 scripts/check-portability.py` passes Linux amd64 (221 entries) and both Mac architectures (160 each), with 9 resolved agent links per platform. `plan-data check` passes. `git -c core.whitespace=-blank-at-eol,-blank-at-eof diff --check` passes; the EOF exception preserves the live Codex config's trailing blank line. The first portability run caught the package-owned Hunk symlink; forgetting that newly added target resolved it without changing the live installation.
 
 Publication: commit as `Sync current machine settings and remove retired skills`, push origin/main, then verify a clean Git worktree and matching remote HEAD. Recovery is available from 1eab144 by restoring selected source paths; do not apply old settings over live files without review. No native macOS execution was performed.
+
+## 2026-10-20: Mise cleanup sync
+
+User requested publication of the recent global mise cleanup and related file cleanup. Started with a clean source worktree at 6a37bd7; `git fetch origin` confirmed origin/main matched. Compared live `~/.config/mise/config.toml` with the plain source file. Captured the cleaned list via `chezmoi add --secrets=error ~/.config/mise/config.toml`: 22 removed tool declarations, new native Grok, btop and T3 nightly, and removal of the LFG installer and Prime Agent task/PATH setup. Removed the now-unused `github:can1357/oh-my-pi` release-age exception from the live config before adding it.
+
+Removed the orphaned `[mcp_servers.lfg]` block from both live Codex config and its source template without syncing unrelated Codex changes. Deleted five OMP configuration/plugin files and their empty source directories because `~/.omp` is already absent locally. Retained existing OpenCode, btca, shpool and Prime Agent files/data rather than deleting application data solely because tools left the global list. Unrelated agent, skill, Grok, Pi and shell differences remain untouched. No credentials copied, no chezmoi apply, no service changes and no deliberate tool uninstall were run. During initial inspection, `mise config ls` and `mise ls --current` automatically attempted deferred pruning of old Bun/Node versions and warned that those directories were not empty; subsequent verification avoids invoking mise.
+
+Added checks for undeclared release-age exceptions, unchanged mise configuration across platform rendering, and an LFG MCP entry without its mise dependency. `python3 scripts/check-portability.py` passes: Linux amd64 has 213 archive entries; macOS arm64 and amd64 have 152 each. All three resolve 9 agent links and pass JSON/TOML and shell syntax checks. Verified live mise equals source byte-for-byte, LFG is absent from live Codex, and OMP is absent from both live and source. `git diff --check` passes. Native macOS execution remains untested.
+
+Publish as `Sync cleaned mise tools and remove orphaned integrations`, then `git push origin main`; verify remote HEAD matches and the source worktree is clean. Recovery: restore selected source paths from 6a37bd7. To restore local changes only, re-add the prior OMP release-age exception or the LFG MCP block from that commit after reviewing paths and reinstalling tools if needed. Do not apply the full historical Codex config over unrelated current settings.
 </script>
 </body>
 </html>
