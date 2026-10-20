@@ -1,0 +1,29 @@
+[tools."http:t3"]
+version = "latest"
+prerelease = true
+strip_components = 1
+version_list_url = "https://registry.npmjs.org/t3/nightly"
+version_expr = "[fromJSON(body).version]"
+checksum_url = "https://github.com/pingdotgg/t3code/releases/download/v{{ version }}/SHA256SUMS"
+
+[tools."http:t3".platforms]
+linux-x64 = { url = "https://github.com/pingdotgg/t3code/releases/download/v{{ version }}/t3-{{ version }}-linux-x64.tar.gz" }
+linux-arm64 = { url = "https://github.com/pingdotgg/t3code/releases/download/v{{ version }}/t3-{{ version }}-linux-arm64.tar.gz" }
+macos-arm64 = { url = "https://github.com/pingdotgg/t3code/releases/download/v{{ version }}/t3-{{ version }}-darwin-arm64.tar.gz" }
+windows-x64 = { url = "https://github.com/pingdotgg/t3code/releases/download/v{{ version }}/t3-{{ version }}-win32-x64.zip" }
+windows-arm64 = { url = "https://github.com/pingdotgg/t3code/releases/download/v{{ version }}/t3-{{ version }}-win32-arm64.zip" }
+
+[tasks."t3:lock"]
+description = "Resolve T3 nightly and require its published platform checksum"
+dir = "~"
+env = { MISE_LOCKFILE_MODE = "generate" }
+run = "mise lock --global --bump http:t3 --platform {{ os() }}-{{ arch() }}"
+
+[tasks."t3:upgrade"]
+description = "Install or update T3 nightly with published checksum verification"
+dir = "~"
+depends = ["t3:lock"]
+run = "mise install http:t3"
+
+[settings]
+minimum_release_age_excludes = ["http:t3"]

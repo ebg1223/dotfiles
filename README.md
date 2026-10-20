@@ -34,6 +34,43 @@ removing a tool declaration does not authorize deleting its data or credentials.
 On other machines, review obsolete installations and MCP entries separately;
 this repository does not automatically uninstall tools or erase local files.
 
+### T3 nightly updates
+
+`~/.config/mise/conf.d/t3.toml` defines the native `http:t3` backend. It reads the version from npm's
+`nightly` metadata, then downloads the matching official GitHub archive.
+The former `npm:t3 = "nightly"` entry stayed installed under the literal name
+`nightly`, so mise compared that name with itself and missed new builds.
+
+Install or update T3 with:
+
+```sh
+mise run --skip-tools t3:upgrade
+```
+
+This task uses mise's built-in global lock refresh and lock-aware install commands.
+It fetches the current platform's published SHA256SUMS and fails if the checksum
+is missing or wrong. `--skip-tools` prevents task startup from installing tools
+before this verification workflow. Existing builds remain available for rollback.
+The generated `~/.config/mise/mise.lock` is machine-local and is not tracked.
+Mise may also record currently installed global tools in that lock; this does
+not install or upgrade those tools. Ordinary mise upgrades can advance them.
+
+Ordinary `mise outdated http:t3` and `mise upgrade http:t3` now detect new builds.
+Prefer the task above for updates: this mise version does not enforce
+`checksum_url` on an ordinary unlocked HTTP install or upgrade.
+Only Linux x64/arm64, Apple Silicon macOS, and Windows x64/arm64 archives are
+configured. Upstream does not currently publish a native Intel macOS archive.
+
+The existing local T3 service launcher uses `mise exec -- t3`, so its next start
+selects the native build without a path edit. Installing a new version does not
+restart the running server. Its session data and old npm installation are left
+untouched.
+
+Run `python3 scripts/check-t3-nightly.py` for an offline integration check using
+real mise and temporary local releases. It checks first installation, detection
+of a newer nightly, verified upgrades, rollback preservation, and rejection of
+bad or missing checksums without touching the live tool store.
+
 ## Platform differences
 
 - Home paths use `{{ .chezmoi.homeDir }}` where an absolute path is needed.

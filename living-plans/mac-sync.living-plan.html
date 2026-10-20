@@ -39,7 +39,7 @@ const DATA = {
       "Keep credentials and generated caches out",
       "Do not run service scripts during verification"
     ],
-    "whereWeAre": "The cleaned global tool list and its orphaned settings are captured and verified on all three platform renders. Unrelated local agent and shell changes remain unsynced. The local Claude API key remains excluded. Other machines should fetch and review changes before applying; see runbook 2026-10-20.",
+    "whereWeAre": "The cleaned tool configuration is saved, and the native T3 CLI now runs the current nightly. Tested update tasks resolve real build versions and enforce published checksums. The existing T3 server remains on its old process until a deliberate restart. Unrelated local settings remain unsynced; see runbook 2026-10-20 Native T3 nightly migration.",
     "glossary": [
       {
         "term": "Target",
@@ -64,7 +64,7 @@ const DATA = {
       "pct": 100,
       "summary": "Render both operating systems without applying.",
       "plain": "Linux and both Mac architectures render successfully. Mac output excludes Linux desktop configuration and services.",
-      "details": "2026-10-20: Linux has 213 archive entries; macOS arm64 and amd64 have 152 each. All three resolve 9 agent links and pass configuration/shell checks, plus tool-list and LFG dependency checks; see dated runbook. Prior 2026-09-24 results were 221/160 entries and 9 links, superseding 480/419 entries and 93 links. Native macOS execution has not been tested."
+      "details": "2026-10-20 native T3 migration: Linux has 215 archive entries; macOS arm64 and amd64 have 154 each. All three resolve 9 agent links and pass configuration/shell checks, including preservation of both plain mise files. Earlier cleanup results were 213/152 entries, following 2026-09-24 results of 221/160 entries and 9 links, superseding 480/419 entries and 93 links. Native macOS execution has not been tested; T3 has no official Intel macOS archive."
     },
     {
       "id": "M3",
@@ -74,11 +74,25 @@ const DATA = {
       "summary": "Sync mise and remove orphaned tool settings.",
       "plain": "The saved tool list now matches this machine. Removed tools no longer return through this configuration, and Codex no longer tries to start the retired LFG integration. Other application data stays untouched.",
       "details": "Removed 22 retired declarations and LFG/Prime Agent installation recipes; added native Grok, btop, and T3 nightly. Removed the unused OMP release-age exception, five absent OMP configuration files, and LFG's Codex MCP entry in both live and source settings. No chezmoi apply, tool uninstall, service restart, or credential sync occurred. See runbook 2026-10-20."
+    },
+    {
+      "id": "M4",
+      "name": "Make T3 nightly upgrades reliable",
+      "status": "done",
+      "pct": 100,
+      "summary": "Resolve concrete versions and verify published checksums.",
+      "plain": "T3 now installs the official native build instead of storing a moving tag as its version. The update task detects new builds and rejects bad or missing checksums. Old installations and the running service remain intact.",
+      "details": "Installed and ran 0.1.1-nightly.20261020.3411 through http:t3. Added conf.d/t3.toml, checksum-lock and update tasks, and offline real-mise regression tests covering a moving tag, old-build preservation, unchanged unrelated installations, and bad/missing checksums. The native serve CLI accepts the existing launcher flags. Global mise.lock is generated locally and may capture other installed versions without upgrading them. Service PID 44498 was not restarted. See runbook 2026-10-20 Native T3 nightly migration."
     }
   ],
   "nextActions": [
     {
       "pri": 1,
+      "action": "Restart t3code.service when disruption is acceptable to switch the running server to the native nightly",
+      "ref": "runbook 2026-10-20 Native T3 nightly migration"
+    },
+    {
+      "pri": 2,
       "action": "Fetch the published cleanup on other machines and review chezmoi diff",
       "ref": "README.md"
     }
@@ -92,11 +106,19 @@ const DATA = {
       {
         "name": "Do not commit credentials or apply pending service scripts",
         "ref": "Prior audit"
+      },
+      {
+        "name": "Migrate T3 to the native nightly backend; verify updates and preserve rollback installations",
+        "ref": "User approval 2026-10-20"
       }
     ],
     "open": []
   },
   "updateLog": [
+    {
+      "date": "2026-10-20",
+      "note": "Migrated T3 to native nightly releases with checksum-verified update tasks, installed the current build, and verified offline upgrade/security regressions plus all platform renders. Existing server remains running without a restart. See Native T3 nightly migration runbook."
+    },
     {
       "date": "2026-10-20",
       "note": "Synced the cleaned mise configuration, removed orphaned OMP and LFG settings, added regression checks, and verified Linux and both Mac renders. Unrelated local differences remain outside this task. See dated runbook."
@@ -531,6 +553,24 @@ Removed the orphaned `[mcp_servers.lfg]` block from both live Codex config and i
 Added checks for undeclared release-age exceptions, unchanged mise configuration across platform rendering, and an LFG MCP entry without its mise dependency. `python3 scripts/check-portability.py` passes: Linux amd64 has 213 archive entries; macOS arm64 and amd64 have 152 each. All three resolve 9 agent links and pass JSON/TOML and shell syntax checks. Verified live mise equals source byte-for-byte, LFG is absent from live Codex, and OMP is absent from both live and source. `git diff --check` passes. Native macOS execution remains untested.
 
 Publish as `Sync cleaned mise tools and remove orphaned integrations`, then `git push origin main`; verify remote HEAD matches and the source worktree is clean. Recovery: restore selected source paths from 6a37bd7. To restore local changes only, re-add the prior OMP release-age exception or the LFG MCP block from that commit after reviewing paths and reinstalling tools if needed. Do not apply the full historical Codex config over unrelated current settings.
+
+## 2026-10-20: Native T3 nightly migration
+
+User approved replacing the stuck npm nightly entry with a native backend and testing future update behavior. The old installation identifies as `nightly` to mise but contains 0.1.1-nightly.20261019.3373. The registry tag points to 0.1.1-nightly.20261020.3411. Mise's generic resolver falls back to the literal tag and its update comparison skips it as unchanged.
+
+Removed npm:t3 and its release-age exception from both live and source global config. Added the plain `~/.config/mise/conf.d/t3.toml` definition for http:t3, matching source `dot_config/mise/conf.d/t3.toml`. It reads the concrete version from https://registry.npmjs.org/t3/nightly and names official native archives for Linux x64/arm64, macOS arm64, and Windows x64/arm64. Intel macOS has no upstream native archive and no guessed URL is configured. Kept the file plain because its templates belong to mise. Applied only the new chezmoi conf.d target; did not run a full chezmoi apply.
+
+Integration testing caught an additional limitation: an unlocked HTTP install ignores checksum_url for published-checksum enforcement. A generated-lockfile environment on an upgrade alone also did not enforce fresh published checksums. Rather than adding a custom verification script or changing global settings, the supported update command is `mise run --skip-tools t3:upgrade`. Its dependency t3:lock enables strict checksum generation only while running `mise lock --global --bump http:t3 --platform <current-platform>`; t3:upgrade then runs the lock-aware `mise install http:t3`. These are built-in mise operations, with no forced reinstall. --skip-tools prevents task startup from installing a missing release before the checksum workflow. Ordinary mise outdated/upgrade now detect concrete nightly changes, but the task is the checksum-enforced update path.
+
+Mise scopes global locks to `~/.config/mise/mise.lock` even when the declaration lives in conf.d. The generated lock is not committed and can also record other currently installed tools. Metadata resolution during real verification fetched other release/provenance records, but did not install or upgrade unrelated applications. Attempts to isolate the lock by drop-in placement and global-file overrides did not change mise's lock root; those overrides were removed rather than shipping ineffective isolation. README documents the actual lock behavior.
+
+Ran the task with `XDG_STATE_HOME=/tmp/mise-t3-production-state.yzZ5ax` to avoid processing the existing deferred-uninstall queue. The current native build installed without --force and its published SHA256 was verified: 27c4c28dc8b8687a41794da638e4dfe02b96e5aedf68dfa84939a6e250de7592. `mise exec -- sh -c 'command -v t3; t3 --version'` selects `/ethan/data/mise/installs/http-t3/0.1.1-nightly.20261020.3411/t3` and prints the matching version. A second task run reported already installed, with no reinstall. Old npm T3 remains intact. Both live TOML files match chezmoi source.
+
+The existing untracked `~/.local/libexec/t3code-mise` wrapper uses `mise exec -- t3`, not a pinned npm path. Its `serve --help` invocation succeeds with the native build and existing --host flag. The active t3code.service remains PID 44498, started at 11:05:52 MST, on its old process. No unit or wrapper edit, service restart, application-data change, or credential sync occurred. A deliberate later restart is needed to switch the running server.
+
+`scripts/check-t3-nightly.py` uses real mise, a temporary local HTTP registry, fake executable archives, and isolated HOME/data/cache/state. It verifies first install/execution, a changed nightly in outdated and upgrade dry-run, checksum-verified update execution, preservation of the previous build, unchanged unrelated installed tools, rejection of an incorrect SHA256, and failure when the checksum manifest is missing. All tests pass. `scripts/check-portability.py` passes Linux amd64 with 215 entries and both Mac renders with 154 entries each; all have 9 resolved agent links. It checks that the root and drop-in mise files survive rendering unchanged. Native macOS and Windows execution remain untested.
+
+Publish as `Track native T3 nightlies with verified update tasks`. Recovery: restore only the prior npm:t3 declaration and release-age exception from ef50f5c, remove or forget the new drop-in, and select the preserved npm installation. Review the generated local mise.lock before restoring or removing entries. Do not apply historical full agent configs or restart the service merely to roll back this CLI selection. No application data was deleted.
 </script>
 </body>
 </html>

@@ -10,11 +10,16 @@ import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
 MISE_CONFIG = tomllib.loads((ROOT / "dot_config/mise/config.toml").read_text())
-unused_excludes = (
-    set(MISE_CONFIG.get("settings", {}).get("minimum_release_age_excludes", []))
-    - MISE_CONFIG["tools"].keys()
-)
-assert not unused_excludes, ("Release-age exceptions for undeclared tools", sorted(unused_excludes))
+MISE_CONFIGS = {
+    ".config/mise/" + str(path.relative_to(ROOT / "dot_config/mise")): tomllib.loads(path.read_text())
+    for path in (ROOT / "dot_config/mise").rglob("*.toml")
+}
+mise_tools = {tool for config in MISE_CONFIGS.values() for tool in config.get("tools", {})}
+for name, config in MISE_CONFIGS.items():
+    unused_excludes = (
+        set(config.get("settings", {}).get("minimum_release_age_excludes", [])) - mise_tools
+    )
+    assert not unused_excludes, (name, "Release-age exceptions for undeclared tools", sorted(unused_excludes))
 
 
 def chezmoi(*args, data, content=None):
@@ -63,8 +68,8 @@ for os_name, arch, home in [
                 json.loads(body)
         if name.endswith(".toml"):
             config = tomllib.loads(body.decode())
-            if name == ".config/mise/config.toml":
-                assert config == MISE_CONFIG, (os_name, "Mise config changed during rendering")
+            if name in MISE_CONFIGS:
+                assert config == MISE_CONFIGS[name], (os_name, name, "Mise config changed during rendering")
             if name == ".codex/config.toml":
                 if "github:BennyKok/lfg" not in MISE_CONFIG["tools"]:
                     assert "lfg" not in config.get("mcp_servers", {}), "LFG MCP requires the retired mise tool"
