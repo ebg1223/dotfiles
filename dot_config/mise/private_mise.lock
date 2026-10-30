@@ -490,7 +490,12 @@ backend = "github:Infisical/cli"
 specifiers = ["latest"]
 
 [tools.infisical.options]
-asset_pattern = "cli_{{ version }}_linux_amd64.tar.gz"
+asset_pattern = "cli_{{ version }}_{{ os(macos='darwin') }}_{{ arch(x64='amd64') }}.tar.gz"
+
+[tools.infisical."platforms.linux-x64"]
+checksum = "sha256:3800bded850e00ce1c402a48f081c4b210cfbdf4f9a4a794cf159a2fef0a8efa"
+url = "https://github.com/Infisical/cli/releases/download/v0.44.10/cli_0.44.10_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/Infisical/cli/releases/assets/683122916"
 
 [tools.infisical."platforms.linux-x64-baseline"]
 checksum = "sha256:3800bded850e00ce1c402a48f081c4b210cfbdf4f9a4a794cf159a2fef0a8efa"
@@ -503,20 +508,6 @@ url = "https://github.com/Infisical/cli/releases/download/v0.44.10/cli_0.44.10_l
 url_api = "https://api.github.com/repos/Infisical/cli/releases/assets/683122916"
 
 [tools.infisical."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:3800bded850e00ce1c402a48f081c4b210cfbdf4f9a4a794cf159a2fef0a8efa"
-url = "https://github.com/Infisical/cli/releases/download/v0.44.10/cli_0.44.10_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/Infisical/cli/releases/assets/683122916"
-
-[[tools.infisical]]
-version = "0.44.10"
-backend = "github:Infisical/cli"
-specifiers = ["latest"]
-
-[tools.infisical.options]
-asset_pattern = "cli_{{ version }}_{{ os(macos='darwin') }}_{{ arch(x64='amd64') }}.tar.gz"
-matching = "cli_"
-
-[tools.infisical."platforms.linux-x64"]
 checksum = "sha256:3800bded850e00ce1c402a48f081c4b210cfbdf4f9a4a794cf159a2fef0a8efa"
 url = "https://github.com/Infisical/cli/releases/download/v0.44.10/cli_0.44.10_linux_amd64.tar.gz"
 url_api = "https://api.github.com/repos/Infisical/cli/releases/assets/683122916"

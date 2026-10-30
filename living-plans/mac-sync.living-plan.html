@@ -39,7 +39,7 @@ const DATA = {
       "Keep credentials and generated caches out",
       "Do not run service scripts during verification"
     ],
-    "whereWeAre": "Mac reconciliation is in progress. The Mac's unpublished source and live targets are backed up, and its shell improvements are integrated here. Linux apply preserves Claude credentials and Pi state. Real Mac preview checks pass. Simlock is the intended Argent replacement; existing Argent files and service stay untouched. See runbook 2026-10-30 Mac reconciliation.",
+    "whereWeAre": "Shared configuration is pushed and applied on Linux and mbair, with no remaining chezmoi differences. All 38 configured Mac tools are installed; Simlock 0.4.0, DuckDB 2.0 and T3 0.1.5 run. Credentials and Pi state are preserved. Argent is unchanged. Cursor is installed but needs the Mac login keychain unlocked locally. See runbook 2026-10-30 Mac rollout verification.",
     "glossary": [
       {
         "term": "Target",
@@ -64,7 +64,7 @@ const DATA = {
       "pct": 100,
       "summary": "Render both operating systems without applying.",
       "plain": "Linux and both Mac architectures render successfully. Mac output excludes Linux desktop configuration and services.",
-      "details": "2026-10-30: Linux has 243 archive entries and both Macs have 182, with 11 resolved agent links each. Configuration and shell checks pass. This supersedes 215/154 entries and 9 links from 2026-10-20; earlier results remain in the runbook. Native macOS execution has not been tested; T3 has no configured Intel macOS archive."
+      "details": "2026-10-30 final: Linux has 241 archive entries and both Mac renders have 180, with 11 resolved agent links each. Identical checks pass on both physical machines. Native Apple Silicon shell, Simlock, DuckDB, Infisical and T3 execution are verified. Cursor requires local keychain unlock. Intel Mac runtime is untested and T3 has no configured Intel archive. Earlier counts and verification history remain in the runbook."
     },
     {
       "id": "M3",
@@ -87,18 +87,18 @@ const DATA = {
     {
       "id": "M5",
       "name": "Reconcile and apply on mbair",
-      "status": "in_progress",
-      "pct": 70,
+      "status": "done",
+      "pct": 100,
       "summary": "Preserve Mac customization and local state, then sync both machines.",
-      "plain": "Mac-specific shell behavior now lives in shared chezmoi templates. The native Cursor backend works on Linux and avoids the old Mac grep dependency. Shared preferences preserve local credentials and Pi's version marker. The Mac apply and Simlock verification are next.",
-      "details": "Source/target backups and local Mac snapshot branch preserve unpublished work. Native Cursor 2026.10.22-27dcf5f ran on Linux; selected apply ran twice with local state preserved. Linux and both Mac renders pass on both physical hosts. Argent source additions were removed after the user's replacement ruling; no service changes. See runbook 2026-10-30 Mac reconciliation."
+      "plain": "Mac-specific shell behavior now lives in shared chezmoi templates. Shared preferences preserve local credentials and Pi's version marker. The Mac has all selected tools installed, including Simlock. Existing Argent remains running until a separate cutover; Cursor needs the Mac keychain unlocked before use.",
+      "details": "Published 9f475d0, f2294db and fe64b00, then pulled/applied on mbair. Repeated apply converges with no diff. Fixed btop's Linux-only backend restriction and Infisical's cross-platform lock mapping. Verified 38 selected Mac tools installed and real CLI execution. Installer caches and only newly installed Rust offline docs were removed to recover disk space; no old tool installations or simulator/project data removed. Mac has 4.9GiB free. Private backups and snapshot branch retain its previous source; Argent PID 5954 and private files unchanged. See runbook 2026-10-30 Mac rollout verification."
     }
   ],
   "nextActions": [
     {
       "pri": 1,
-      "action": "Push reviewed Mac reconciliation, pull/apply on mbair, and verify Simlock and unchanged Argent runtime",
-      "ref": "runbook 2026-10-30 Mac reconciliation"
+      "action": "Unlock mbair's login keychain locally before using Cursor",
+      "ref": "runbook 2026-10-30 Mac rollout verification"
     },
     {
       "pri": 1,
@@ -137,6 +137,10 @@ const DATA = {
     "open": []
   },
   "updateLog": [
+    {
+      "date": "2026-10-30",
+      "note": "Completed real mbair rollout and repeated apply with no differences. All selected Mac tools installed, including Simlock and T3; btop and Infisical platform issues repaired. Recovered disk space from caches/new Rust docs, preserved Argent and local secrets, and recorded Cursor's locked-keychain limitation."
+    },
     {
       "date": "2026-10-30",
       "note": "Started actual mbair reconciliation: preserved unpublished Mac work, integrated shell/theme/Cursor changes and local-state-preserving settings transforms, and passed native Mac preview checks. Simlock replaces the planned Argent source integration; runtime untouched."
@@ -621,6 +625,27 @@ Two read-only designs from Claude Opus 5.5 and Codex GPT-6-astra converged on na
 User clarified Simlock will replace Argent. All proposed shared Argent source/service additions were removed. Mac's existing plist, launcher, dependencies, host override, credential and running PID 5954 are left intact. The backup branch retains its former management setup. This sync verifies Simlock installation, not a daemon/client cutover.
 
 Linux plus Apple Silicon/Intel Mac render checks pass on both physical machines from the exact staged source: 245 Linux entries and 184 Mac entries, 11 agent links each. Native Mac preview uses /tmp/chezmoi-sync-preview, not the live source; it does not apply. T3 stable-update regressions pass. Mac's live Argent plist passes plutil. Pending: review, push, live Mac pull/apply, Simlock execution and after-state comparisons. Use a stable system PATH while applying so Python transforms do not depend on a newly selected but not-yet-installed mise Python.
+
+## 2026-10-30: Mac rollout verification
+
+Published 9f475d0 from Linux and fast-forwarded mbair, then applied files/directories/symlinks with a stable system PATH. Source backups remain at /Users/ethan/.local/state/chezmoi-backups/20261030-104321-mac-sync and on local branch backup/mbair-before-sync-20261030 (b3f9322). Shared source/targets converge on both hosts. The local Linux Pi model list changed during work; its newer preferences were preserved in source instead of overwritten. Claude settings now have mode 600 and preserve local environment values. Pi retains its own changelog marker.
+
+Read-only design candidates came from Claude Opus 5.5 and Codex GPT-6-astra. Claude review found the credential-permission issue, which was repaired and regression-tested. Nested-zsh version selection and theme-merge concerns were disproven by real Mac node@24.21.0 execution and comparing exported seven-segment prompt configurations. A follow-up review returned CLEAN. Two slow review attempts were stopped/timed out before fresh attempts; they made no edits.
+
+Installing the versions selected by the shared lock exposed Aqua btop's Linux-only support. f2294db gates it with mise's native os option and adds a regression assertion. It also exposed eagerly rendered Infisical asset options: Mac lock generation had replaced Linux platform URLs with a Darwin filename. fe64b00 removes that source-side OS interpolation, inherits the registry's platform-aware selection, and generates/validates both Linux x64 and macOS arm64 assets on this machine. Tool version sets remain unchanged; the stale asdf Cursor entry was pruned. Infisical 0.44.10 executes on Mac. The generated lock remains format 1, compatible with both installed mise versions.
+
+Mac installation initially failed with ENOSPC. Cleared re-downloadable mise, Bun, npm, uv and Homebrew archive caches using their cache commands or the exact archive-cache directory. Removed only rust-docs from the newly installed 1.99.1 toolchain, retaining rustc/cargo/rustfmt/clippy and all preexisting toolchains. No project, simulator, credential, old installation or backup data was deleted. APFS reclaimed some cache space asynchronously, reaching 5.2GiB; the outstanding T3 install then succeeded with mise --locked install http:t3. Final free space is 4.9GiB. No permission to prune old installed versions was needed or used.
+
+Final real Mac checks: mise ls --missing prints nothing across 38 selected tools. simlock --version = 0.4.0; DuckDB = 2.0.0 and SELECT 42 returns 42; Infisical = 0.44.10; T3 = 0.1.5; Node = 26.13.0; rustc = 1.99.1; Codex = 0.166.0; Claude = 2.1.312. Fresh noninteractive SSH resolves mise and tool shims. Interactive zsh loads the home-relative prompt theme and runs Simlock/Node. Cursor 2026.10.22-27dcf5f is installed but startup reports the macOS login keychain is locked; unlock it locally before use. We did not attempt a credential or keychain bypass.
+
+Mac and Linux run check-portability.py and check-local-state.py successfully; Mac additionally ran the real-mise T3 fixture suite. Final canonical render counts are 241 Linux entries and 180 entries for either Mac architecture, all with 11 resolved agent links. Four obsolete empty source directories on Linux were removed to match a clean Git checkout; no live directories were removed. Reapplied the canonical multi-platform lock after local installation enriched its generated metadata, then repeated chezmoi apply and confirmed empty status. Git worktrees are clean at fe64b00 before this documentation checkpoint.
+
+The Argent token, plist, launcher and machine-local chezmoi config retain their original hashes, modes and mtimes. Running Argent PID remains 5954. No services were restarted. Simlock is installed and its CLI verified, not yet provisioned as an Argent replacement daemon or connected to clients. Future cutover is separate work. Native Intel Mac execution remains unverified.
+
+
+### Final Infisical lock consolidation
+
+Post-rollout review found the old OS-expanded Infisical binding still dormant beside the new native binding. Simplified further to infisical = "latest", removed the stale generated bindings, and regenerated that tool for all five existing platform targets. There is now exactly one binding at 0.44.10. Its raw asset_pattern is supplied by mise's native registry and deliberately remains in effective lock options; it is evaluated per target platform rather than eagerly by the user config. The regression check requires one binding, all five targets, and distinct correct Linux/macOS URLs. Native Linux Infisical execution and the complete render suite pass after regeneration. This avoids maintaining a redundant matching override or split lock ownership.
 </script>
 </body>
 </html>

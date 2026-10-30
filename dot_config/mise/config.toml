@@ -28,7 +28,7 @@ python = "3.12"
 "npm:hunkdiff" = "latest"
 claude = "latest"
 "npm:pnpm" = "latest"
-infisical = { version = "latest", matching = "cli_" }
+infisical = "latest"
 "npm:node-gyp" = "latest"
 cursor-agent = "latest"
 "npm:calldiff" = "latest"

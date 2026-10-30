@@ -18,10 +18,14 @@ MISE_CONFIGS = {
 }
 mise_tools = {tool for config in MISE_CONFIGS.values() for tool in config.get("tools", {})}
 assert MISE_CONFIG["tools"]["btop"]["os"] == ["linux"], "Aqua's btop recipe has no macOS build"
-assert MISE_CONFIG["tools"]["infisical"]["matching"] == "cli_", "Avoid eagerly rendered OS-specific asset patterns in the shared lock"
+assert MISE_CONFIG["tools"]["infisical"] == "latest", "Let the native registry select Infisical assets per platform"
 MISE_LOCK = tomllib.loads((ROOT / "dot_config/mise/private_mise.lock").read_text())
-infisical_lock = next(entry for entry in MISE_LOCK["tools"]["infisical"]
-                     if entry.get("options", {}).get("matching") == "cli_")
+assert len(MISE_LOCK["tools"]["infisical"]) == 1, "Remove stale OS-expanded Infisical bindings"
+infisical_lock = MISE_LOCK["tools"]["infisical"][0]
+assert {key for key in infisical_lock if key.startswith("platforms.")} == {
+    "platforms.linux-x64", "platforms.linux-x64-baseline", "platforms.linux-x64-musl",
+    "platforms.linux-x64-musl-baseline", "platforms.macos-arm64",
+}, "One native Infisical binding must cover all existing platform targets"
 assert "_linux_amd64.tar.gz" in infisical_lock["platforms.linux-x64"]["url"]
 assert "_darwin_arm64.tar.gz" in infisical_lock["platforms.macos-arm64"]["url"]
 for name, config in MISE_CONFIGS.items():
