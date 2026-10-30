@@ -42,11 +42,29 @@ embedding OS expressions in the tool declaration. The shared lock includes
 Linux x64 and macOS arm64 URLs without replacing one platform's assets with the
 other's. Generating locks on another host must preserve those platform mappings.
 
-Simlock is installed through mise and is intended to replace Argent. This sync
-does not provision a Simlock daemon or remove/restart the existing Argent service.
-Argent's former Mac-local management source is preserved on mbair's local backup
-branch, not promoted into shared dotfiles. Runtime, credentials and LaunchAgents
-stay untouched until a separately verified cutover.
+### Simlock on mbair
+
+Simlock 0.4.0 replaced Argent on mbair in the separately authorized 2026-10-30
+cutover. Its native per-user LaunchAgent runs at login; chezmoi does not manage
+the generated service file. After installing the mise tools and full Xcode,
+install (or refresh after changing the Node/Simlock installation paths) with:
+
+```sh
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer simlock daemon install
+simlock daemon status --json
+simlock catalog --platform ios --json
+```
+
+The service retains its own Xcode path without changing global `xcode-select`.
+The console is local to the Mac at `http://127.0.0.1:4701/`; no remote gateway
+was configured. Service health and the iOS catalog are verified. Simulator
+leases remain untested: roughly 5 GiB is free, below Simlock's default 10 GiB
+disk-pressure threshold. Android SDK tools are not installed.
+
+Argent's service, installation and active private state were removed; simulator
+data was preserved. A private rollback archive remains on mbair, and its former
+management source remains on the local backup branch. See the embedded
+2026-10-30 Simlock cutover runbook in `living-plans/mac-sync.living-plan.html`.
 
 ## Mise cleanup
 

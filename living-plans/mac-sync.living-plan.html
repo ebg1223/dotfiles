@@ -39,7 +39,7 @@ const DATA = {
       "Keep credentials and generated caches out",
       "Do not run service scripts during verification"
     ],
-    "whereWeAre": "Shared configuration is pushed and applied on Linux and mbair, with no remaining chezmoi differences. All 38 configured Mac tools are installed; Simlock 0.4.0, DuckDB 2.0 and T3 0.1.5 run. Credentials and Pi state are preserved. Argent is unchanged. Cursor is installed but needs the Mac login keychain unlocked locally. See runbook 2026-10-30 Mac rollout verification.",
+    "whereWeAre": "Shared configuration is applied on Linux and mbair with no remaining chezmoi differences. All 38 configured Mac tools are installed. After a separately authorized cutover, Simlock 0.4.0 runs as a native login service and Argent is removed. The iOS catalog works; simulator leases are untested with only about 5 GiB free. Cursor still needs the Mac login keychain unlocked locally. See runbooks 2026-10-30 Mac rollout verification and Simlock cutover.",
     "glossary": [
       {
         "term": "Target",
@@ -90,11 +90,25 @@ const DATA = {
       "status": "done",
       "pct": 100,
       "summary": "Preserve Mac customization and local state, then sync both machines.",
-      "plain": "Mac-specific shell behavior now lives in shared chezmoi templates. Shared preferences preserve local credentials and Pi's version marker. The Mac has all selected tools installed, including Simlock. Existing Argent remains running until a separate cutover; Cursor needs the Mac keychain unlocked before use.",
+      "plain": "Mac-specific shell behavior now lives in shared chezmoi templates. Shared preferences preserve local credentials and Pi's version marker. The Mac has all selected tools installed. Argent was preserved during this sync, then removed in M6's separate cutover; Cursor needs the Mac keychain unlocked before use.",
       "details": "Published 9f475d0, f2294db and fe64b00, then pulled/applied on mbair. Repeated apply converges with no diff. Fixed btop's Linux-only backend restriction and Infisical's cross-platform lock mapping. Verified 38 selected Mac tools installed and real CLI execution. Installer caches and only newly installed Rust offline docs were removed to recover disk space; no old tool installations or simulator/project data removed. Mac has 4.9GiB free. Private backups and snapshot branch retain its previous source; Argent PID 5954 and private files unchanged. See runbook 2026-10-30 Mac rollout verification."
+    },
+    {
+      "id": "M6",
+      "name": "Replace Argent with native Simlock",
+      "status": "done",
+      "pct": 100,
+      "summary": "Run Simlock at login and remove the retired server.",
+      "plain": "Simlock is running on mbair and can list installed iOS runtimes. Argent is stopped and removed, with its private settings archived locally and simulator data untouched. A real simulator lease still needs testing after more disk space is available.",
+      "details": "Native Simlock 0.4.0 launchd worker installed with service-local DEVELOPER_DIR. Verified running service, loopback port 4701 and iOS runtimes 26.5/27.0. Removed Argent LaunchAgent, install, active private state and obsolete chezmoi data.argent after a mode-600 rollback archive. Android SDK absent. About 5 GiB free is below the default 10 GiB disk-pressure threshold; no safety override or simulator lease attempted. See runbook 2026-10-30 Simlock cutover."
     }
   ],
   "nextActions": [
+    {
+      "pri": 1,
+      "action": "Recover disk headroom on mbair, then verify a real Simlock iOS lease without lowering its safety threshold",
+      "ref": "runbook 2026-10-30 Simlock cutover"
+    },
     {
       "pri": 1,
       "action": "Unlock mbair's login keychain locally before using Cursor",
@@ -102,7 +116,7 @@ const DATA = {
     },
     {
       "pri": 1,
-      "action": "Check the current T3 service version before deciding whether a restart is needed; no services were changed by this sync",
+      "action": "Check the current T3 service version before deciding whether a restart is needed; T3 was not restarted",
       "ref": "runbook 2026-10-30 Full configuration sync"
     },
     {
@@ -132,11 +146,19 @@ const DATA = {
       {
         "name": "Simlock will replace Argent; do not promote Argent management into shared source or change its running service during this sync",
         "ref": "User 2026-10-30 and scoped implementation response"
+      },
+      {
+        "name": "Stop and remove Argent, and install Simlock on mbair; supersedes the earlier no-cutover constraint for these services only",
+        "ref": "User 2026-10-30: stop argent and remove it. install simlock; runbook 2026-10-30 Simlock cutover"
       }
     ],
     "open": []
   },
   "updateLog": [
+    {
+      "date": "2026-10-30",
+      "note": "Completed separately authorized Simlock cutover. Native login service and iOS catalog verified; Argent removed with private rollback archive and simulator data preserved. Recorded low-disk lease-testing limitation and missing Android SDK."
+    },
     {
       "date": "2026-10-30",
       "note": "Completed real mbair rollout and repeated apply with no differences. All selected Mac tools installed, including Simlock and T3; btop and Infisical platform issues repaired. Recovered disk space from caches/new Rust docs, preserved Argent and local secrets, and recorded Cursor's locked-keychain limitation."
@@ -646,6 +668,66 @@ The Argent token, plist, launcher and machine-local chezmoi config retain their 
 ### Final Infisical lock consolidation
 
 Post-rollout review found the old OS-expanded Infisical binding still dormant beside the new native binding. Simplified further to infisical = "latest", removed the stale generated bindings, and regenerated that tool for all five existing platform targets. There is now exactly one binding at 0.44.10. Its raw asset_pattern is supplied by mise's native registry and deliberately remains in effective lock options; it is evaluated per target platform rather than eagerly by the user config. The regression check requires one binding, all five targets, and distinct correct Linux/macOS URLs. Native Linux Infisical execution and the complete render suite pass after regeneration. This avoids maintaining a redundant matching override or split lock ownership.
+
+## 2026-10-30 Simlock cutover
+
+User ruling: "stop argent and remove it. install simlock" on mbair. This
+supersedes the earlier instruction to preserve Argent during configuration sync.
+This is a native service installation, not new service-management code.
+
+Installed Simlock 0.4.0's vendor-owned LaunchAgent with:
+
+```sh
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer simlock daemon install --json
+simlock daemon status --json
+simlock catalog --platform ios --json
+```
+
+The installer stopped the unmanaged worker previously started by `simlock doctor`
+and registered `com.callstack.simlock.worker` under `gui/501`. Its plist is
+`~/Library/LaunchAgents/com.callstack.simlock.worker.plist`. It captures the
+installer PATH, DEVELOPER_DIR and actual Node/package paths; rerun native install
+if upgrades move those paths. It starts at user login, not before login. No
+automatic-login setting was changed. Global `xcode-select -p` remains
+`/Library/Developer/CommandLineTools`.
+
+Measured after removing Argent: launchd PID 25276, native status reports
+`daemon.health=running`, `service.state=installed`, Xcode 27.0 and version 0.4.0.
+`lsof` confirms only `127.0.0.1:4701` for the console listener. The iOS catalog
+returns runtimes 26.5 and 27.0. No gateway or tailnet exposure was configured.
+Doctor passed iOS prerequisites and reported missing Android SDK; no Android
+installation was attempted. Roughly 5 GiB remains free, below the default
+10 GiB disk-pressure threshold. No simulator lease was attempted and no safety
+threshold was reduced. Service/catalog verification is not a simulator boot test.
+
+Before uninstalling Argent, archived its config, runtime/logs, LaunchAgent,
+launcher and package manifests plus host-local chezmoi config into:
+
+`/Users/ethan/.local/state/argent-removal/20261030-130036/argent-private-state.tgz`
+
+The parent directory is mode 700 and archive mode 600. It contains private
+credentials, stays on the Mac, and must not be committed or copied to Linux.
+Tar listing validated the archive before removal; re-downloadable node_modules
+were excluded. The earlier local Git backup branch remains intact.
+
+Ran `launchctl bootout gui/501/com.ethan.argent-server`; verified its registration,
+PID 5954 and TCP listener on port 3001 were gone. Then removed only:
+
+* `~/Library/LaunchAgents/com.ethan.argent-server.plist`
+* `~/.local/share/argent`
+* `~/.config/argent`
+* `~/.argent`
+
+Cleared the obsolete `[data.argent]` host-local chezmoi configuration using an
+exact-content guard; no other sections existed. Chezmoi status remains empty.
+Shared Node installations, Xcode/CoreSimulator data, unrelated credentials and
+historical backups were not removed. No active Argent MCP settings were found
+in the checked Claude/Codex settings, mise configuration or LaunchAgents.
+
+For rollback, first decide whether Simlock should remain active. Privately
+extract the archive to a staging directory and inspect it. Restore Argent's
+files and install from its saved package lock before bootstrapping the old
+LaunchAgent. The archive is not a complete installed node_modules backup.
 </script>
 </body>
 </html>
