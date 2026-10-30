@@ -47,7 +47,7 @@ fi
 # Keep Prezto's NO_CLOBBER only in SSH/mosh logins; agents may overwrite with >.
 [[ -n $SSH_CONNECTION ]] || setopt CLOBBER
 
-export POSH_THEME="rudolfs-light"
+export POSH_THEME="$HOME/.config/oh-my-posh/rudolfs-light.omp.json"
 if command -v oh-my-posh >/dev/null 2>&1; then
   eval "$(oh-my-posh init zsh --config "$POSH_THEME")"
 fi

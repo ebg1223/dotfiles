@@ -1,4 +1,10 @@
-{
+#!/usr/bin/env python3
+import json
+import sys
+
+raw = sys.stdin.read()
+current = json.loads(raw) if raw.strip() else {}
+desired = json.loads(r'''{
   "env": {
     "CLAUDE_CODE_ENABLE_FUNCTION_HOOKS": "1"
   },
@@ -73,4 +79,8 @@
   "switchModelsOnFlag": false,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": false
-}
+}''')
+# Credential and provider environment overrides belong to the local machine.
+desired["env"] = {**current.get("env", {}), **desired["env"]}
+json.dump(desired, sys.stdout, indent=2)
+sys.stdout.write("\n")

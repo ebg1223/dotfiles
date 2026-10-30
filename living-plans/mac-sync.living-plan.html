@@ -39,7 +39,7 @@ const DATA = {
       "Keep credentials and generated caches out",
       "Do not run service scripts during verification"
     ],
-    "whereWeAre": "Managed shell and agent settings now match this machine except for the deliberately excluded Claude credential. Five custom skills, the session hook, and current agent definitions are saved. DuckDB 2.0 runs successfully; T3 follows the local stable channel. Linux and both Mac renders pass. See runbook 2026-10-30 Full configuration sync.",
+    "whereWeAre": "Mac reconciliation is in progress. The Mac's unpublished source and live targets are backed up, and its shell improvements are integrated here. Linux apply preserves Claude credentials and Pi state. Real Mac preview checks pass. Simlock is the intended Argent replacement; existing Argent files and service stay untouched. See runbook 2026-10-30 Mac reconciliation.",
     "glossary": [
       {
         "term": "Target",
@@ -83,9 +83,23 @@ const DATA = {
       "summary": "Resolve concrete versions and verify published checksums.",
       "plain": "T3 now installs the official native build instead of storing a moving tag as its version. The update task detects new builds and rejects bad or missing checksums. Old installations and the running service remain intact.",
       "details": "Installed and ran 0.1.1-nightly.20261020.3411 through http:t3. Added conf.d/t3.toml, checksum-lock and update tasks, and offline real-mise regression tests covering a moving tag, old-build preservation, unchanged unrelated installations, and bad/missing checksums. The native serve CLI accepts the existing launcher flags. Global mise.lock is generated locally and may capture other installed versions without upgrading them. Service PID 44498 was not restarted. See runbook 2026-10-20 Native T3 nightly migration."
+    },
+    {
+      "id": "M5",
+      "name": "Reconcile and apply on mbair",
+      "status": "in_progress",
+      "pct": 70,
+      "summary": "Preserve Mac customization and local state, then sync both machines.",
+      "plain": "Mac-specific shell behavior now lives in shared chezmoi templates. The native Cursor backend works on Linux and avoids the old Mac grep dependency. Shared preferences preserve local credentials and Pi's version marker. The Mac apply and Simlock verification are next.",
+      "details": "Source/target backups and local Mac snapshot branch preserve unpublished work. Native Cursor 2026.10.22-27dcf5f ran on Linux; selected apply ran twice with local state preserved. Linux and both Mac renders pass on both physical hosts. Argent source additions were removed after the user's replacement ruling; no service changes. See runbook 2026-10-30 Mac reconciliation."
     }
   ],
   "nextActions": [
+    {
+      "pri": 1,
+      "action": "Push reviewed Mac reconciliation, pull/apply on mbair, and verify Simlock and unchanged Argent runtime",
+      "ref": "runbook 2026-10-30 Mac reconciliation"
+    },
     {
       "pri": 1,
       "action": "Check the current T3 service version before deciding whether a restart is needed; no services were changed by this sync",
@@ -114,11 +128,19 @@ const DATA = {
       {
         "name": "Push the remaining configuration, preserving current local settings and excluding credentials and caches",
         "ref": "User 2026-10-30; supersedes nightly selection with the current local stable configuration"
+      },
+      {
+        "name": "Simlock will replace Argent; do not promote Argent management into shared source or change its running service during this sync",
+        "ref": "User 2026-10-30 and scoped implementation response"
       }
     ],
     "open": []
   },
   "updateLog": [
+    {
+      "date": "2026-10-30",
+      "note": "Started actual mbair reconciliation: preserved unpublished Mac work, integrated shell/theme/Cursor changes and local-state-preserving settings transforms, and passed native Mac preview checks. Simlock replaces the planned Argent source integration; runtime untouched."
+    },
     {
       "date": "2026-10-30",
       "note": "Synced remaining managed settings, custom workflow files and local deletions. Added the full mise lockfile and DuckDB fix, retained T3 stable selection, and passed all platform renders and stable-update checks. See Full configuration sync runbook."
@@ -589,6 +611,16 @@ Saved remaining managed shell, Claude, Codex, Grok and Pi differences while pres
 Verification: check-portability.py passes Linux amd64 (243 entries), macOS arm64/amd64 (182 each), with 11 resolved agent links each. check-t3-nightly.py now tests the actual stable channel: initial execution, moving-tag detection, verified updates, rollback retention, unchanged unrelated installed tools, bad-checksum rejection and missing-manifest rejection all pass. Corrected newly auto-generated symlink templates to use homeDir instead of commandDir after portability testing caught the wrong substitution. git diff --check passes. Native Mac application execution is not tested.
 
 Publish the reviewed source diff to origin/main. Verify the remote commit equals local HEAD and the Git worktree is clean. Expected remaining chezmoi status: .claude/settings.json only, due to the excluded credential. Recovery: restore selected source paths from d6d29b4 after reviewing differences; do not apply historical whole configs over current credentials or restart services as part of rollback.
+
+## 2026-10-30: Mac reconciliation
+
+User requested updating shared source here, pushing, and pulling/applying on ethan@mbair. Mac is Darwin arm64. It was at 6a37bd7 with unpublished shell/theme/Cursor and Argent work. Private backup: /Users/ethan/.local/state/chezmoi-backups/20261030-104321-mac-sync contains full source+Git and managed-target archives, local chezmoi config, and before-state hashes/Pi marker/Argent PID. The Mac-local source and live startup-script/Pi differences are committed to local branch backup/mbair-before-sync-20261030 at b3f9322. Main remains clean for a fast-forward. No stash, reset, deletion of live application data, credential transfer or service reload.
+
+Two read-only designs from Claude Opus 5.5 and Codex GPT-6-astra converged on native chezmoi mechanisms. Integrated the Mac's noninteractive SSH setup into dot_zshenv.tmpl with Linux behavior preserved, promoted its plain oh-my-posh theme, and switched shared Cursor to mise's native backend. Python stdlib modify scripts preserve Claude environment credentials/provider overrides and Pi's host-local changelog marker while source owns shared preferences. Tests cover missing input, malformed JSON, synthetic local secrets, state preservation and repeat convergence. Actual Linux selected apply completed twice with local state unchanged; native Cursor 2026.10.22-27dcf5f executes and the theme renders.
+
+User clarified Simlock will replace Argent. All proposed shared Argent source/service additions were removed. Mac's existing plist, launcher, dependencies, host override, credential and running PID 5954 are left intact. The backup branch retains its former management setup. This sync verifies Simlock installation, not a daemon/client cutover.
+
+Linux plus Apple Silicon/Intel Mac render checks pass on both physical machines from the exact staged source: 245 Linux entries and 184 Mac entries, 11 agent links each. Native Mac preview uses /tmp/chezmoi-sync-preview, not the live source; it does not apply. T3 stable-update regressions pass. Mac's live Argent plist passes plutil. Pending: review, push, live Mac pull/apply, Simlock execution and after-state comparisons. Use a stable system PATH while applying so Python transforms do not depend on a newly selected but not-yet-installed mise Python.
 </script>
 </body>
 </html>

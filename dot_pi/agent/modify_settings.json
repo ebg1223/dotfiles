@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+import json
+import sys
+
+raw = sys.stdin.read()
+current = json.loads(raw) if raw.strip() else {}
+desired = json.loads(r'''{
+  "theme": "light",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-6-astra",
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "npm:pi-web-access",
+    "npm:@howaboua/pi-codex-conversion",
+    "npm:pi-claude-bridge",
+    "npm:pi-cursor-sdk",
+    "npm:@router-for-me/pi-cliproxyapi-provider",
+    "npm:@howaboua/pi-notes-compaction"
+  ],
+  "enabledModels": [
+    "openai-codex/gpt-6-astra",
+    "openai-codex/gpt-6-luna",
+    "cursor/grok-4.7@256k:fast",
+    "openai-codex/gpt-6.1-sol",
+    "openai-codex/gpt-6.1-terra",
+    "claude-bridge/claude-opus-5-5",
+    "claude-bridge/claude-haiku-5-5",
+    "claude-bridge/claude-fable-5-1"
+  ],
+  "tuiMode": "fullscreen"
+}''')
+if "lastChangelogVersion" in current:
+    desired["lastChangelogVersion"] = current["lastChangelogVersion"]
+json.dump(desired, sys.stdout, indent=2)

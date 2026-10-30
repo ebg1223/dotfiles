@@ -177,6 +177,27 @@ checksum = "sha256:1d44b28bc4ac9937d7d3532264baa68a507ce364956a0d4ebb856f331cdee
 url = "https://github.com/openai/codex/releases/download/rust-v0.166.0/codex-package-x86_64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/openai/codex/releases/assets/689712510"
 
+[[tools.cursor-agent]]
+version = "2026.10.22-27dcf5f"
+backend = "http:cursor-agent"
+specifiers = ["latest"]
+
+[tools.cursor-agent.options]
+strip_components = "0"
+
+[tools.cursor-agent."platforms.linux-x64"]
+checksum = "blake3:6755eeec0dd4269a78486e3e309676192695f7e16bc002f60f7d42d73d1a01b0"
+url = "https://downloads.cursor.com/lab/2026.10.22-27dcf5f/linux/x64/agent-cli-package.tar.gz"
+
+[tools.cursor-agent."platforms.linux-x64-baseline"]
+url = "https://downloads.cursor.com/lab/2026.10.22-27dcf5f/linux/x64/agent-cli-package.tar.gz"
+
+[tools.cursor-agent."platforms.linux-x64-musl"]
+url = "https://downloads.cursor.com/lab/2026.10.22-27dcf5f/linux/x64/agent-cli-package.tar.gz"
+
+[tools.cursor-agent."platforms.linux-x64-musl-baseline"]
+url = "https://downloads.cursor.com/lab/2026.10.22-27dcf5f/linux/x64/agent-cli-package.tar.gz"
+
 [[tools.delta]]
 version = "0.20.1"
 backend = "aqua:dandavison/delta"

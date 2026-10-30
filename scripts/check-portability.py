@@ -2,10 +2,12 @@
 """Render Linux and macOS targets without applying files or running hooks."""
 import io
 import json
+import os
 from pathlib import Path
 import posixpath
 import subprocess
 import tarfile
+import tempfile
 import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,6 +43,8 @@ for os_name, arch, home in [
     archive = tarfile.open(fileobj=io.BytesIO(chezmoi("archive", "--format=tar", data=data)))
     members = archive.getmembers()
     names = {m.name.rstrip("/") for m in members}
+    assert ".zshenv" in names, os_name
+    assert ".config/oh-my-posh/rudolfs-light.omp.json" in names, os_name
     links = 0
     for member in members:
         name = member.name
@@ -57,6 +61,8 @@ for os_name, arch, home in [
             links += 1
         if not member.isfile():
             continue
+        if name == ".claude/settings.json":
+            assert member.mode == 0o600, "Local Claude credentials require private settings"
         body = archive.extractfile(member).read()
         if os_name == "darwin":
             assert b"/home/ethan" not in body and b"/ethan/" not in body, name
@@ -75,8 +81,30 @@ for os_name, arch, home in [
                     assert "lfg" not in config.get("mcp_servers", {}), "LFG MCP requires the retired mise tool"
         if name in (".bashrc", ".bash_profile"):
             subprocess.run(["bash", "-n"], input=body, check=True)
-        if name == ".zshrc":
+        if name in (".zshrc", ".zshenv"):
             subprocess.run(["zsh", "-n"], input=body, check=True)
+        if name == ".zshenv":
+            with tempfile.TemporaryDirectory(prefix="chezmoi-zshenv-") as tmp:
+                root = Path(tmp)
+                (root / ".zshenv").write_bytes(body)
+                (root / ".zprofile").write_text("export PROFILE_LOADED=yes\n")
+                for overrides, data_dir in [
+                    ({}, f"{tmp}/.local/share/mise"),
+                    ({"XDG_DATA_HOME": f"{tmp}/data"}, f"{tmp}/data/mise"),
+                    ({"MISE_DATA_DIR": f"{tmp}/custom", "XDG_DATA_HOME": f"{tmp}/data"}, f"{tmp}/custom"),
+                ]:
+                    env = {key: value for key, value in os.environ.items()
+                           if key not in ("MISE_DATA_DIR", "XDG_DATA_HOME", "PROFILE_LOADED")}
+                    env.update(HOME=tmp, ZDOTDIR=tmp, SHLVL="0", **overrides)
+                    result = subprocess.run(
+                        ["zsh", "-c", 'print -r -- "$PROFILE_LOADED"; print -rl -- $path'],
+                        env=env, capture_output=True, text=True, check=True,
+                    )
+                    lines = result.stdout.splitlines()
+                    expected = (["yes", f"{data_dir}/shims", f"{tmp}/.local/bin"]
+                                if os_name == "darwin" else ["", f"{tmp}/.local/bin"])
+                    assert lines[:len(expected)] == expected, lines
+                    assert not result.stderr, result.stderr
     for script in ROOT.glob("run_*.tmpl"):
         rendered = chezmoi("execute-template", data=data, content=script.read_bytes())
         subprocess.run(["sh", "-n"], input=rendered, check=True)

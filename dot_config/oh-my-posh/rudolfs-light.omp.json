@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 4,
+  "extends": "rudolfs-light",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "os",
+          "style": "plain",
+          "template": " {{ $host := trimSuffix \".local\" .HostName }}{{ if or (eq $host \"Ethans-MacBook-Air\") (eq $host \"mbair\") }}{{ else }}{{ .Icon }}{{ end }} "
+        }
+      ]
+    }
+  ]
+}

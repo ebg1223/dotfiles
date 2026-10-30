@@ -21,6 +21,27 @@ This sync copies configuration. It does not install the applications, recreate
 agent sessions, or transfer credentials. Mise's tool configuration is included;
 install the tools you need with mise on the destination machine.
 
+### Mac bootstrap and shell behavior
+
+Install Homebrew and Apple's command-line tools, then install `chezmoi`, `mise`,
+`python`, `tmux`, `fish`, `jq`, and `sesh` with Homebrew. Python 3 is used by
+chezmoi's settings transforms and the verification scripts. Prezto itself is
+not vendored; install it separately without replacing the managed shell files.
+
+On macOS, `.zshenv` preserves existing top-level `.zprofile` loading and exposes
+Homebrew, `~/.local/bin`, and mise shims to noninteractive SSH commands. It
+respects `MISE_DATA_DIR` and `XDG_DATA_HOME`. Linux keeps its simpler local-bin
+PATH setup. Interactive shells use full mise activation in `.zshrc` on both.
+The shared prompt theme is a plain file under `~/.config/oh-my-posh` because its
+template expressions belong to oh-my-posh, not chezmoi. Cursor uses mise's native
+`cursor-agent` backend rather than the old asdf plugin that requires GNU grep.
+
+Simlock is installed through mise and is intended to replace Argent. This sync
+does not provision a Simlock daemon or remove/restart the existing Argent service.
+Argent's former Mac-local management source is preserved on mbair's local backup
+branch, not promoted into shared dotfiles. Runtime, credentials and LaunchAgents
+stay untouched until a separately verified cutover.
+
 ## Mise cleanup
 
 `dot_config/mise/config.toml` tracks the cleaned global tool list, including
@@ -83,7 +104,7 @@ bad or missing checksums without touching the live tool store.
 - Home paths use `{{ .chezmoi.homeDir }}` where an absolute path is needed.
   Shared skill links use relative paths.
 - Linux systemd and desktop configuration is excluded on macOS. BB's service
-  definition is Linux-only; this repository does not create a macOS launch agent.
+  definition is Linux-only; this repository does not create a Mac LaunchAgent.
 - Omarchy terminal theme imports and the Neovim theme link are Linux-only.
 - Zsh and fish support Homebrew in `/opt/homebrew` and `/usr/local` on macOS.
 - Project roots saved as `/ethan/src` on Linux render as `$HOME/src` on macOS.
@@ -95,10 +116,12 @@ here. Reinstall them with their original installer when needed. Authentication
 files, session databases, caches, and generated plugin installation records
 are not part of this portability pass.
 
-The local Claude `env.TYPESAFE_API_KEY` is deliberately excluded from Git.
-Its removal is an expected difference in `chezmoi diff`; preserve the local
-credential before applying that settings file. This sync does not modify
-the live file. The Hunk skill is supplied by its installed package rather
+Claude settings use a chezmoi `modify_` script to preserve local environment
+credentials and provider overrides while applying shared preferences. Only the
+shared environment keys override local values. Pi settings use the same mechanism
+to preserve the app-maintained `lastChangelogVersion` on each host. Neither value
+is copied into Git. Avoid `chezmoi add` on these generated files; edit their
+source transforms instead. The Hunk skill comes from its installed package rather
 than tracking its machine-specific package symlink.
 
 ## Verify changes
@@ -107,6 +130,8 @@ Run `python3 scripts/check-portability.py` from this repository with Python 3.11
 or newer, chezmoi, bash, and zsh installed. It renders Linux, Apple Silicon Mac,
 and Intel Mac targets without applying them or running service scripts. It checks
 agent links, JSON/TOML parsing, shell syntax, and Linux paths in Mac output.
+Run `python3 scripts/check-local-state.py` for local-state preservation and
+idempotence.
 
 Rendering on Linux does not prove that every configured application works on
 macOS. Review the diff on the destination Mac before applying it.
