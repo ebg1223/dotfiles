@@ -35,6 +35,7 @@ infisical = { version = "latest", asset_pattern = "cli_{{ version }}_{{ os(macos
 grok = { version = "latest", bin = "grok", platforms = { windows-arm64 = { bin = "grok.exe", url = "https://storage.googleapis.com/grok-build-public-artifacts/cli/grok-{{ version }}-windows-aarch64.exe" }, windows-x64 = { bin = "grok.exe", url = "https://storage.googleapis.com/grok-build-public-artifacts/cli/grok-{{ version }}-windows-x86_64.exe" } }, url = 'https://storage.googleapis.com/grok-build-public-artifacts/cli/grok-{{ version }}-{{ os() }}-{{ arch(x64="x86_64", arm64="aarch64") }}', version_list_url = "https://x.ai/cli/stable" }
 btop = "latest"
 duckdb = { version = "latest", matching = "duckdb-cli-" }
+"npm:simlock" = "latest"
 
 [tool_alias]
 # DuckDB 2.x renamed CLI assets; bypass the bundled Aqua recipe's old ZIP name.
@@ -55,4 +56,4 @@ macos-arm64 = { url = "https://static.devin.ai/cli/{{version}}/devin-{{version}}
 macos-x64 = { url = "https://static.devin.ai/cli/{{version}}/devin-{{version}}-x86_64-apple-darwin.tar.gz" }
 
 [settings]
-minimum_release_age_excludes = ["amp", "npm:droid", "codex", "npm:@earendil-works/pi-coding-agent", "claude"]
+minimum_release_age_excludes = ["amp", "npm:droid", "codex", "npm:@earendil-works/pi-coding-agent", "claude", "npm:simlock"]

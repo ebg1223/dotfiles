@@ -517,6 +517,11 @@ version = "12.16.1"
 backend = "npm:pnpm"
 specifiers = ["latest"]
 
+[[tools."npm:simlock"]]
+version = "0.4.0"
+backend = "npm:simlock"
+specifiers = ["latest"]
+
 [[tools.oh-my-posh]]
 version = "31.9.1"
 backend = "aqua:JanDeDobbeleer/oh-my-posh"
