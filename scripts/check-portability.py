@@ -17,6 +17,7 @@ MISE_CONFIGS = {
     for path in (ROOT / "dot_config/mise").rglob("*.toml")
 }
 mise_tools = {tool for config in MISE_CONFIGS.values() for tool in config.get("tools", {})}
+assert MISE_CONFIG["tools"]["btop"]["os"] == ["linux"], "Aqua's btop recipe has no macOS build"
 for name, config in MISE_CONFIGS.items():
     unused_excludes = (
         set(config.get("settings", {}).get("minimum_release_age_excludes", [])) - mise_tools

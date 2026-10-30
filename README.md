@@ -35,6 +35,8 @@ PATH setup. Interactive shells use full mise activation in `.zshrc` on both.
 The shared prompt theme is a plain file under `~/.config/oh-my-posh` because its
 template expressions belong to oh-my-posh, not chezmoi. Cursor uses mise's native
 `cursor-agent` backend rather than the old asdf plugin that requires GNU grep.
+The Aqua btop recipe is Linux-only, so mise gates it to Linux. On macOS, use
+Homebrew's `btop` formula if needed.
 
 Simlock is installed through mise and is intended to replace Argent. This sync
 does not provision a Simlock daemon or remove/restart the existing Argent service.
