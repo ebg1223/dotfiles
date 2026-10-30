@@ -120,6 +120,15 @@
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-09-18T19:23:10.851Z",
       "updatedAt": "2026-09-18T19:31:59.353Z"
+    },
+    "answer-me-with-html": {
+      "source": "QingYunA/answer-me-with-html",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/QingYunA/answer-me-with-html.git",
+      "skillPath": "skills/answer-me-with-html/SKILL.md",
+      "skillFolderHash": "ec88ecff6d246e645fff0c10fba317d4072d993f",
+      "installedAt": "2026-10-09T09:16:20.569Z",
+      "updatedAt": "2026-10-20T18:41:56.813Z"
     }
   },
   "dismissed": {
@@ -127,22 +136,20 @@
   },
   "lastSelectedAgents": [
     "amp",
-    "antigravity",
-    "antigravity-cli",
     "cline",
     "codex",
     "cursor",
-    "deepagents",
+    "droid",
     "gemini-cli",
     "github-copilot",
+    "kilo",
     "kimi-code-cli",
     "opencode",
+    "pi",
     "warp",
     "zed",
     "claude-code",
     "devin",
-    "droid",
-    "pi",
     "grok",
     "hermes-agent"
   ]

@@ -1,9 +1,11 @@
 # Dotfiles for Linux and macOS
 
-Chezmoi manages shell and application settings, 2 custom skills under
+Chezmoi manages shell and application settings, 5 custom skills under
 `~/.agents/skills`, and shared agent definitions under `~/.agents/agents`.
-Claude and Codex skill links point to the shared files. Paseo skills have been
-removed from both the shared and Codex-specific skill directories.
+Claude and Codex skill links point to the shared files. The custom skills are
+living-plan, architect, decision-trail, review-loop, and work. The shared
+session-start hook and delegate definition are included. Removed local TDD and
+agent definitions are no longer restored by chezmoi.
 
 ## Sync to a Mac
 
@@ -22,7 +24,9 @@ install the tools you need with mise on the destination machine.
 ## Mise cleanup
 
 `dot_config/mise/config.toml` tracks the cleaned global tool list, including
-native Grok, btop, and T3 nightly. Retired LFG and Prime Agent installation
+native Grok, btop, T3 stable, and DuckDB. DuckDB uses the GitHub backend with a
+CLI asset filter because version 2 renamed the archives expected by mise's
+bundled Aqua recipe. Retired LFG and Prime Agent installation
 recipes are removed, along with LFG's Codex MCP entry and the absent OMP
 configuration. Release-age exceptions cover only tools still in the list.
 
@@ -34,10 +38,11 @@ removing a tool declaration does not authorize deleting its data or credentials.
 On other machines, review obsolete installations and MCP entries separately;
 this repository does not automatically uninstall tools or erase local files.
 
-### T3 nightly updates
+### T3 stable updates
 
 `~/.config/mise/conf.d/t3.toml` defines the native `http:t3` backend. It reads the version from npm's
-`nightly` metadata, then downloads the matching official GitHub archive.
+`latest` metadata, then downloads the matching official GitHub archive.
+Prereleases are disabled, matching the current local configuration.
 The former `npm:t3 = "nightly"` entry stayed installed under the literal name
 `nightly`, so mise compared that name with itself and missed new builds.
 
@@ -51,7 +56,8 @@ This task uses mise's built-in global lock refresh and lock-aware install comman
 It fetches the current platform's published SHA256SUMS and fails if the checksum
 is missing or wrong. `--skip-tools` prevents task startup from installing tools
 before this verification workflow. Existing builds remain available for rollback.
-The generated `~/.config/mise/mise.lock` is machine-local and is not tracked.
+The generated `~/.config/mise/mise.lock` is now tracked with the full mise config.
+Review its platform-specific versions before applying on another machine.
 Mise may also record currently installed global tools in that lock; this does
 not install or upgrade those tools. Ordinary mise upgrades can advance them.
 
@@ -67,8 +73,9 @@ restart the running server. Its session data and old npm installation are left
 untouched.
 
 Run `python3 scripts/check-t3-nightly.py` for an offline integration check using
-real mise and temporary local releases. It checks first installation, detection
-of a newer nightly, verified upgrades, rollback preservation, and rejection of
+real mise and temporary local releases. Despite its historical filename, it now
+tests the stable channel. It checks first installation, detection
+of a newer release, verified upgrades, rollback preservation, and rejection of
 bad or missing checksums without touching the live tool store.
 
 ## Platform differences

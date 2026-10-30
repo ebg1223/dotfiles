@@ -257,4 +257,5 @@ zstyle ':prezto:module:terminal' auto-title 'no'
 # Enabled safe options. This aliases cp, ln, mv and rm so that they prompt
 # before deleting or overwriting files. Set to 'no' to disable this safer
 # behavior.
-# zstyle ':prezto:module:utility' safe-ops 'yes'
+# Prompts on cp/ln/mv/rm only in SSH/mosh logins; agents run without them.
+[[ -n $SSH_CONNECTION ]] || zstyle ':prezto:module:utility' safe-ops 'no'

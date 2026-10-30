@@ -2,7 +2,10 @@
   "env": {
     "CLAUDE_CODE_ENABLE_FUNCTION_HOOKS": "1"
   },
-  "model": "claude-fable-5-1[1m]",
+  "permissions": {
+    "defaultMode": "dontAsk"
+  },
+  "model": "opus[1m]",
   "modelPicker": {
     "options": [
       {
@@ -15,10 +18,23 @@
       }
     ]
   },
-  "hooks": {},
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "{{ .chezmoi.homeDir }}/.agents/hooks/session-start.sh"
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
-    "fast-jev-compaction@fast-jev-compaction": false
+    "fast-jev-compaction@fast-jev-compaction": false,
+    "t3-pstack@t3-pstack": false
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -32,18 +48,29 @@
         "source": "github",
         "repo": "tamaratran/fast-jev-compaction"
       }
+    },
+    "t3-pstack": {
+      "source": {
+        "source": "github",
+        "repo": "chhoumann/t3-pstack"
+      }
     }
   },
   "effortLevel": "high",
   "modelSettings": {
     "claude-fable-5-1": {
-      "effortLevel": "xhigh"
+      "effortLevel": "high"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "high"
     }
   },
   "tui": "fullscreen",
+  "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "theme": "light",
   "verbose": false,
+  "switchModelsOnFlag": false,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": false
 }

@@ -23,7 +23,7 @@ const DATA = {
   "meta": {
     "title": "Portable chezmoi configuration",
     "subtitle": "Restore custom agent skills on Linux and macOS",
-    "asOf": "2026-10-20",
+    "asOf": "2026-10-30",
     "sources": "Local configuration audit; embedded runbook"
   },
   "orientation": {
@@ -39,7 +39,7 @@ const DATA = {
       "Keep credentials and generated caches out",
       "Do not run service scripts during verification"
     ],
-    "whereWeAre": "The cleaned tool configuration is saved, and the native T3 CLI now runs the current nightly. Tested update tasks resolve real build versions and enforce published checksums. The existing T3 server remains on its old process until a deliberate restart. Unrelated local settings remain unsynced; see runbook 2026-10-20 Native T3 nightly migration.",
+    "whereWeAre": "Managed shell and agent settings now match this machine except for the deliberately excluded Claude credential. Five custom skills, the session hook, and current agent definitions are saved. DuckDB 2.0 runs successfully; T3 follows the local stable channel. Linux and both Mac renders pass. See runbook 2026-10-30 Full configuration sync.",
     "glossary": [
       {
         "term": "Target",
@@ -54,8 +54,8 @@ const DATA = {
       "status": "done",
       "pct": 100,
       "summary": "Track custom content and its links.",
-      "plain": "The repository now contains two custom shared skills and both agent definitions. Skills removed on this machine are no longer restored by chezmoi. Installer-managed skills remain outside the repository.",
-      "details": "Originally 146 add targets (runbook 2026-09-07), then 44 shared skills after Paseo cleanup. The 2026-09-24 sync forgets 126 missing shared/Claude/Codex skill roots, leaving living-plan and tdd; see runbook."
+      "plain": "The repository contains five custom shared skills, the session hook, and current agent definitions. Removed local skills and definitions are no longer restored. Installer-managed skills remain outside the repository.",
+      "details": "Originally 146 add targets (runbook 2026-09-07), then 44 shared skills after Paseo cleanup. The 2026-09-24 sync left living-plan and tdd. The 2026-10-30 sync removes absent tdd and retired agents, adds architect, decision-trail, review-loop, work, the shared delegate and six Claude definitions. See dated runbooks."
     },
     {
       "id": "M2",
@@ -64,7 +64,7 @@ const DATA = {
       "pct": 100,
       "summary": "Render both operating systems without applying.",
       "plain": "Linux and both Mac architectures render successfully. Mac output excludes Linux desktop configuration and services.",
-      "details": "2026-10-20 native T3 migration: Linux has 215 archive entries; macOS arm64 and amd64 have 154 each. All three resolve 9 agent links and pass configuration/shell checks, including preservation of both plain mise files. Earlier cleanup results were 213/152 entries, following 2026-09-24 results of 221/160 entries and 9 links, superseding 480/419 entries and 93 links. Native macOS execution has not been tested; T3 has no official Intel macOS archive."
+      "details": "2026-10-30: Linux has 243 archive entries and both Macs have 182, with 11 resolved agent links each. Configuration and shell checks pass. This supersedes 215/154 entries and 9 links from 2026-10-20; earlier results remain in the runbook. Native macOS execution has not been tested; T3 has no configured Intel macOS archive."
     },
     {
       "id": "M3",
@@ -88,8 +88,8 @@ const DATA = {
   "nextActions": [
     {
       "pri": 1,
-      "action": "Restart t3code.service when disruption is acceptable to switch the running server to the native nightly",
-      "ref": "runbook 2026-10-20 Native T3 nightly migration"
+      "action": "Check the current T3 service version before deciding whether a restart is needed; no services were changed by this sync",
+      "ref": "runbook 2026-10-30 Full configuration sync"
     },
     {
       "pri": 2,
@@ -110,11 +110,19 @@ const DATA = {
       {
         "name": "Migrate T3 to the native nightly backend; verify updates and preserve rollback installations",
         "ref": "User approval 2026-10-20"
+      },
+      {
+        "name": "Push the remaining configuration, preserving current local settings and excluding credentials and caches",
+        "ref": "User 2026-10-30; supersedes nightly selection with the current local stable configuration"
       }
     ],
     "open": []
   },
   "updateLog": [
+    {
+      "date": "2026-10-30",
+      "note": "Synced remaining managed settings, custom workflow files and local deletions. Added the full mise lockfile and DuckDB fix, retained T3 stable selection, and passed all platform renders and stable-update checks. See Full configuration sync runbook."
+    },
     {
       "date": "2026-10-20",
       "note": "Migrated T3 to native nightly releases with checksum-verified update tasks, installed the current build, and verified offline upgrade/security regressions plus all platform renders. Existing server remains running without a restart. See Native T3 nightly migration runbook."
@@ -155,12 +163,12 @@ const DATA = {
   "headline": [
     {
       "label": "Custom shared skills",
-      "value": "2",
-      "detail": "living-plan and tdd; current machine inventory on 2026-09-24."
+      "value": "5",
+      "detail": "living-plan, architect, decision-trail, review-loop, work."
     },
     {
       "label": "Verified agent links",
-      "value": "9",
+      "value": "11",
       "detail": "Within each rendered archive."
     },
     {
@@ -571,6 +579,16 @@ The existing untracked `~/.local/libexec/t3code-mise` wrapper uses `mise exec --
 `scripts/check-t3-nightly.py` uses real mise, a temporary local HTTP registry, fake executable archives, and isolated HOME/data/cache/state. It verifies first install/execution, a changed nightly in outdated and upgrade dry-run, checksum-verified update execution, preservation of the previous build, unchanged unrelated installed tools, rejection of an incorrect SHA256, and failure when the checksum manifest is missing. All tests pass. `scripts/check-portability.py` passes Linux amd64 with 215 entries and both Mac renders with 154 entries each; all have 9 resolved agent links. It checks that the root and drop-in mise files survive rendering unchanged. Native macOS and Windows execution remain untested.
 
 Publish as `Track native T3 nightlies with verified update tasks`. Recovery: restore only the prior npm:t3 declaration and release-age exception from ef50f5c, remove or forget the new drop-in, and select the preserved npm installation. Review the generated local mise.lock before restoring or removing entries. Do not apply historical full agent configs or restart the service merely to roll back this CLI selection. No application data was deleted.
+
+## 2026-10-30: Full configuration sync
+
+User requested fixing DuckDB, saving the full mise configuration, then pushing the remaining configuration. Base: d6d29b4 on main, matching origin/main after fetch. DuckDB's bundled Aqua recipe expects the old ZIP asset; the global tool_alias now selects github:duckdb/duckdb with matching=duckdb-cli-. Installed/upgraded to 2.0.0, ran --version and SELECT 42, and confirmed upgrade dry-run is current. Full mise config, stable T3 drop-in, and private_mise.lock match their live files. Tracking the lockfile supersedes the earlier machine-local-only choice.
+
+Saved remaining managed shell, Claude, Codex, Grok and Pi differences while preserving home/platform templates. Forgot absent TDD and retired agent definitions from source only. Added four custom workflow skills, their Claude links, session hook and context, shared delegate, six local Claude definitions, and .zshenv. Downloaded installer-managed skills, package links, credentials, caches, histories, app state and unrelated unmanaged services were not added. No chezmoi apply or service restart ran. The local Claude credential is excluded; parsed settings match after removing only env.TYPESAFE_API_KEY, and its value is absent from the source tree.
+
+Verification: check-portability.py passes Linux amd64 (243 entries), macOS arm64/amd64 (182 each), with 11 resolved agent links each. check-t3-nightly.py now tests the actual stable channel: initial execution, moving-tag detection, verified updates, rollback retention, unchanged unrelated installed tools, bad-checksum rejection and missing-manifest rejection all pass. Corrected newly auto-generated symlink templates to use homeDir instead of commandDir after portability testing caught the wrong substitution. git diff --check passes. Native Mac application execution is not tested.
+
+Publish the reviewed source diff to origin/main. Verify the remote commit equals local HEAD and the Git worktree is clean. Expected remaining chezmoi status: .claude/settings.json only, due to the excluded credential. Recovery: restore selected source paths from d6d29b4 after reviewing differences; do not apply historical whole configs over current credentials or restart services as part of rollback.
 </script>
 </body>
 </html>

@@ -20,6 +20,7 @@ default_reasoning_effort = "xhigh"
 
 [marketplace]
 official_marketplace_auto_installed = true
+default_skills_installs_purged = true
 
 [[marketplace.sources]]
 name = "xAI Official"
@@ -28,3 +29,7 @@ git = "https://github.com/xai-org/plugin-marketplace.git"
 [cli]
 auto_update = true
 installer = "npm"
+
+
+[memory_v2]
+enabled = false

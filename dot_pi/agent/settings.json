@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.87.1",
+  "lastChangelogVersion": "1.4.0",
   "theme": "light",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-6-astra",
@@ -9,7 +9,8 @@
     "npm:@howaboua/pi-codex-conversion",
     "npm:pi-claude-bridge",
     "npm:pi-cursor-sdk",
-    "npm:@router-for-me/pi-cliproxyapi-provider"
+    "npm:@router-for-me/pi-cliproxyapi-provider",
+    "npm:@howaboua/pi-notes-compaction"
   ],
   "enabledModels": [
     "openai-codex/gpt-5.6-terra",

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exercise T3 nightly installs/upgrades with real mise and local fixture releases."""
+"""Exercise T3 stable installs/upgrades with real mise and local fixture releases."""
 import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import io
@@ -23,8 +23,8 @@ LOCK = CONFIG["tasks"]["t3:lock"]
 MISE = shutil.which("mise")
 assert MISE, "Install mise before running this integration check"
 assert "npm:t3" not in MAIN_CONFIG["tools"], "The npm nightly entry must not shadow native T3"
-assert TOOL["version"] == "latest" and TOOL["prerelease"] is True
-assert TOOL["version_list_url"] == "https://registry.npmjs.org/t3/nightly"
+assert TOOL["version"] == "latest" and TOOL["prerelease"] is False
+assert TOOL["version_list_url"] == "https://registry.npmjs.org/t3/latest"
 assert TOOL["version_expr"] == "[fromJSON(body).version]"
 assert TOOL["checksum_url"].endswith("/v{{ version }}/SHA256SUMS")
 assert set(TOOL["platforms"]) == {
@@ -41,7 +41,7 @@ OS_NAME = {"Linux": "linux", "Darwin": "macos"}.get(platform.system())
 ARCH = {"x86_64": "x64", "aarch64": "arm64", "arm64": "arm64"}.get(platform.machine())
 HOST = f"{OS_NAME}-{ARCH}"
 assert HOST in TOOL["platforms"], f"Integration check needs a supported Unix host, got {HOST}"
-VERSIONS = [f"0.1.1-nightly.20990101.{i}" for i in (1, 2, 3, 4)]
+VERSIONS = [f"2099.1.{i}" for i in (1, 2, 3, 4)]
 ASSETS = {}
 for version in VERSIONS:
     content = f"#!/bin/sh\nprintf 't3 v{version}\\n'\n".encode()
@@ -62,7 +62,7 @@ class Registry(BaseHTTPRequestHandler):
         pass
 
     def do_GET(self):
-        if self.path == "/nightly":
+        if self.path == "/latest":
             body = json.dumps({"version": self.version}).encode()
         else:
             parts = self.path.strip("/").split("/")
@@ -108,7 +108,7 @@ def run_test():
                 if key == "platforms":
                     continue
                 if key == "version_list_url":
-                    value = base + "/nightly"
+                    value = base + "/latest"
                 elif key == "checksum_url":
                     value = base + "/v{{ version }}/SHA256SUMS"
                 lines.append(f"{key} = {json.dumps(value)}")
@@ -174,7 +174,7 @@ def run_test():
             assert VERSIONS[0] in mise("exec", "--", "t3", "--version").stdout
             assert json.loads(mise("outdated", "http:t3", "--json").stdout) == {}
             first_path = Path(mise("where", "http:t3").stdout.strip())
-            print("ok: first nightly resolves, installs, executes, and reports up to date")
+            print("ok: first stable release resolves, installs, executes, and reports up to date")
 
             Registry.version = VERSIONS[1]
             outdated = json.loads(mise("outdated", "http:t3", "--json").stdout)
@@ -202,7 +202,7 @@ def run_test():
             )
             assert "checksum" in (result.stdout + result.stderr).lower()
             assert VERSIONS[2] in Registry.checksum_requests
-            print("ok: bad published checksum rejects the next nightly")
+            print("ok: bad published checksum rejects the next release")
 
             Registry.version = VERSIONS[3]
             result = mise("run", "--skip-tools", "t3:upgrade", success=False)
