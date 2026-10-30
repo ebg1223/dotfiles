@@ -37,6 +37,10 @@ template expressions belong to oh-my-posh, not chezmoi. Cursor uses mise's nativ
 `cursor-agent` backend rather than the old asdf plugin that requires GNU grep.
 The Aqua btop recipe is Linux-only, so mise gates it to Linux. On macOS, use
 Homebrew's `btop` formula if needed.
+Infisical inherits the registry's platform-aware asset selection instead of
+embedding OS expressions in the tool declaration. The shared lock includes
+Linux x64 and macOS arm64 URLs without replacing one platform's assets with the
+other's. Generating locks on another host must preserve those platform mappings.
 
 Simlock is installed through mise and is intended to replace Argent. This sync
 does not provision a Simlock daemon or remove/restart the existing Argent service.

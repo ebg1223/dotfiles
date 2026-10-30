@@ -18,6 +18,12 @@ MISE_CONFIGS = {
 }
 mise_tools = {tool for config in MISE_CONFIGS.values() for tool in config.get("tools", {})}
 assert MISE_CONFIG["tools"]["btop"]["os"] == ["linux"], "Aqua's btop recipe has no macOS build"
+assert MISE_CONFIG["tools"]["infisical"]["matching"] == "cli_", "Avoid eagerly rendered OS-specific asset patterns in the shared lock"
+MISE_LOCK = tomllib.loads((ROOT / "dot_config/mise/private_mise.lock").read_text())
+infisical_lock = next(entry for entry in MISE_LOCK["tools"]["infisical"]
+                     if entry.get("options", {}).get("matching") == "cli_")
+assert "_linux_amd64.tar.gz" in infisical_lock["platforms.linux-x64"]["url"]
+assert "_darwin_arm64.tar.gz" in infisical_lock["platforms.macos-arm64"]["url"]
 for name, config in MISE_CONFIGS.items():
     unused_excludes = (
         set(config.get("settings", {}).get("minimum_release_age_excludes", [])) - mise_tools
