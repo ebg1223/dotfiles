@@ -39,7 +39,7 @@ const DATA = {
       "Keep credentials and generated caches out",
       "Do not run service scripts during verification"
     ],
-    "whereWeAre": "Shared configuration is applied on Linux and mbair with no remaining chezmoi differences. All 38 configured Mac tools are installed. After a separately authorized cutover, Simlock 0.4.0 runs as a native login service and Argent is removed. The iOS catalog works; simulator leases are untested with only about 5 GiB free. Cursor still needs the Mac login keychain unlocked locally. See runbooks 2026-10-30 Mac rollout verification and Simlock cutover.",
+    "whereWeAre": "Shared configuration is applied on Linux and mbair with no remaining chezmoi differences. All 38 configured Mac tools are installed. Simlock 0.4.0 runs as a native login service and Argent is removed. Its console is available over HTTPS to authorized Tailscale devices, not the public internet. The iOS catalog works; simulator leases are untested with only about 5 GiB free. Cursor still needs the Mac login keychain unlocked locally. See runbooks 2026-10-30 Simlock cutover and Simlock tailnet access.",
     "glossary": [
       {
         "term": "Target",
@@ -99,7 +99,7 @@ const DATA = {
       "status": "done",
       "pct": 100,
       "summary": "Run Simlock at login and remove the retired server.",
-      "plain": "Simlock is running on mbair and can list installed iOS runtimes. Argent is stopped and removed, with its private settings archived locally and simulator data untouched. A real simulator lease still needs testing after more disk space is available.",
+      "plain": "Simlock is running on mbair and can list installed iOS runtimes. Its console is accessible through Tailscale-only HTTPS with application authentication still required. Argent is removed with a private rollback archive and simulator data untouched. A real simulator lease still needs testing after more disk space is available.",
       "details": "Native Simlock 0.4.0 launchd worker installed with service-local DEVELOPER_DIR. Verified running service, loopback port 4701 and iOS runtimes 26.5/27.0. Removed Argent LaunchAgent, install, active private state and obsolete chezmoi data.argent after a mode-600 rollback archive. Android SDK absent. About 5 GiB free is below the default 10 GiB disk-pressure threshold; no safety override or simulator lease attempted. See runbook 2026-10-30 Simlock cutover."
     }
   ],
@@ -150,11 +150,19 @@ const DATA = {
       {
         "name": "Stop and remove Argent, and install Simlock on mbair; supersedes the earlier no-cutover constraint for these services only",
         "ref": "User 2026-10-30: stop argent and remove it. install simlock; runbook 2026-10-30 Simlock cutover"
+      },
+      {
+        "name": "Expose Simlock through Tailscale only, not the public internet; keep its local listener and application authentication",
+        "ref": "User 2026-10-30 agreed to Tailscale-only access; runbook 2026-10-30 Simlock tailnet access"
       }
     ],
     "open": []
   },
   "updateLog": [
+    {
+      "date": "2026-10-30",
+      "note": "Enabled persistent Tailscale Serve HTTPS for the Simlock console. Verified from Linux: console and health HTTP 200 with valid TLS, protected status HTTP 401 without a token. No Funnel; backend remains loopback-only."
+    },
     {
       "date": "2026-10-30",
       "note": "Completed separately authorized Simlock cutover. Native login service and iOS catalog verified; Argent removed with private rollback archive and simulator data preserved. Recorded low-disk lease-testing limitation and missing Android SDK."
@@ -728,6 +736,45 @@ For rollback, first decide whether Simlock should remain active. Privately
 extract the archive to a staging directory and inspect it. Restore Argent's
 files and install from its saved package lock before bootstrapping the old
 LaunchAgent. The archive is not a complete installed node_modules backup.
+
+## 2026-10-30 Simlock tailnet access
+
+User agreed to exposing Simlock through Tailscale only, not the public internet.
+Used Tailscale's native reverse proxy rather than changing Simlock's bind address
+or creating another proxy service. Tailscale owns the persistent proxy settings;
+Simlock continues to own authentication. No application code was changed.
+
+On mbair, the CLI is bundled inside the app rather than present on PATH:
+
+```sh
+/Applications/Tailscale.app/Contents/MacOS/Tailscale serve --bg --https=443 http://127.0.0.1:4701
+/Applications/Tailscale.app/Contents/MacOS/Tailscale serve status --json
+```
+
+There was no prior Serve configuration. The resulting URL is
+`https://mbair.afrino-drum.ts.net/`, available to devices permitted by existing
+tailnet policy. No ACL rules were broadened and no public Funnel was enabled.
+Serve configuration has only HTTPS TCP 443 and the root proxy to localhost:4701;
+there is no AllowFunnel entry. Background mode persists the proxy independently
+of the SSH session. Backend availability still depends on mbair being awake,
+Tailscale connected and Simlock's user service running.
+
+Verified from the Linux tailnet peer using normal hostname resolution and TLS
+verification: `/` HTTP 200, `/v1/healthz` HTTP 200 with `{"ok":true}`, and
+`/v1/status` HTTP 401 with `Missing bearer token`. Also verified HTTPS 200 on the
+Mac and that Node still listens only on `127.0.0.1:4701`. The first request timed
+out immediately after enabling Serve; subsequent checks passed. No credentials
+were generated, displayed, copied or embedded in the URL. The console still
+requires a Simlock token; Tailscale access does not replace application sign-in.
+
+Disable only this proxy without disturbing unrelated future services:
+
+```sh
+/Applications/Tailscale.app/Contents/MacOS/Tailscale serve --https=443 off
+```
+
+The earlier cutover entry's statement that no network exposure was configured
+describes its original checkpoint and is superseded by this entry.
 </script>
 </body>
 </html>

@@ -56,8 +56,10 @@ simlock catalog --platform ios --json
 ```
 
 The service retains its own Xcode path without changing global `xcode-select`.
-The console is local to the Mac at `http://127.0.0.1:4701/`; no remote gateway
-was configured. Service health and the iOS catalog are verified. Simulator
+The console listens locally at `http://127.0.0.1:4701/`. Tailscale Serve exposes
+it to authorized tailnet devices at `https://mbair.afrino-drum.ts.net/`, with
+Simlock's bearer-token authentication unchanged. No public Funnel is enabled.
+Service health and the iOS catalog are verified. Simulator
 leases remain untested: roughly 5 GiB is free, below Simlock's default 10 GiB
 disk-pressure threshold. Android SDK tools are not installed.
 
