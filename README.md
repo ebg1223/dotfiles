@@ -59,7 +59,7 @@ The service retains its own Xcode path without changing global `xcode-select`.
 The console listens locally at `http://127.0.0.1:4701/`. Tailscale Serve forwards
 tailnet TCP port 4701, making it available at `http://100.121.162.7:4701/`.
 Traffic is encrypted by Tailscale, not HTTPS. The main hostname's port 443
-endpoint was removed. No public Funnel is enabled. A dedicated operator key
+endpoint was removed. No public Funnel is enabled. A dedicated agent key
 is stored privately on mbair at `~/.config/simlock/tailnet-access.key` (mode 600);
 use it for console sign-in or an API `Authorization: Bearer` header. Do not
 commit the key. Missing or invalid keys receive HTTP 401 on protected API routes.

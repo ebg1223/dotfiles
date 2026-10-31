@@ -39,7 +39,7 @@ const DATA = {
       "Keep credentials and generated caches out",
       "Do not run service scripts during verification"
     ],
-    "whereWeAre": "Shared configuration is applied on Linux and mbair with no remaining chezmoi differences. All 38 configured Mac tools are installed. Simlock 0.4.0 runs as a native login service and Argent is removed. Access is through tailnet IP port 4701 with a dedicated operator key, not the main hostname's HTTPS endpoint or public internet. The iOS catalog works; simulator leases are untested with only about 5 GiB free. Cursor still needs the Mac login keychain unlocked locally. See runbooks 2026-10-30 Simlock cutover and Simlock IP-port access.",
+    "whereWeAre": "Shared configuration is applied on Linux and mbair with no remaining chezmoi differences. All 38 configured Mac tools are installed. Simlock 0.4.0 runs as a native login service and Argent is removed. Access is through tailnet IP port 4701 with a dedicated agent key, not the main hostname's HTTPS endpoint or public internet. The iOS catalog works; simulator leases are untested with only about 5 GiB free. Cursor still needs the Mac login keychain unlocked locally. See runbooks 2026-10-30 Simlock cutover, Simlock IP-port access and Simlock agent key.",
     "glossary": [
       {
         "term": "Target",
@@ -99,7 +99,7 @@ const DATA = {
       "status": "done",
       "pct": 100,
       "summary": "Run Simlock at login and remove the retired server.",
-      "plain": "Simlock is running on mbair and can list installed iOS runtimes. Its console is accessible at the tailnet IP on port 4701 with an operator access key. Tailscale encrypts the connection; no public endpoint exists. Argent is removed with a private rollback archive and simulator data untouched. A real simulator lease still needs testing after more disk space is available.",
+      "plain": "Simlock is running on mbair and can list installed iOS runtimes. Its console is accessible at the tailnet IP on port 4701 with an agent access key. Tailscale encrypts the connection; no public endpoint exists. Argent is removed with a private rollback archive and simulator data untouched. A real simulator lease still needs testing after more disk space is available.",
       "details": "Native Simlock 0.4.0 launchd worker installed with service-local DEVELOPER_DIR. Verified running service, loopback port 4701 and iOS runtimes 26.5/27.0. Removed Argent LaunchAgent, install, active private state and obsolete chezmoi data.argent after a mode-600 rollback archive. Android SDK absent. About 5 GiB free is below the default 10 GiB disk-pressure threshold; no safety override or simulator lease attempted. See runbook 2026-10-30 Simlock cutover."
     }
   ],
@@ -158,11 +158,19 @@ const DATA = {
       {
         "name": "Use tailnet IP and explicit port with an access key; remove the main hostname's HTTPS endpoint",
         "ref": "User clarification 2026-10-30; runbook 2026-10-30 Simlock IP-port access"
+      },
+      {
+        "name": "Use --role agent for the tailnet access key; revoke the previous operator token",
+        "ref": "User 2026-10-30; runbook 2026-10-30 Simlock agent key"
       }
     ],
     "open": []
   },
   "updateLog": [
+    {
+      "date": "2026-10-30",
+      "note": "Replaced the operator key with a native --role agent token and revoked the previous token. Verified authenticated status HTTP 200 locally and over the tailnet. Private key file paths are unchanged."
+    },
     {
       "date": "2026-10-30",
       "note": "Replaced hostname HTTPS with tailnet TCP 4701 at the user's request. Created a private operator access key. Verified protected status returns 200 with the key and 401 without it or with an invalid key; old port 443 is unreachable."
@@ -828,6 +836,21 @@ Console static files and health are intentionally anonymous; protected API data
 and operations still require authentication.
 
 Disable this forward with the app CLI's `serve --tcp=4701 off`.
+
+## 2026-10-30 Simlock agent key
+
+User explicitly requested `--role agent`. Created a native token using
+`simlock token create --role agent --label tailnet-agent`. Verified returned
+metadata has role `agent` and authenticated `/v1/status` returns HTTP 200 both
+on localhost and from Linux through `http://100.121.162.7:4701`.
+
+Replaced the private mode-600 files `~/.config/simlock/tailnet-access.key` and
+`~/.config/simlock/tailnet-access.json` on mbair with this token. The key was not
+printed to tool output or chat. Revoked the previous operator token
+`tok_9cc1276f-5f18-49d0-9f22-db5ef15a4d05` using the native token command.
+The prior entry's operator-role instructions are superseded. Current token ID
+for future revocation is `tok_93dcc4e7-ac7b-47af-97a0-a770a3475b47`.
+The endpoint and private SSH retrieval command are unchanged.
 </script>
 </body>
 </html>
