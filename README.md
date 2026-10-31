@@ -56,9 +56,13 @@ simlock catalog --platform ios --json
 ```
 
 The service retains its own Xcode path without changing global `xcode-select`.
-The console listens locally at `http://127.0.0.1:4701/`. Tailscale Serve exposes
-it to authorized tailnet devices at `https://mbair.afrino-drum.ts.net/`, with
-Simlock's bearer-token authentication unchanged. No public Funnel is enabled.
+The console listens locally at `http://127.0.0.1:4701/`. Tailscale Serve forwards
+tailnet TCP port 4701, making it available at `http://100.121.162.7:4701/`.
+Traffic is encrypted by Tailscale, not HTTPS. The main hostname's port 443
+endpoint was removed. No public Funnel is enabled. A dedicated operator key
+is stored privately on mbair at `~/.config/simlock/tailnet-access.key` (mode 600);
+use it for console sign-in or an API `Authorization: Bearer` header. Do not
+commit the key. Missing or invalid keys receive HTTP 401 on protected API routes.
 Service health and the iOS catalog are verified. Simulator
 leases remain untested: roughly 5 GiB is free, below Simlock's default 10 GiB
 disk-pressure threshold. Android SDK tools are not installed.

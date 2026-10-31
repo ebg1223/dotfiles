@@ -39,7 +39,7 @@ const DATA = {
       "Keep credentials and generated caches out",
       "Do not run service scripts during verification"
     ],
-    "whereWeAre": "Shared configuration is applied on Linux and mbair with no remaining chezmoi differences. All 38 configured Mac tools are installed. Simlock 0.4.0 runs as a native login service and Argent is removed. Its console is available over HTTPS to authorized Tailscale devices, not the public internet. The iOS catalog works; simulator leases are untested with only about 5 GiB free. Cursor still needs the Mac login keychain unlocked locally. See runbooks 2026-10-30 Simlock cutover and Simlock tailnet access.",
+    "whereWeAre": "Shared configuration is applied on Linux and mbair with no remaining chezmoi differences. All 38 configured Mac tools are installed. Simlock 0.4.0 runs as a native login service and Argent is removed. Access is through tailnet IP port 4701 with a dedicated operator key, not the main hostname's HTTPS endpoint or public internet. The iOS catalog works; simulator leases are untested with only about 5 GiB free. Cursor still needs the Mac login keychain unlocked locally. See runbooks 2026-10-30 Simlock cutover and Simlock IP-port access.",
     "glossary": [
       {
         "term": "Target",
@@ -99,7 +99,7 @@ const DATA = {
       "status": "done",
       "pct": 100,
       "summary": "Run Simlock at login and remove the retired server.",
-      "plain": "Simlock is running on mbair and can list installed iOS runtimes. Its console is accessible through Tailscale-only HTTPS with application authentication still required. Argent is removed with a private rollback archive and simulator data untouched. A real simulator lease still needs testing after more disk space is available.",
+      "plain": "Simlock is running on mbair and can list installed iOS runtimes. Its console is accessible at the tailnet IP on port 4701 with an operator access key. Tailscale encrypts the connection; no public endpoint exists. Argent is removed with a private rollback archive and simulator data untouched. A real simulator lease still needs testing after more disk space is available.",
       "details": "Native Simlock 0.4.0 launchd worker installed with service-local DEVELOPER_DIR. Verified running service, loopback port 4701 and iOS runtimes 26.5/27.0. Removed Argent LaunchAgent, install, active private state and obsolete chezmoi data.argent after a mode-600 rollback archive. Android SDK absent. About 5 GiB free is below the default 10 GiB disk-pressure threshold; no safety override or simulator lease attempted. See runbook 2026-10-30 Simlock cutover."
     }
   ],
@@ -154,11 +154,19 @@ const DATA = {
       {
         "name": "Expose Simlock through Tailscale only, not the public internet; keep its local listener and application authentication",
         "ref": "User 2026-10-30 agreed to Tailscale-only access; runbook 2026-10-30 Simlock tailnet access"
+      },
+      {
+        "name": "Use tailnet IP and explicit port with an access key; remove the main hostname's HTTPS endpoint",
+        "ref": "User clarification 2026-10-30; runbook 2026-10-30 Simlock IP-port access"
       }
     ],
     "open": []
   },
   "updateLog": [
+    {
+      "date": "2026-10-30",
+      "note": "Replaced hostname HTTPS with tailnet TCP 4701 at the user's request. Created a private operator access key. Verified protected status returns 200 with the key and 401 without it or with an invalid key; old port 443 is unreachable."
+    },
     {
       "date": "2026-10-30",
       "note": "Enabled persistent Tailscale Serve HTTPS for the Simlock console. Verified from Linux: console and health HTTP 200 with valid TLS, protected status HTTP 401 without a token. No Funnel; backend remains loopback-only."
@@ -775,6 +783,51 @@ Disable only this proxy without disturbing unrelated future services:
 
 The earlier cutover entry's statement that no network exposure was configured
 describes its original checkpoint and is superseded by this entry.
+
+## 2026-10-30 Simlock IP-port access
+
+User clarified: use tailnet access with a port and access key, not the main
+Tailscale hostname endpoint. This supersedes the previous HTTPS setup.
+
+On mbair:
+
+```sh
+/Applications/Tailscale.app/Contents/MacOS/Tailscale serve --bg --tcp=4701 tcp://127.0.0.1:4701
+/Applications/Tailscale.app/Contents/MacOS/Tailscale serve --https=443 off
+```
+
+Current Serve config is only TCP 4701 forwarding to 127.0.0.1:4701, with no Web,
+HTTPS or AllowFunnel entries. Use `http://100.121.162.7:4701/`. The application
+protocol is HTTP; the network connection is encrypted by Tailscale. The backend
+still binds only to localhost. Tailnet policy was not modified.
+
+Created a dedicated `operator` token labeled `tailnet-access` using the native
+`simlock token create` command. It is not the daemon's admin secret. Private
+mode-600 files on mbair hold the original response at
+`~/.config/simlock/tailnet-access.json` and the raw key at
+`~/.config/simlock/tailnet-access.key`. Neither is tracked or included here.
+The secret was not printed to tool output or chat. It was read transiently into
+the Linux verification process's memory over SSH for the authenticated check,
+not saved to Linux disk. Retrieve it privately for console sign-in with:
+
+```sh
+ssh ethan@mbair 'cat ~/.config/simlock/tailnet-access.key'
+```
+
+For API requests, pass the key in `Authorization: Bearer <key>`, not a URL query.
+To revoke this specific key on mbair:
+
+```sh
+simlock token revoke tok_9cc1276f-5f18-49d0-9f22-db5ef15a4d05
+```
+
+Measured from Linux at the tailnet IP: console and health HTTP 200; protected
+`/v1/status` HTTP 401 without a key and with an invalid key; HTTP 200 with the
+new operator key. Old TCP 443 is unreachable. Browser interaction was not tested.
+Console static files and health are intentionally anonymous; protected API data
+and operations still require authentication.
+
+Disable this forward with the app CLI's `serve --tcp=4701 off`.
 </script>
 </body>
 </html>
