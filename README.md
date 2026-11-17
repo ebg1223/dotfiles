@@ -2,10 +2,11 @@
 
 Chezmoi manages shell and application settings, 5 custom skills under
 `~/.agents/skills`, and shared agent definitions under `~/.agents/agents`.
-Claude and Codex skill links point to the shared files. The custom skills are
+Claude skill links point to the shared files. The custom skills are
 living-plan, architect, decision-trail, review-loop, and work. The shared
-session-start hook and delegate definition are included. Removed local TDD and
-agent definitions are no longer restored by chezmoi.
+session-start hook, delegate definition, and model reference are included.
+Chezmoi no longer manages the old OpenCode configuration or retired Claude
+roles. Existing copies on other machines are not removed.
 
 ## Sync to a Mac
 
@@ -149,10 +150,10 @@ are not part of this portability pass.
 Claude settings use a chezmoi `modify_` script to preserve local environment
 credentials and provider overrides while applying shared preferences. Only the
 shared environment keys override local values. Pi settings use the same mechanism
-to preserve the app-maintained `lastChangelogVersion` on each host. Neither value
-is copied into Git. Avoid `chezmoi add` on these generated files; edit their
-source transforms instead. The Hunk skill comes from its installed package rather
-than tracking its machine-specific package symlink.
+to preserve `lastChangelogVersion` and `extensionChangelogVersions` on each host.
+These local values are not copied into Git. Avoid `chezmoi add` on these
+generated files; edit their source transforms instead. The Hunk skill comes
+from its installed package rather than tracking its machine-specific symlink.
 
 ## Verify changes
 

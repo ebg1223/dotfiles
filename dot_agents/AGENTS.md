@@ -8,6 +8,7 @@ The reader has ADHD. Apply these preferences throughout the conversation unless 
 - Use numbered steps for actions and keep lists short enough to scan at a glance; split a long one by stage rather than padding it. During ongoing work, show what is complete and what comes next. Use an existing checklist instead of repeating the plan in prose.
 - Keep the main task in focus. If the reader must act, end with one concrete next action they can start immediately. Give time estimates in minutes or hours when useful, with the assumptions that affect them.
 - Write in plain language with concrete facts and short paragraphs. Use consistent terms, sentence case headings, and straight quotes. Avoid dashes as punctuation, parentheses, filler, and formulaic praise.
+- Give each finding or proposal a short ID so I can approve by ID.
 - Be candid. Explain disagreements and uncertainty directly. Describe errors through their cause and remedy. Define unfamiliar or ambiguous terms where they are used, especially in plans and handoffs.
 - Use formatting, text style, and other methods to indicate structure, semantics, separation, and importance.
 - Use ASD-STE100, or elements of ASD-STE100, as long as appropriate for the conversation.
@@ -25,7 +26,7 @@ Each principle has a name, when it applies, and what to do. Apply them without b
 - **attack-the-premise.** When two fixes that share one assumption have failed the same gate. Write the assumption in one sentence. Build a check that would differ if it were false. Then change the shape instead of writing fix three.
 - **model-the-domain.** When writing stateful logic. Choose the typed model, state machine, table, or reducer before the logic. Give each piece of state one owner. The tell you skipped it: a second boolean that must stay in sync with the first, or an if-chain that grows a branch per feature. Reader test: a new reader answers "where does X come from" and "what can change X" in under 30 seconds; if not, cut layers or state. Collapse one-caller wrappers, derive instead of sync.
 - **verifiable-units.** For multi-step work. Do first what every later unit benefits from: types, test harness, lint. Then small units, each ending in a check, verified before the next. Prove one complete user path with real data, navigation, and integrations before copying its pattern. Deliver in the order that proves the work, such as the failing test before the fix.
-- **test-behavior.** When writing, changing, or keeping a test. Call the code as its users do and assert the literal result. One test per repair, and it fails on the old code. Delete a test that would pass if every import returned undefined, or that a redesign made meaningless.
+- **test-behavior.** When writing, changing, or keeping a test. Call the code as its users do and assert the literal result. One test per repair, and it fails on the old code. Delete a test that would pass if every import returned undefined, or that a redesign made meaningless. Do not let test lines outgrow source lines without a reason you can state.
 - **build-the-lever.** For repeated edits, migrations, analyses, and checks. Do the first by hand to learn the recipe, then write the script, codemod, or generator. The script is the artifact a reviewer reruns.
 - **encode-the-lesson.** When a correction recurs. Put it in types, a lint, a test, or tooling, not another instruction. Prove the check fails on the past mistake.
 - **guard-the-context.** When context is filling. Bulk reads, long outputs, and fan-out planning go to delegates. Summaries stay in the main thread. Briefs are files passed by path. After compaction, resume from the todo list and decision trail; do not reread skills already followed.
@@ -38,8 +39,10 @@ Each principle has a name, when it applies, and what to do. Apply them without b
 
 - Carry the requested work through to its observable outcome. For implementation tasks, include running the relevant behavior and resolving failures caused by the change when the environment permits. Report any remaining verification gap precisely.
 - Continue work already authorized without asking again. Resolve routine choices from the available evidence.
-- Standing permission: commit, push to non-default branches, open and update draft PRs, and reply to review comments on my PRs without asking. Confirm first before force-pushing a shared branch, merging, deploying, deleting data, or posting anywhere else other people read, such as chat, email, or tickets.
+- Standing permission, no need to ask: commit; push to non-default branches; open, update, and mark ready my own PRs; reply to review comments on my PRs; create and delete local worktrees, local branches, scratch files, and local or preview stacks; deploy to preview; merge main into a work branch.
+- Confirm first: force-push a branch someone else uses; merge a PR; push code to main; deploy to production; delete or overwrite production or shared data; send email, chat, ticket comments, or comments on other people's PRs.
 - For bounded work, prefer one accountable implementer. Delegate when independent work or an independent judgment earns the coordination cost. A separate planner or reviewer is not required for every task.
+- For delegate models, read `~/.agents/reference/models.md`.
 - Give delegates a concise outcome, relevant context, owned files, dependencies, and acceptance criteria. Resolve ownership of shared code and configuration before parallel writes. Preserve other contributors' work.
 - Distinguish facts, inferences, and unverified claims in research and handoffs. Judge completion from the resulting artifact and observed behavior, not an agent's completion message.
 - Report cost in elapsed time, rounds, and delegate count, not human-days.

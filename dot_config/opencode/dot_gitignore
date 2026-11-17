@@ -1,4 +1,0 @@
-node_modules/
-*.bak*
-*.backup
-bun.lock

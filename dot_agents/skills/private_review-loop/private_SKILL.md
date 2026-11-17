@@ -19,7 +19,7 @@ Find the PR with `gh pr view` or open one per **Opening a PR**. Mark it ready so
 
 ## 2. Review two ways at once
 
-**Reviewer.** Fill in [reviewer-brief.md](reviewer-brief.md) and dispatch one reviewer on a family that did not write the code (Models table in `work`). Each round is a fresh dispatch with a new `clientRequestId` (`pr<n>-review-r<round>`). Add a second reviewer on a third family only when round 1 found a critical finding.
+**Reviewer.** Fill in [reviewer-brief.md](reviewer-brief.md) and dispatch one reviewer on a family that did not write the code (`~/.agents/reference/models.md`). Each round is a fresh dispatch with a new `clientRequestId` (`pr<n>-review-r<round>`). Add a second reviewer on a third family only when round 1 found a critical finding.
 
 **Your review.** Read the whole diff against the merge base, not only the fixes. From round 2, start with last round's fixes, then the whole diff again. Run the tests that cover the changed code. Trace what old clients receive after deploy.
 

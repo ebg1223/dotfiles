@@ -15,7 +15,8 @@ desired = json.loads(r'''{
     "npm:pi-claude-bridge",
     "npm:pi-cursor-sdk",
     "npm:@router-for-me/pi-cliproxyapi-provider",
-    "npm:@howaboua/pi-notes-compaction"
+    "npm:@howaboua/pi-notes-compaction",
+    "npm:pi-context-view"
   ],
   "enabledModels": [
     "openai-codex/gpt-6-astra",
@@ -29,6 +30,7 @@ desired = json.loads(r'''{
   ],
   "tuiMode": "fullscreen"
 }''')
-if "lastChangelogVersion" in current:
-    desired["lastChangelogVersion"] = current["lastChangelogVersion"]
+for key in ("lastChangelogVersion", "extensionChangelogVersions"):
+    if key in current:
+        desired[key] = current[key]
 json.dump(desired, sys.stdout, indent=2)

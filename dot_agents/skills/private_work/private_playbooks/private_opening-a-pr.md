@@ -9,7 +9,7 @@
 **Body.** A one-minute briefing for a reviewer who has the diff. `##` headings, in this order, drop empty ones:
 
 - `## Why`: the problem and approach, 1 to 3 sentences.
-- `## What changed`: 1 to 3 bullets.
+- `## What changed`: one bullet per behavior change; group mechanical edits in one bullet.
 - `## Scope`: what it covers and what it leaves out.
 - `## Blast radius`: who or what it touches and why that is safe or risky. Say what old clients receive after deploy.
 - `## Verification`: each a real run path and its outcome, with the surface named. "Not proven" items listed plainly.

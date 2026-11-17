@@ -7,7 +7,7 @@ How `work` and its skills run on T3 Code. Read once per session, before the firs
 | Need | Call |
 |---|---|
 | Capabilities, once per thread | `orchestrator_capabilities`. Copy provider instance IDs and option IDs from its result, never from memory. |
-| Start a delegate | `delegate_task` with `mode: "async"`, a `role` (`implementation`, `research`, `review`, `design`, `test`), a `target` from the Models table in `work`, a `title`, and a `clientRequestId` that names the round (`pr620-review-r3`). Keep the `taskId` and `childThreadId`. |
+| Start a delegate | `delegate_task` with `mode: "async"`, a `role` (`implementation`, `research`, `review`, `design`, `test`), a `target` from `~/.agents/reference/models.md`, a `title`, and a `clientRequestId` that names the round (`pr620-review-r3`). Keep the `taskId` and `childThreadId`. |
 | N delegates in parallel | N `delegate_task` calls in one response. |
 | Wait for a result | End the turn. The completion wakes this thread. `task_status` only when you need a result mid-turn. |
 | Next round | A new `delegate_task` with the consolidated brief. Never `t3_thread_send` to a child. |

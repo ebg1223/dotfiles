@@ -1,6 +1,6 @@
 ---
 name: architect
-description: Sketch the shape before the code. Ground in the existing system, get two candidate designs from two model families, screen them, synthesize one, then implement against it and scrap it if the pattern says it is wrong. Use for /architect, "design this", or any change that crosses a function boundary or adds state.
+description: Sketch the shape before the code. Ground in the existing system, get two candidate designs from two model families, screen them, synthesize one, then implement against it and scrap it if the pattern says it is wrong. Use for /architect, "design this", or a change that crosses a module boundary or adds state with more than one writer.
 ---
 
 # Architect
@@ -15,7 +15,7 @@ Skip grounding only when the work is greenfield.
 
 ## 2. Sketch, twice
 
-Dispatch two candidate runners in one response, on two different model families (Models table in `work`). Each gets [references/runner-prompt.md](references/runner-prompt.md), the grounding from step 1, the task, and a path to write its package. Runners write design files only, no code.
+Dispatch two candidate runners in one response, on two different model families (`~/.agents/reference/models.md`). Each gets [references/runner-prompt.md](references/runner-prompt.md), the grounding from step 1, the task, and a path to write its package. Runners write design files only, no code.
 
 Two candidates is the floor. A third runs only when the first two converge on one shape and you suspect the space is wider.
 
